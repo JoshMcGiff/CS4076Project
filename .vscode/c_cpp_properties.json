@@ -1,0 +1,27 @@
+{
+    "configurations": [
+        {
+            "name": "QT (Windows Dev)",
+            "defines": [
+                "_DEBUG"
+            ],
+            "compilerPath": "C:/Qt/Tools/mingw810_64/bin/g++.exe",
+            "compilerArgs": [
+                "-Wall",
+                "-Wextra",
+                "-g"
+            ],
+            "cStandard": "c11",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "gcc-arm64",
+            "includePath": [
+                "${workspaceFolder}/Zork",
+                "${workspaceFolder}/Zork/Includes/**",
+                "${workspaceFolder}/Zork/Sources/**",
+                "C:/Qt/6.0.1/mingw81_64/include/**",
+                "C:/Qt/6.0.1/mingw81_64/lib/**"
+            ]
+        }
+    ],
+    "version": 4
+}

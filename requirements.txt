@@ -1,0 +1,84 @@
+Levels
+Indicator
+  of expected implementation for project
+Interview
+Level 1
+Maximum A1
+ 
+·        
+  Virtual                                         (virtual function in Room class, Special Room overwrites with it's own)
+  functions                                       (Or use in UI lmao 😂😂😂😂😂😂😂😂😂)
+·        
+  Definition of                                   
+  template classes                                
+·        
+  Multiple inheritance                            (Used with Room Class and also with Item Class if needed)
+·        
+  namespaces                                      (USED EVERYWHERE)
+·        
+  Programmer defined exceptions
+·        
+  Unions                                          (Used in World Class with different Room types)
+·        
+  dynamic_cast                                    (e.g. casting Room to Special Room)
+·        
+  ALL LEVEL 2
+
+
+
+Mandatory
+Level 2
+Maximum B1
+·        
+  Definition of
+  template functions                              (Anytime we need to use function overloading lmao)
+·        
+  Operator overloading                            (For adding Items to a Room (<<))
+·        
+  Abstract classes                                
+·        
+  Copy constructors (deep , shallow copy)         (Used somewhere, probably Item)
+·        
+  Bit structures                                  (Used for attributes in Items/Rooms)
+·        
+  Advanced pre-processor
+  directives
+·        
+  C++ Object
+  Construction Sequence
+·        
+  Initializer List
+·        
+  ALL LEVEL 1
+
+Randomly 
+Level 3
+Maximum C1
+·        
+  C++ References                    (Passing any class to a function)
+·        
+  Pointers                          (DUH)
+·        
+  Inheritance                       (WHATS A CLASS)
+·        
+  Destructors                       (WHATS A CLASS)
+·        
+  Memory management                 (WHATS THE HEAP)
+·        
+  Header files (inclusion guards)   (DUH)
+·        
+  Arrays and pointers               (DUH)
+·        
+  Friendship
+·        
+  Basic pre-processor directives    (#ifdef DEBUG)
+·        
+  Global variables                  (LMAO NOT USED)
+·        
+  Private, Public,                  (USED IN EVERY CLASS EVER)
+  Protected
+ 
+
+
+Not
+  required normally
