@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <vector>
 #include "Item.hpp"
+#include "World.hpp"
 
 enum class RoomAttribute { // Different room attributes. Using class to avoid conflicts
     ICE = 0,
@@ -22,7 +23,7 @@ struct Doors { // Bitfield to know which directions have doors and whether they 
     bool NorthLocked : 1;
     bool EastLocked : 1;
     bool SouthLocked : 1;
-    bool WestLocked : 1;
+    bool WestLocked : 1; 
 };
 
 class Room {
@@ -31,6 +32,7 @@ private:
     std::string roomName;
     //uint32_t roomID; probably not needed
     uint8_t roomType;
+    World* world;
     Doors roomExits; //Directions (Locked/Unlocked, can go, etc)
     RoomAttribute roomAttributes;
     std::vector<Item> roomItems; // Items in the room
@@ -40,8 +42,10 @@ private:
 
 public:
 
-    Room(/* args */);
+    Room(World* world, Room* North = nullptr, Room* South = nullptr, Room* East = nullptr, Room* West = nullptr);
     ~Room();
+    void GenerateItems();
+    void GenerateRooms();
 };
 
 #endif
