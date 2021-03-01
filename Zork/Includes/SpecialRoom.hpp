@@ -8,6 +8,7 @@ class SpecialRoom : public Room {
 
 public:
     SpecialRoom();
+    RoomType GetRoomType() override;
 };
 
 #endif

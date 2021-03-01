@@ -3,3 +3,7 @@
 SpecialRoom::SpecialRoom() {
 
 }
+
+RoomType SpecialRoom::GetRoomType() {
+    return RoomType::Special;
+}
