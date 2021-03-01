@@ -47,7 +47,7 @@ Maximum B1
   C++ Object
   Construction Sequence
 ·        
-  Initializer List
+  Initializer List                                Used in class ctors
 ·        
   ALL LEVEL 1
 

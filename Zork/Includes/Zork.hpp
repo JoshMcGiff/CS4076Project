@@ -1,7 +1,7 @@
 #ifndef ZORK_HPP
 #define ZORK_HPP
 
-#include <array>
+#include <vector>
 #include <memory>
 #include "World.hpp"
 #include "Player.hpp"
@@ -10,13 +10,17 @@
 
 class Zork {
 private:
-    std::array<World, WORLD_AMOUNT> zorkWorlds;
+    std::vector<World> zorkWorlds;
     std::shared_ptr<Player> currentPlayer;
 
 
 public:
+    Zork();
+    
     World* getCurrentWorld();
     std::shared_ptr<Player> getCurrentPlayer();
+
+
 };
 
 

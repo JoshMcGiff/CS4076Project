@@ -39,13 +39,15 @@ private:
     
     // 
 
+    void GenerateItems();
+    void GenerateRooms();
 
 public:
 
     Room(World* world, Room* North = nullptr, Room* South = nullptr, Room* East = nullptr, Room* West = nullptr);
     ~Room();
-    void GenerateItems();
-    void GenerateRooms();
+
+    void Generate();
 };
 
 #endif

@@ -3,6 +3,7 @@
 
 #define DEFAULT_DEPTH 6
 #define ROOM_CHANCE 50
+#define ITEM_CHANCE 75
 
 Room::Room(World* world, Room* North, Room* South, Room* East, Room* West) {
     this->world = world;
@@ -17,7 +18,19 @@ Room::~Room() {
 }
 
 void Room::GenerateItems() {
+    Item item = this->world->GetItem(this->world->itemIndex);
 
+    if (!item.IsSpecial())
+    {
+        int random = rand() % 100; //Gen number between 0 to 99
+
+        if (random >= ITEM_CHANCE)
+            return;
+    }
+
+    this->roomItems.push_back(item);
+
+    this->world->itemIndex++;
 }
 
 void Room::GenerateRooms() {
@@ -26,7 +39,7 @@ void Room::GenerateRooms() {
         return;
     }
 
-    //Generate Items
+    GenerateItems();
 
     depthCount++;
 
@@ -64,4 +77,10 @@ void Room::GenerateRooms() {
     }
 
     depthCount--;
+}
+
+void Room::Generate() {
+    this->GenerateRooms();
+    
+    //Do special rooms here
 }

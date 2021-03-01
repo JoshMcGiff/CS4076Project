@@ -33,8 +33,10 @@ enum ItemIDs {
 
 struct ItemAttributes { //Bitfield of attributes
     /* data */
+    bool isSpecial : 1;
     bool isWeapon : 1;
     bool isTorch : 1;
+
 };
 
 class Item {
@@ -44,7 +46,11 @@ private:
     uint8_t itemID;
     std::string itemDescription;
     ItemAttributes itemAttributes;
-    
+
+public:
+    Item(const char* itemName, const uint8_t itemID, const char* itemDescription, const ItemAttributes& itemAttributes);
+
+    bool IsSpecial();
 };
 
 #endif
