@@ -5,7 +5,6 @@
 #include <cstdint>
 #include <vector>
 #include "Item.hpp"
-#include "World.hpp"
 
 enum class RoomAttribute { // Different room attributes. Using class to avoid conflicts
     Ice = 0,

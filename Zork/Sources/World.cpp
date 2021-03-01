@@ -80,8 +80,6 @@ void World::GenerateRooms() {
         }
     }
     depthCount--;
-    row--;
-    col--;
 }
 
 void World::GenerateSpecialRoom(){
@@ -95,7 +93,7 @@ void World::GenerateSpecialRoom(){
     }
 }
 
-void Room::GenerateItems() {
+void World::GenerateItems() { /*
     Item item = GetItem(itemIndex);
 
     if (!item.IsSpecial()) {
@@ -107,7 +105,7 @@ void Room::GenerateItems() {
 
     this->roomItems.push_back(item);
 
-    this->world->itemIndex++;
+    this->world->itemIndex++; */
 }
 
 void World::Generate() {

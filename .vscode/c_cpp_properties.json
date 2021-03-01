@@ -3,7 +3,8 @@
         {
             "name": "QT (Windows Dev)",
             "defines": [
-                "_DEBUG"
+                "_DEBUG",
+                "REGISTER"
             ],
             "compilerPath": "C:/Qt/Tools/mingw810_64/bin/g++.exe",
             "compilerArgs": [
@@ -13,7 +14,7 @@
             ],
             "cStandard": "c11",
             "cppStandard": "gnu++17",
-            "intelliSenseMode": "gcc-arm64",
+            "intelliSenseMode": "linux-gcc-x64",
             "includePath": [
                 "${workspaceFolder}/Zork",
                 "${workspaceFolder}/Zork/Includes/",
