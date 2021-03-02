@@ -3,8 +3,7 @@
 
 #include <string>
 
-//Could be done at compile time
-
+namespace Game {
 
 enum ItemIDs {
     Torch = 0,
@@ -45,12 +44,17 @@ private:
     std::string itemName;
     uint8_t itemID;
     std::string itemDescription;
-    ItemAttributes itemAttributes;
+    union {
+        ItemAttributes itemAttributes;
+        uint32_t itemAttributesRaw;
+    };
 
 public:
     Item(const char* itemName, const uint8_t itemID, const char* itemDescription, const ItemAttributes& itemAttributes);
 
     bool IsSpecial();
 };
+
+} //namespace Game
 
 #endif

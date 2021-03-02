@@ -6,6 +6,8 @@
 #include "World.hpp"
 #include "Player.hpp"
 
+
+namespace Game {
 #define WORLD_AMOUNT 10 //Pre-processor variable
 
 class Zork {
@@ -23,5 +25,6 @@ public:
 
 };
 
+} //namespace Game
 
 #endif

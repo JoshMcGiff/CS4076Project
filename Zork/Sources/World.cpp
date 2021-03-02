@@ -1,8 +1,13 @@
+#include <cstdio>
+#include <ctime>
 #include "World.hpp"
-#define DEFAULT_DEPTH 6
-#define SPECIAL_DEPTH 6
-#define ROOM_CHANCE 50
+
+namespace Game {
+
+#define BASE_ROOM_CHANCE 100
+#define CHANCE_DECREASE 55
 #define ITEM_CHANCE 75
+#define SPECIAL_ROOM_CHANCE 100
 
 #if __cplusplus >= 201703L //'register' keyword was removed in C++17
     #define REGISTER 
@@ -26,71 +31,52 @@ Item World::GetItem(int index) {
     return worldItems[index];
 }
 
-void World::GenerateRooms() {
-    static uint32_t depthCount = 0;
-    static int row = 5;
-    static int col = 5;
-    if (depthCount >= DEFAULT_DEPTH) {
+void World::GenerateRooms(int row, int col, int roomChance) {
+    if ((roomChance <= 0) || (row >= ROW_COUNT) || (col >= COL_COUNT)) { //Setting the bounds of the room generation
         return;
     }
 
     GenerateItems();
 
-    depthCount++;
-
     REGISTER int random = 0;
 
-    if (this->roomArray[row+1][col] == nullptr) { //North
+    if ((row+1 < ROW_COUNT) && this->roomArray[row+1][col] == nullptr) { //North
         random = rand() % 100; //Gen number between 0 to 99
-        if (random < ROOM_CHANCE) {
+        if (random < roomChance) {
             this->roomArray[row+1][col] = new Room();
-            row++;
-            GenerateRooms();
-            row--;
+            GenerateRooms(row+1, col, roomChance-CHANCE_DECREASE);
         }
     }
 
-    if (this->roomArray[row-1][col] == nullptr) { //South
+    if ((row-1 >= 0) && this->roomArray[row-1][col] == nullptr) { //South
         random = rand() % 100; //Gen number between 0 to 99
-        if (random < ROOM_CHANCE) {
+        if (random < roomChance) {
             this->roomArray[row-1][col] = new Room();
-            row--;
-            GenerateRooms();
-            row++;
+            GenerateRooms(row-1, col, roomChance-CHANCE_DECREASE);
         }
     }
 
-    if (this->roomArray[row][col+1] == nullptr) { //East
+    if ((col+1 < COL_COUNT) && this->roomArray[row][col+1] == nullptr) { //East
         random = rand() % 100; //Gen number between 0 to 99
-        if (random < ROOM_CHANCE) {
+        if (random < roomChance) {
             this->roomArray[row][col+1] = new Room();
-            col++;
-            GenerateRooms();
-            col--;
+            GenerateRooms(row, col+1, roomChance-CHANCE_DECREASE);
         }
     }
     
-    if (this->roomArray[row][col-1] == nullptr) { //West
+    if ((col-1 >= 0) && this->roomArray[row][col-1] == nullptr) { //West
         random = rand() % 100; //Gen number between 0 to 99
-        if (random < ROOM_CHANCE) {
+        if (random < roomChance) {
             this->roomArray[row][col-1] = new Room();
-            col--;
-            GenerateRooms();
-            col++;
+            GenerateRooms(row, col-1, roomChance-CHANCE_DECREASE);
         }
     }
-    depthCount--;
 }
 
-void World::GenerateSpecialRoom(){
-    int random = rand() % 100;
-    int row = roomArray.size() / 2;
-    int col = roomArray[0].size() / 2;
-    if(random < 25){
-        if(roomArray[row+1][col] == nullptr){
-            
-        }
-    }
+void World::GenerateSpecialRoom(int row, int col){
+    REGISTER int random = 0;
+    
+    
 }
 
 void World::GenerateItems() { /*
@@ -113,8 +99,19 @@ void World::Generate() {
         array.fill(nullptr); //Set everything in 2D array to nullptr
     }
 
-
-    this->GenerateRooms();
-    
+    srand(time(NULL));
+    this->GenerateRooms(ROW_COUNT / 2, COL_COUNT / 2, BASE_ROOM_CHANCE); //Start in middle of array
+    for(int i = 0; i < ROW_COUNT; i++) {
+        for(int j = 0; j < COL_COUNT; j++) {
+            if((roomArray[i][j] != nullptr) && roomArray[i][j]->GetRoomType() == RoomType::Special){ // Make sure to check for nullptr for element because it's being accessed not just printed
+                printf("\t\t\t%X\t\t\t", roomArray[i][j]);
+            }else{
+                printf("%X\t", roomArray[i][j]);
+            }
+        }
+        printf("\n");
+    }
     //Do special rooms here
 }
+
+} //namespace Game

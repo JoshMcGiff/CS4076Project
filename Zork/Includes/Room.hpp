@@ -6,6 +6,8 @@
 #include <vector>
 #include "Item.hpp"
 
+namespace Game {
+
 enum class RoomAttribute { // Different room attributes. Using class to avoid conflicts
     Ice = 0,
     Fire = 1,
@@ -16,9 +18,6 @@ enum class RoomType {
     Special = 1,
 };
 
-
-
-class Room; //pre-declare Room so it can be used in Doors traversal
 struct Doors { // Bitfield to know which directions have doors and whether they are locked or not
     bool NorthLocked : 1;
     bool EastLocked : 1;
@@ -42,5 +41,7 @@ public:
     
     virtual RoomType GetRoomType();
 };
+
+}; //namespace Game
 
 #endif

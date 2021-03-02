@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     //w.show();
     //return a.exec();
 
-    Zork zork;
+    Game::Zork zork;
 
     return 0;
 }

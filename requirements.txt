@@ -6,7 +6,7 @@ Level 1
 Maximum A1
  
 ·        
-  Virtual                                         (virtual function in Room class, Special Room overwrites with it's own)
+  Virtual                         ------                (virtual function in Room class, Special Room overwrites with it's own)
   functions                                       (Or use in UI lmao 😂😂😂😂😂😂😂😂😂)
 ·        
   Definition of                                   
@@ -14,11 +14,11 @@ Maximum A1
 ·        
   Multiple inheritance                            (Used with Room Class and also with Item Class if needed)
 ·        
-  namespaces                                      (USED EVERYWHERE)
+  namespaces                      --------        (USED EVERYWHERE)
 ·        
   Programmer defined exceptions
 ·        
-  Unions                                          (Used in World Class with different Room types)
+  Unions       ------                                   (Used in World Class with different Room types)
 ·        
   dynamic_cast                                    (e.g. casting Room to Special Room)
 ·        
@@ -35,11 +35,11 @@ Maximum B1
 ·        
   Operator overloading                            (For adding Items to a Room (<<))
 ·        
-  Abstract classes                                
+  Abstract classes                              (baseroom class)  
 ·        
   Copy constructors (deep , shallow copy)         (Used somewhere, probably Item)
 ·        
-  Bit structures                                  (Used for attributes in Items/Rooms)
+  Bit structures            -------                      (Used for attributes in Items/Rooms)
 ·        
   Advanced pre-processor
   directives
@@ -47,7 +47,7 @@ Maximum B1
   C++ Object
   Construction Sequence
 ·        
-  Initializer List                                Used in class ctors
+  Initializer List      -----                          Used in class ctors
 ·        
   ALL LEVEL 1
 

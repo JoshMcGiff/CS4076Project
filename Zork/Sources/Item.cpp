@@ -1,5 +1,7 @@
 #include "Item.hpp"
 
+namespace Game {
+
 Item::Item(const char* itemName, const uint8_t itemID, const char* itemDescription, const ItemAttributes &itemAttributes)
     : itemName(itemName), itemID(itemID), itemDescription(itemDescription), itemAttributes(itemAttributes)
 {
@@ -9,3 +11,5 @@ Item::Item(const char* itemName, const uint8_t itemID, const char* itemDescripti
 bool Item::IsSpecial() {
     return itemAttributes.isSpecial;
 }
+
+} //namespace Game

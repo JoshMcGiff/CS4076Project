@@ -1,6 +1,8 @@
 #include "Zork.hpp"
 #include "Item.hpp"
 
+namespace Game {
+
 Zork::Zork() {
     World world1("Name", "Description");
 
@@ -9,3 +11,5 @@ Zork::Zork() {
 
     zorkWorlds.push_back(world1);
 }
+
+} //namespace Game
