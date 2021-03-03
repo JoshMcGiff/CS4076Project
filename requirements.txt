@@ -35,7 +35,7 @@ Maximum B1
 ·        
   Operator overloading                            (For adding Items to a Room (<<))
 ·        
-  Abstract classes                              (baseroom class)  
+  Abstract classes          -------                    (RoomBase class)  
 ·        
   Copy constructors (deep , shallow copy)         (Used somewhere, probably Item)
 ·        
@@ -57,9 +57,9 @@ Maximum C1
 ·        
   C++ References                    (Passing any class to a function)
 ·        
-  Pointers                          (DUH)
+  Pointers               -------           (DUH)
 ·        
-  Inheritance                       (WHATS A CLASS)
+  Inheritance            -------           (WHATS A CLASS)
 ·        
   Destructors                       (WHATS A CLASS)
 ·        
@@ -71,11 +71,11 @@ Maximum C1
 ·        
   Friendship
 ·        
-  Basic pre-processor directives    (#ifdef DEBUG)
+  Basic pre-processor directives -------    (#ifdef DEBUG)
 ·        
   Global variables                  (LMAO NOT USED)
 ·        
-  Private, Public,                  (USED IN EVERY CLASS EVER)
+  Private, Public,    -------                 (USED IN EVERY CLASS EVER)
   Protected
  
 

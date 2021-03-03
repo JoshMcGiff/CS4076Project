@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <vector>
 #include "Item.hpp"
+#include "RoomBase.hpp"
 
 namespace Game {
 
@@ -13,33 +14,20 @@ enum class RoomAttribute { // Different room attributes. Using class to avoid co
     Fire = 1,
 };
 
-enum class RoomType {
-    Normal = 0,
-    Special = 1,
-};
-
-struct Doors { // Bitfield to know which directions have doors and whether they are locked or not
-    bool NorthLocked : 1;
-    bool EastLocked : 1;
-    bool SouthLocked : 1;
-    bool WestLocked : 1; 
-};
-
-class Room {
+class Room : public RoomBase {
 private:
-    /* data */
-    std::string roomName;
-    //uint32_t roomID; probably not needed
-    //World* world;
-    Doors roomExits; //Directions (Locked/Unlocked, can go, etc)
     RoomAttribute roomAttributes;
+    bool isLocked;
     std::vector<Item> roomItems; // Items in the room
 
 public:
     Room();
     ~Room();
-    
-    virtual RoomType GetRoomType();
+
+    virtual RoomType GetRoomType() override;
+    std::string GetRoomDialogue() override;
+    std::vector<Item> GetRoomItems();
+    bool AddItem(const Item& item);
 };
 
 }; //namespace Game
