@@ -1,7 +1,8 @@
 #include <cstdio>
 #include <ctime>
 #include "World.hpp"
-
+#include <math.h>
+#include <iostream>
 namespace Game {
 
 #define BASE_ROOM_CHANCE 100
@@ -75,8 +76,41 @@ void World::GenerateRooms(int row, int col, int roomChance) {
 
 void World::GenerateSpecialRoom(int row, int col){
     REGISTER int random = 0;
-    
-    
+    random = rand() % 4;
+    switch(random){
+        case 0:
+            for(int i = row-1; i < ROW_COUNT; i++){
+                if(roomArray[row+i][col] == nullptr){
+                    roomArray[row+i][col] = new SpecialRoom();
+                    return;
+                }
+            }
+            break;
+        case 1:
+            for(int i = row-1; i < ROW_COUNT; i++){
+                if(roomArray[row + (row - i - 1)][col] == nullptr){
+                    roomArray[row + (row - i - 1)][col] = new SpecialRoom();
+                    return;
+                }       
+            }
+            break;
+        case 2: 
+            for(int j = col-1; j < COL_COUNT; j++){
+                if(roomArray[row][col+j] == nullptr){
+                    roomArray[row][col+j] = new SpecialRoom();
+                    return;
+                }
+            }
+            break;
+        case 3:
+            for(int j = col-1; j < COL_COUNT; j++){
+                if(roomArray[row][col + (col - j - 1)] == nullptr){
+                    roomArray[row][col + (col - j - 1)] = new SpecialRoom();
+                    return;
+                }
+            }
+            break;
+    }
 }
 
 void World::GenerateItems() { /*
@@ -103,14 +137,11 @@ void World::Generate() {
     this->GenerateRooms(ROW_COUNT / 2, COL_COUNT / 2, BASE_ROOM_CHANCE); //Start in middle of array
     for(int i = 0; i < ROW_COUNT; i++) {
         for(int j = 0; j < COL_COUNT; j++) {
-            if((roomArray[i][j] != nullptr) && roomArray[i][j]->GetRoomType() == RoomType::Special){ // Make sure to check for nullptr for element because it's being accessed not just printed
-                printf("\t\t\t%X\t\t\t", roomArray[i][j]);
-            }else{
-                printf("%X\t", roomArray[i][j]);
-            }
+            printf("%X\t", roomArray[i][j]);
         }
         printf("\n");
-    }
+    }   
+    this->GenerateSpecialRoom(ROW_COUNT / 2, COL_COUNT / 2);
     //Do special rooms here
 }
 
