@@ -17,7 +17,7 @@ namespace Game {
     #define REGISTER register
 #endif
 
-World::World(const char* name, const char* desc) : worldName(name), worldDescription(desc), keyItem("Name", 0, "Desc", 0) {
+World::World(const char* name, const char* desc) : worldName(name), worldDescription(desc), keyItem("Name", 0, "Desc", 0), iRow(START_ROW), jCol(START_COL) {
     this->Generate();
 }
 
@@ -33,6 +33,25 @@ Item World::GetItem(int index) {
     return worldItems[index];
 }
 
+Room* World::MoveNorth(){
+    jCol += 1;
+    return roomArray[iRow][jCol];
+}
+
+Room* World::MoveSouth(){
+    jCol -= 1;
+    return roomArray[iRow][jCol];
+}
+
+Room* World::MoveEast(){
+    iRow += 1;
+    return roomArray[iRow][jCol];
+}
+
+Room* World::MoveWest(){
+    iRow -= 1;
+    return roomArray[iRow][jCol];
+}
 
 void World::GenerateRooms(int row, int col, int roomChance) {
     if ((roomChance <= 0) || (row >= ROW_COUNT) || (col >= COL_COUNT)) { //Setting the bounds of the room generation
@@ -138,14 +157,14 @@ void World::Generate() {
     }
 
     srand(time(NULL));
-    this->GenerateRooms(ROW_COUNT / 2, COL_COUNT / 2, BASE_ROOM_CHANCE); //Start in middle of array
+    this->GenerateRooms(START_ROW, START_COL, BASE_ROOM_CHANCE); //Start in middle of array
     for(int i = 0; i < ROW_COUNT; i++) {
         for(int j = 0; j < COL_COUNT; j++) {
             printf("%X\t", roomArray[i][j]);
         }
         printf("\n");
     }   
-    this->GenerateSpecialRoom(ROW_COUNT / 2, COL_COUNT / 2);
+    this->GenerateSpecialRoom(START_ROW, START_COL);
     //Do special rooms here
 }
 

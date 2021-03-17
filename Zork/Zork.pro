@@ -10,12 +10,18 @@ CONFIG += gnu++17
 
 INCLUDEPATH += $$PWD/Includes
 
-SOURCES += $$files(Sources/*.cpp)
+SOURCES += $$files(Sources/*.cpp) \
+    Includes/mainwindow.cpp
 
 HEADERS += $$files(Includes/*.hpp) \
-           $$files(Includes/*.h)
+           $$files(Includes/*.h) \
+           Includes/mainwindow.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+FORMS += \
+    Includes/mainwindow.ui \
+    mainwindow.ui

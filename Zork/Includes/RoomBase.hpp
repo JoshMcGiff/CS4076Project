@@ -13,7 +13,6 @@ enum class RoomType {
 class RoomBase { //Abstract class for Room base
 protected:
     RoomBase(); //private constructor as RoomBase shouldn't be used as a class
-
     std::string roomDialogue;
 
 public:

@@ -1,27 +1,29 @@
 #ifndef ZORK_HPP
 #define ZORK_HPP
 
-#include <vector>
+#include <array>
 #include <memory>
 #include "World.hpp"
-#include "Player.hpp"
-
 
 namespace Game {
-#define WORLD_AMOUNT 10 //Pre-processor variable
+#define WORLD_AMOUNT 5 //Pre-processor variable
 
 class Zork {
 private:
-    std::vector<World> zorkWorlds;
-    std::shared_ptr<Player> currentPlayer;
+    std::array<World*, WORLD_AMOUNT> zorkWorlds;
 
-
+    World* curWorld;
+    Room* curRoom;
 public:
     Zork();
+    ~Zork();
     
     World* getCurrentWorld();
-    std::shared_ptr<Player> getCurrentPlayer();
 
+    void MoveNorth();
+    void MoveSouth();
+    void MoveEast();
+    void MoveWest();
 
 };
 

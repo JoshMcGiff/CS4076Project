@@ -12,11 +12,11 @@ Maximum A1
   Definition of                                   
   template classes                                
 ·        
-  Multiple inheritance                            (Used with Room Class and also with Item Class if needed)
+  Multiple inheritance          -----------          (RoomBase -> Room -> SpecialRoom)
 ·        
   namespaces                      --------        (USED EVERYWHERE)
 ·        
-  Programmer defined exceptions
+  Programmer defined exceptions                   (room array out of bounds, try to move without being in a world)
 ·        
   Unions       ------                                   (Used in World Class with different Room types)
 ·        
@@ -45,7 +45,7 @@ Maximum B1
   directives
 ·        
   C++ Object
-  Construction Sequence
+  Construction Sequence     (What does he mean exactly by this? Does he just mean inheritance, or does he mean we need to show/print the order of object construction)
 ·        
   Initializer List      -----                          Used in class ctors
 ·        
@@ -55,25 +55,25 @@ Randomly
 Level 3
 Maximum C1
 ·        
-  C++ References                    (Passing any class to a function)
+  C++ References         -------           (Add Item to a Room)
 ·        
-  Pointers               -------           (DUH)
+  Pointers               -------           (World class room array)
 ·        
-  Inheritance            -------           (WHATS A CLASS)
+  Inheritance            -------           (RoomBase -> Room)
 ·        
-  Destructors                       (WHATS A CLASS)
+  Destructors             -----          (Zork class)
 ·        
-  Memory management                 (WHATS THE HEAP)
+  Memory management      -------           (Making a World in Zork class, deleting in Zork class dtor)
 ·        
-  Header files (inclusion guards)   (DUH)
+  Header files (inclusion guards) ----   (Used everywher)
 ·        
-  Arrays and pointers               (DUH)
+  Arrays and pointers  -------------           (World names, pass character array to a pointer argument)
 ·        
   Friendship
 ·        
   Basic pre-processor directives -------    (#ifdef DEBUG)
 ·        
-  Global variables                  (LMAO NOT USED)
+  Global variables    -------             (LMAO NOT USED)
 ·        
   Private, Public,    -------                 (USED IN EVERY CLASS EVER)
   Protected
