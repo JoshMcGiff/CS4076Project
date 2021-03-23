@@ -2,13 +2,15 @@
 #define WORLD_HPP
 
 #include <string>
-//#include <vector>
 #include <memory>
 #include <array>
 #include "Room.hpp"
 #include "Item.hpp"
 #include "SpecialRoom.hpp"
 
+namespace Ui {
+    class MapWidget; //predeclare MapWidget class. Can't use include here as it results in 'circular dependency'
+}
 
 namespace Game {
 #define ROW_COUNT 7
@@ -29,10 +31,13 @@ private:
     int iRow;
     int jCol;
 
-public:
+    friend class Ui::MapWidget;
     std::array<std::array<Room*, COL_COUNT>, ROW_COUNT> roomArray;
 
+public:
+
     World(const char* name, const char* desc, std::vector<Item>& worldItems); //pass in array of world specific items to constructor
+    ~World();
     Room* MoveNorth();
     Room* MoveSouth();
     Room* MoveEast();

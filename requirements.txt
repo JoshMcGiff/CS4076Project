@@ -7,7 +7,6 @@ Maximum A1
 
 
 TODO:
-Friendship:
 Definition of template classes     
 dynamic_cast:
 Definition of template functions:
@@ -79,11 +78,11 @@ Maximum C1
 ·        
   Arrays and pointers  -------------           (World names, pass character array to a pointer argument)
 ·        
-  Friendship
+  Friendship  --------------------- (MapWidget.cpp to get roomarray from world)
 ·        
   Basic pre-processor directives -------    (#ifdef DEBUG)
 ·        
-  Global variables    -------             (LMAO NOT USED)
+  Global variables    -------             (Added in Zork.cpp but never used at all, only there for demonstration)
 ·        
   Private, Public,    -------                 (USED IN EVERY CLASS EVER)
   Protected

@@ -8,7 +8,7 @@ namespace Game {
 
 Zork::Zork() : curWorld(nullptr) {
     srand(time(NULL));
-    
+
     std::vector<Item> items1 = {};
     World* world1 = new World("World 1", "Description", items1);
     zorkWorlds[0] = world1;
@@ -28,6 +28,8 @@ Zork::Zork() : curWorld(nullptr) {
     std::vector<Item> items5 = {};
     World* world5 = new World("World 5", "Description", items5);
     zorkWorlds[4] = world5;
+
+    curWorld = world1;
 }
 
 Zork::~Zork() {
@@ -41,9 +43,14 @@ Zork::~Zork() {
     }
 }
 
+World* Zork::getCurrentWorld() {
+    return curWorld;
+}
+
 void Zork::MoveNorth() {
     if (curWorld == nullptr) {
         throw ZorkException("MoveNorth: World does not exist");
+        return;
     }
 
     curRoom = curWorld->MoveNorth();
@@ -51,6 +58,7 @@ void Zork::MoveNorth() {
 void Zork::MoveSouth() {
     if (curWorld == nullptr) {
         throw ZorkException("MoveSouth: World does not exist");
+        return;
     }
 
     curRoom = curWorld->MoveSouth();
@@ -58,6 +66,7 @@ void Zork::MoveSouth() {
 void Zork::MoveEast() {
     if (curWorld == nullptr) {
         throw ZorkException("MoveEast: World does not exist");
+        return;
     }
 
     curRoom = curWorld->MoveEast();
@@ -65,6 +74,7 @@ void Zork::MoveEast() {
 void Zork::MoveWest() {
     if (curWorld == nullptr) {
         throw ZorkException("MoveWest: World does not exist");
+        return;
     }
 
     curRoom = curWorld->MoveWest();

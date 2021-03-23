@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <memory>
 #include "Zork.hpp"
 
 namespace Ui {
@@ -18,17 +19,13 @@ public:
 
 private slots:
     void on_DPAD_UP_clicked();
-
     void on_DPAD_LEFT_clicked();
-
     void on_DPAD_RIGHT_clicked();
-
-
     void on_DPAD_DOWN_clicked();
 
 private:
     Ui::MainWindow *ui;
-    Game::Zork* zork;
+    std::shared_ptr<Game::Zork> zork;
 };
 
 #endif // MAINWINDOW_H

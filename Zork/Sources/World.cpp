@@ -21,6 +21,17 @@ World::World(const char* name, const char* desc, std::vector<Item>& worldItems) 
     this->Generate();
 }
 
+World::~World() {
+    for (int i = 0; i < ROW_COUNT; i++) {
+        for (int j = 0; j < COL_COUNT; j++) {
+            if (roomArray[i][j] != nullptr) {
+                delete roomArray[i][j];
+                roomArray[i][j] = nullptr;
+            }
+        }
+    }
+}
+
 void World::SetItems(std::vector<Item>& worldItems) {
     this->worldItems = worldItems;
 
@@ -37,21 +48,34 @@ Item World::GetItem(int index) {
 }
 
 Room* World::MoveNorth(){
+    if(roomArray[iRow][jCol+1] == nullptr){
+        return roomArray[iRow][jCol]; // if doesnt exist return the current room
+    }
     jCol += 1;
     return roomArray[iRow][jCol];
 }
 
 Room* World::MoveSouth(){
+    
+    if(roomArray[iRow][jCol-1] == nullptr){
+        return roomArray[iRow][jCol]; // if doesnt exist return the current room
+    }
     jCol -= 1;
     return roomArray[iRow][jCol];
 }
 
 Room* World::MoveEast(){
+    if(roomArray[iRow-1][jCol] == nullptr){
+        return roomArray[iRow][jCol]; // if doesnt exist return the current room
+    }
     iRow += 1;
     return roomArray[iRow][jCol];
 }
 
 Room* World::MoveWest(){
+    if(roomArray[iRow+1][jCol] == nullptr){
+        return roomArray[iRow][jCol]; // if doesnt exist return the current room
+    }
     iRow -= 1;
     return roomArray[iRow][jCol];
 }
@@ -163,15 +187,17 @@ void World::Generate() {
         array.fill(nullptr); //Set everything in 2D array to nullptr
     }
 
+    this->roomArray[START_ROW][START_COL] = new Room(); //Generate starting room
     this->GenerateRooms(START_ROW, START_COL, BASE_ROOM_CHANCE); //Start in middle of array
+    this->GenerateSpecialRoom(START_ROW, START_COL);
+
     for(int i = 0; i < ROW_COUNT; i++) {
         for(int j = 0; j < COL_COUNT; j++) {
             printf("%X\t", roomArray[i][j]);
         }
         printf("\n");
     }   
-    this->GenerateSpecialRoom(START_ROW, START_COL);
-    //Do special rooms here
+    printf("\n");
 }
 
 } //namespace Game
