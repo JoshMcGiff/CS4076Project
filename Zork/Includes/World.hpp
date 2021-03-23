@@ -32,12 +32,12 @@ private:
 public:
     std::array<std::array<Room*, COL_COUNT>, ROW_COUNT> roomArray;
 
-    World(const char* name, const char* desc); //pass in array of world specific items to constructor
+    World(const char* name, const char* desc, std::vector<Item>& worldItems); //pass in array of world specific items to constructor
     Room* MoveNorth();
     Room* MoveSouth();
     Room* MoveEast();
     Room* MoveWest();
-    void SetItems(std::vector<Item>&& worldItems);
+    void SetItems(std::vector<Item>& worldItems);
     Item GetItem(int index);
     void Generate();
 

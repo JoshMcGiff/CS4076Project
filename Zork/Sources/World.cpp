@@ -1,5 +1,4 @@
 #include <cstdio>
-#include <ctime>
 #include "World.hpp"
 #include <math.h>
 #include <iostream>
@@ -17,11 +16,12 @@ namespace Game {
     #define REGISTER register
 #endif
 
-World::World(const char* name, const char* desc) : worldName(name), worldDescription(desc), keyItem("Name", 0, "Desc", 0), iRow(START_ROW), jCol(START_COL) {
+World::World(const char* name, const char* desc, std::vector<Item>& worldItems) : worldName(name), worldDescription(desc), keyItem("Name", 0, "Desc", 0), iRow(START_ROW), jCol(START_COL) {
+    this->SetItems(worldItems);
     this->Generate();
 }
 
-void World::SetItems(std::vector<Item>&& worldItems) {
+void World::SetItems(std::vector<Item>& worldItems) {
     this->worldItems = worldItems;
 
     //TODO: randomise order
@@ -29,6 +29,9 @@ void World::SetItems(std::vector<Item>&& worldItems) {
 
 Item World::GetItem(int index) {
     //TODO: check index in bounds, make items shared pointer
+    if (worldItems.empty()) {
+        return Item("Empty", 0xFF, "Empty Item", 0);
+    }
 
     return worldItems[index];
 }
@@ -140,6 +143,10 @@ void World::GenerateSpecialRoom(int row, int col){
 void World::GenerateItems(int row, int col) { 
     static uint32_t itemIndex = 0;
 
+    if (worldItems.empty()) {
+        return;
+    }
+
     if (itemIndex > worldItems.size()) {
         itemIndex = 0;
     }
@@ -156,7 +163,6 @@ void World::Generate() {
         array.fill(nullptr); //Set everything in 2D array to nullptr
     }
 
-    srand(time(NULL));
     this->GenerateRooms(START_ROW, START_COL, BASE_ROOM_CHANCE); //Start in middle of array
     for(int i = 0; i < ROW_COUNT; i++) {
         for(int j = 0; j < COL_COUNT; j++) {
