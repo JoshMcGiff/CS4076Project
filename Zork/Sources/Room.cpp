@@ -26,6 +26,7 @@ std::vector<Item> Room::GetRoomItems(){
 
 bool Room::AddItem(const Item& item) {
     this->roomItems.push_back(item);
+    return true;
 }
 
 }; //namespace Game

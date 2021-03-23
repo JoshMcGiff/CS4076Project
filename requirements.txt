@@ -4,7 +4,17 @@ Indicator
 Interview
 Level 1
 Maximum A1
- 
+
+
+TODO:
+Friendship:
+Definition of template classes     
+dynamic_cast:
+Definition of template functions:
+Advanced pre-processor directives:     
+C++ Object Construction Sequence:
+Operator overloading:
+
 ·        
   Virtual                         ------                (virtual function in Room class, Special Room overwrites with it's own)
   functions                                       (Or use in UI lmao 😂😂😂😂😂😂😂😂😂)
@@ -16,7 +26,7 @@ Maximum A1
 ·        
   namespaces                      --------        (USED EVERYWHERE)
 ·        
-  Programmer defined exceptions                   (room array out of bounds, try to move without being in a world)
+  Programmer defined exceptions    ----------      (try to move without being in a world (Zork.cpp))
 ·        
   Unions       ------                                   (Used in World Class with different Room types)
 ·        

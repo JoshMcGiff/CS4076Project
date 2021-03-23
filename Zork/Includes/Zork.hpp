@@ -4,6 +4,7 @@
 #include <array>
 #include <memory>
 #include "World.hpp"
+#include "ZorkException.hpp"
 
 namespace Game {
 #define WORLD_AMOUNT 5 //Pre-processor variable

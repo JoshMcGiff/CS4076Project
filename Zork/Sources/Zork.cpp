@@ -56,28 +56,28 @@ Zork::~Zork() {
 
 void Zork::MoveNorth() {
     if (curWorld == nullptr) {
-        return;
+        throw ZorkException("MoveNorth: World does not exist");
     }
 
     curRoom = curWorld->MoveNorth();
 }
 void Zork::MoveSouth() {
     if (curWorld == nullptr) {
-        return;
+        throw ZorkException("MoveSouth: World does not exist");
     }
 
     curRoom = curWorld->MoveSouth();
 }
 void Zork::MoveEast() {
     if (curWorld == nullptr) {
-        return;
+        throw ZorkException("MoveEast: World does not exist");
     }
 
     curRoom = curWorld->MoveEast();
 }
 void Zork::MoveWest() {
     if (curWorld == nullptr) {
-        return;
+        throw ZorkException("MoveWest: World does not exist");
     }
 
     curRoom = curWorld->MoveWest();
