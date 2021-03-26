@@ -6,9 +6,9 @@ namespace Ui {
 
 using namespace Game;
 
+
 void MapWidget::paintEvent(QPaintEvent*) {
-    playerStartX = (START_COL*75)+25;
-    playerStartY = (START_ROW*75)+25;
+    
     QPixmap pixmap = QPixmap(600,300);
     pixmap = pixmap.scaled(width(), height(),Qt::KeepAspectRatio,Qt::SmoothTransformation);
     
@@ -37,16 +37,53 @@ void MapWidget::paintEvent(QPaintEvent*) {
             }
         }
             p.setPen(QPen(Qt::red, 3));
-           QRect test = QRect(QPoint(playerStartX, playerStartY), QSize(20, 20));
-            p.fillRect(test, Qt::red);
-            MovePlayerNorth();
-            playerRect = QRect(QPoint(playerStartX, playerStartY), QSize(20, 20));
-            p.drawRect(playerRect);
-            p.eraseRect(test);
+            QRect test = QRect(QPoint(playerStartX, playerStartY), QSize(20, 20));
+            if(directionBitfield.isNorth){
+                this->playerStartY -= 75;
+                playerRect = QRect(QPoint(playerStartX, playerStartY), QSize(20, 20));
+                p.drawRect(playerRect);
+                p.eraseRect(test);
+                directionBitfield.isNorth = false;
+            }else if(directionBitfield.isSouth){
+                this->playerStartY += 75;
+                playerRect = QRect(QPoint(playerStartX, playerStartY), QSize(20, 20));
+                p.drawRect(playerRect);
+                p.eraseRect(test);
+                directionBitfield.isSouth = false;
+            }else if(directionBitfield.isEast){
+                this->playerStartX += 75;
+                playerRect = QRect(QPoint(playerStartX, playerStartY), QSize(20, 20));
+                p.drawRect(playerRect);
+                p.eraseRect(test);
+                directionBitfield.isEast = false;
+            }else if(directionBitfield.isWest){
+                this->playerStartX -= 75;
+                playerRect = QRect(QPoint(playerStartX, playerStartY), QSize(20, 20));
+                p.drawRect(playerRect);
+                p.eraseRect(test);
+                directionBitfield.isEast = false;
+            }else{
+                playerStartX = (START_COL*75)+25;
+                playerStartY = (START_ROW*75)+25;
+                p.fillRect(test, Qt::red);
+            }
     }
 
 void MapWidget::MovePlayerNorth(){
-    this->playerStartY -= 75;
+    directionBitfield.isNorth = true;
+    update();
+}
+void MapWidget::MovePlayerSouth(){
+    directionBitfield.isSouth = true;
+    update();
+}
+void MapWidget::MovePlayerEast(){
+    directionBitfield.isEast = true;
+    update();
+}
+void MapWidget::MovePlayerWest(){
+    directionBitfield.isWest = true;
+    update();
 }
 
 

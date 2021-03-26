@@ -12,6 +12,7 @@ namespace Game {
 class Zork {
 private:
     std::array<World*, WORLD_AMOUNT> zorkWorlds;
+    Ui::MapWidget* map;
 
     World* curWorld;
     Room* curRoom;
@@ -21,7 +22,7 @@ public:
     
     World* getCurrentWorld();
 
-    void MoveNorth();
+    int MoveNorth();
     void MoveSouth();
     void MoveEast();
     void MoveWest();

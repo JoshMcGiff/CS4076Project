@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->zork = std::make_shared<Game::Zork>();
     ui->setupUi(this);
 
-    Ui::MapWidget* map = new Ui::MapWidget(this->zork);
+    this->map = new Ui::MapWidget(this->zork);
     ui->MAP_GRID->addWidget(map, 0, 0, 1, 1);
     
 }
@@ -22,7 +22,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_DPAD_UP_clicked() {
     try {
-        this->zork->MoveNorth();
+        if(this->zork->MoveNorth() == 0){
+        this->map->MovePlayerNorth(); // NEED TO FIX THIS SO THAT IT IS CALLED IN MOVENORTH!! So it doesn't go out of bounds
+        }
+        
     } catch (const Game::ZorkException& e) {
         std::cout << e.what() << std::endl;
     }
@@ -31,6 +34,8 @@ void MainWindow::on_DPAD_UP_clicked() {
 void MainWindow::on_DPAD_LEFT_clicked() {
     try {
         this->zork->MoveWest();
+        this->map->MovePlayerWest();
+
     } catch (const Game::ZorkException& e) {
         std::cout << e.what() << std::endl;
     }
@@ -39,6 +44,7 @@ void MainWindow::on_DPAD_LEFT_clicked() {
 void MainWindow::on_DPAD_RIGHT_clicked() {
     try {
         this->zork->MoveEast();
+        this->map->MovePlayerEast();
     } catch (const Game::ZorkException& e) {
         std::cout << e.what() << std::endl;
     }
@@ -47,6 +53,7 @@ void MainWindow::on_DPAD_RIGHT_clicked() {
 void MainWindow::on_DPAD_DOWN_clicked() {
     try {
         this->zork->MoveSouth();
+        this->map->MovePlayerSouth();
     } catch (const Game::ZorkException& e) {
         std::cout << e.what() << std::endl;
     }

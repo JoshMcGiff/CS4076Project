@@ -52,6 +52,7 @@ Room* World::MoveNorth(){
         return roomArray[iRow][jCol]; // if doesnt exist return the current room
     }
     jCol += 1;
+    
     return roomArray[iRow][jCol];
 }
 

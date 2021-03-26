@@ -47,13 +47,14 @@ World* Zork::getCurrentWorld() {
     return curWorld;
 }
 
-void Zork::MoveNorth() {
+int Zork::MoveNorth() {
     if (curWorld == nullptr) {
         throw ZorkException("MoveNorth: World does not exist");
-        return;
+        return 1;
     }
 
     curRoom = curWorld->MoveNorth();
+    return 0;
 }
 void Zork::MoveSouth() {
     if (curWorld == nullptr) {

@@ -24,6 +24,7 @@ private slots:
     void on_DPAD_DOWN_clicked();
 
 private:
+    Ui::MapWidget* map;
     Ui::MainWindow *ui;
     std::shared_ptr<Game::Zork> zork;
 };
