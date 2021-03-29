@@ -28,6 +28,7 @@ public:
         this->directionBitfield.isSouth = 0;
         this->directionBitfield.isEast = 0;
         this->directionBitfield.isWest = 0;
+        this->setSizePolicy(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Expanding);
     }
     Direction directionBitfield;
     virtual void paintEvent(QPaintEvent*) override;

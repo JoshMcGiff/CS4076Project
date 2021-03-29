@@ -29,4 +29,8 @@ bool Room::AddItem(const Item& item) {
     return true;
 }
 
+std::size_t Room::GetRoomItemAmount() { //returns std::size_t as it's the return trype from std::vector::size
+    return this->roomItems.size();
+}
+
 }; //namespace Game

@@ -16,7 +16,9 @@ namespace Game {
     #define REGISTER register
 #endif
 
-World::World(const char* name, const char* desc, std::vector<Item>& worldItems) : worldName(name), worldDescription(desc), keyItem("Name", 0, "Desc", 0), iRow(START_ROW), jCol(START_COL) {
+World::World(const char* name, const char* desc, Game::Item&& keyItem, std::vector<Item>& worldItems) 
+    : worldName(name), worldDescription(desc), keyItem(keyItem), iRow(START_ROW), jCol(START_COL)
+{
     this->SetItems(worldItems);
     this->Generate();
 }
@@ -39,9 +41,12 @@ void World::SetItems(std::vector<Item>& worldItems) {
 }
 
 Item World::GetItem(int index) {
-    //TODO: check index in bounds, make items shared pointer
     if (worldItems.empty()) {
         return Item("Empty", 0xFF, "Empty Item", 0);
+    }
+
+    if (index < 0 || index >= worldItems.size()) {
+        index = 0;
     }
 
     return worldItems[index];
@@ -118,8 +123,6 @@ void World::GenerateRooms(int row, int col, int roomChance) {
             GenerateRooms(row, col-1, roomChance-CHANCE_DECREASE);
         }
     }
-
-    GenerateItems(row, col);
 }
 
 void World::GenerateSpecialRoom(int row, int col){
@@ -165,21 +168,37 @@ void World::GenerateSpecialRoom(int row, int col){
     }
 }
 
-void World::GenerateItems(int row, int col) { 
-    static uint32_t itemIndex = 0;
+void World::GenerateItems() { // call generateitems after generate rooms
+    bool specialItemAdded = false;
+    for (int row = 0; (row < ROW_COUNT) && !specialItemAdded; row++) {
+        for (int col = 0; (col < COL_COUNT) && !specialItemAdded; col++) {
+            Room* room = roomArray[row][col];
+            if (room != nullptr) {
+                if (room->GetRoomType() == Game::RoomType::Special) {
+                    printf("Added Special Item\n");
+                    room->AddItem(keyItem);
+                    specialItemAdded = true;
+                }
+            }
+        }
+    }
 
     if (worldItems.empty()) {
         return;
     }
 
-    if (itemIndex > worldItems.size()) {
-        itemIndex = 0;
-    }
+    uint32_t itemIndex = 0;
+    while (itemIndex < worldItems.size()) {
+        REGISTER int col = rand() % COL_COUNT; //Gen number between 0 to 99
+        REGISTER int row = rand() % ROW_COUNT; //Gen number between 0 to 99
 
-    Room* room = roomArray[row][col];
-    if (room != nullptr) {
-        room->AddItem(GetItem(itemIndex));
-        itemIndex++;
+        Room* room = roomArray[row][col];
+        if (room != nullptr) {
+            if (room->GetRoomType() != Game::RoomType::Special) {
+                room->AddItem(GetItem(itemIndex));
+            }
+            itemIndex++;
+        }
     }
 }
 
@@ -191,6 +210,7 @@ void World::Generate() {
     this->roomArray[START_ROW][START_COL] = new Room(); //Generate starting room
     this->GenerateRooms(START_ROW, START_COL, BASE_ROOM_CHANCE); //Start in middle of array
     this->GenerateSpecialRoom(START_ROW, START_COL);
+    this->GenerateItems();
 
     for(int i = 0; i < ROW_COUNT; i++) {
         for(int j = 0; j < COL_COUNT; j++) {

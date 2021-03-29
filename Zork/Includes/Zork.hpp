@@ -7,7 +7,16 @@
 #include "ZorkException.hpp"
 
 namespace Game {
-#define WORLD_AMOUNT 5 //Pre-processor variable
+
+enum WORLDS : int {
+    WORLD_1 = 0,
+    WORLD_2 = 1,
+    WORLD_3 = 2,
+    WORLD_4 = 3,
+    WORLD_5 = 4,
+
+    WORLD_AMOUNT
+};
 
 class Zork {
 private:
@@ -21,7 +30,7 @@ public:
     ~Zork();
     
     World* getCurrentWorld();
-
+    void SetWorld(int index);
     int MoveNorth();
     void MoveSouth();
     void MoveEast();

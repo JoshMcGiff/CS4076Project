@@ -27,7 +27,7 @@ private:
     Item keyItem; // key in special room needed to finish the game
     void GenerateRooms(int row, int col, int chanceDecrease);
     void GenerateSpecialRoom(int row, int col);
-    void GenerateItems(int row, int col);
+    void GenerateItems();
     int iRow;
     int jCol;
 
@@ -36,7 +36,7 @@ private:
 
 public:
 
-    World(const char* name, const char* desc, std::vector<Item>& worldItems); //pass in array of world specific items to constructor
+    World(const char* name, const char* desc, Game::Item&& keyItem, std::vector<Item>& worldItems); //pass in array of world specific items to constructor
     ~World();
     Room* MoveNorth();
     Room* MoveSouth();

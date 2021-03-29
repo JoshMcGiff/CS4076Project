@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <iostream>
 #include "MapWidget.hpp"
+#include "Zork.hpp"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -10,9 +11,15 @@ MainWindow::MainWindow(QWidget *parent) :
     this->zork = std::make_shared<Game::Zork>();
     ui->setupUi(this);
 
-    this->map = new Ui::MapWidget(this->zork);
-    ui->MAP_GRID->addWidget(map, 0, 0, 1, 1);
-    
+    this->map = new Ui::MapWidget(this->zork, ui->PAINTWIDGET);
+    //ui->MAP_GRID->addWidget(map, 0, 0, 1, 1);
+    //ui->PAINTWIDGET = map;
+    QLayoutItem* item = ui->MAPGRID->replaceWidget(ui->PAINTWIDGET, this->map);
+
+    if (item == nullptr) {
+        printf("replaceWidget failed\n");
+    }
+    else printf("replaceWidget success\n");
 }
 
 MainWindow::~MainWindow()
@@ -22,10 +29,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_DPAD_UP_clicked() {
     try {
-        if(this->zork->MoveNorth() == 0){
+        this->zork->MoveNorth();
         this->map->MovePlayerNorth(); // NEED TO FIX THIS SO THAT IT IS CALLED IN MOVENORTH!! So it doesn't go out of bounds
-        }
-        
+    
     } catch (const Game::ZorkException& e) {
         std::cout << e.what() << std::endl;
     }
@@ -57,4 +63,10 @@ void MainWindow::on_DPAD_DOWN_clicked() {
     } catch (const Game::ZorkException& e) {
         std::cout << e.what() << std::endl;
     }
+}
+
+void MainWindow::on_WORLDLIST_currentRowChanged(int currentRow)
+{
+    this->zork->SetWorld(currentRow);
+    update();
 }

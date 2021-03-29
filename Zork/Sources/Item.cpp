@@ -11,7 +11,7 @@ Item::Item(const char* itemName, const uint8_t itemID, const char* itemDescripti
 Item::Item(const char* itemName, const uint8_t itemID, const char* itemDescription, const uint32_t itemAttributesRaw)
     : itemName(itemName), itemID(itemID), itemDescription(itemDescription), itemAttributesRaw(itemAttributesRaw)
 {
-    
+
 }
 
 bool Item::IsSpecial() {

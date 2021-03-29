@@ -27,6 +27,7 @@ public:
     virtual RoomType GetRoomType() override;
     std::string GetRoomDialogue() override;
     std::vector<Item> GetRoomItems();
+    std::size_t GetRoomItemAmount();
     bool AddItem(const Item& item);
 };
 

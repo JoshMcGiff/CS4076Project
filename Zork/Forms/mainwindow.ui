@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>849</width>
+    <height>622</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,35 +16,90 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <layout class="QGridLayout" name="MAP_GRID"/>
+     <layout class="QGridLayout" name="MAPGRID">
+      <item row="0" column="0">
+       <widget class="QWidget" name="PAINTWIDGET" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="1" column="1">
-       <widget class="QPushButton" name="DPAD_RIGHT">
-        <property name="text">
-         <string>RIGHT</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QPushButton" name="DPAD_UP">
-        <property name="text">
-         <string>UP</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
+      <item row="2" column="1">
        <widget class="QPushButton" name="DPAD_LEFT">
         <property name="text">
          <string>LEFT</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="0">
+      <item row="2" column="0">
+       <widget class="QListWidget" name="ITEMLIST">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <item>
+         <property name="text">
+          <string>Item1</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QPushButton" name="DPAD_RIGHT">
+        <property name="text">
+         <string>RIGHT</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
        <widget class="QPushButton" name="DPAD_DOWN">
         <property name="text">
          <string>DOWN</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QListWidget" name="WORLDLIST">
+        <item>
+         <property name="text">
+          <string>WORLD1</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>WORLD2</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>WORLD3</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>WORLD4</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>WORLD5</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPushButton" name="DPAD_UP">
+        <property name="text">
+         <string>UP</string>
         </property>
        </widget>
       </item>
@@ -57,7 +112,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>849</width>
      <height>21</height>
     </rect>
    </property>

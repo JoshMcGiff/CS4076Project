@@ -22,6 +22,7 @@ private slots:
     void on_DPAD_LEFT_clicked();
     void on_DPAD_RIGHT_clicked();
     void on_DPAD_DOWN_clicked();
+    void on_WORLDLIST_currentRowChanged(int currentRow);
 
 private:
     Ui::MapWidget* map;
