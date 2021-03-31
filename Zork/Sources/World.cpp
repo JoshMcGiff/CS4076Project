@@ -53,36 +53,40 @@ Item World::GetItem(int index) {
 }
 
 Room* World::MoveNorth(){
-    if(roomArray[iRow][jCol+1] == nullptr){
+    if(roomArray[iRow+1][jCol] == nullptr){
         return roomArray[iRow][jCol]; // if doesnt exist return the current room
+    }else{
+        iRow += 1;
     }
-    jCol += 1;
     
     return roomArray[iRow][jCol];
 }
 
 Room* World::MoveSouth(){
     
-    if(roomArray[iRow][jCol-1] == nullptr){
+    if(roomArray[iRow-1][jCol] == nullptr){
         return roomArray[iRow][jCol]; // if doesnt exist return the current room
+    }else{
+        iRow -= 1;
     }
-    jCol -= 1;
     return roomArray[iRow][jCol];
 }
 
 Room* World::MoveEast(){
-    if(roomArray[iRow-1][jCol] == nullptr){
+    if(roomArray[iRow][jCol+1] == nullptr){
         return roomArray[iRow][jCol]; // if doesnt exist return the current room
+    }else{
+        jCol += 1;
     }
-    iRow += 1;
     return roomArray[iRow][jCol];
 }
 
 Room* World::MoveWest(){
-    if(roomArray[iRow+1][jCol] == nullptr){
+    if(roomArray[iRow][jCol-1] == nullptr){
         return roomArray[iRow][jCol]; // if doesnt exist return the current room
+    }else{
+        jCol -= 1;
     }
-    iRow -= 1;
     return roomArray[iRow][jCol];
 }
 
@@ -197,7 +201,7 @@ void World::GenerateItems() { // call generateitems after generate rooms
             if (room->GetRoomType() != Game::RoomType::Special) {
                 room->AddItem(GetItem(itemIndex));
             }
-            itemIndex++;
+   itemIndex++;
         }
     }
 }
