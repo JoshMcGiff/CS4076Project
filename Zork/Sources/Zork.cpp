@@ -88,4 +88,8 @@ void Zork::SetWorld(int index) {
     else this->curWorld = nullptr;
 }
 
+Room* Zork::GetCurrentRoom(){
+    return curRoom;
+}
+
 } //namespace Game

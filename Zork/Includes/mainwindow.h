@@ -15,6 +15,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
+    void AddRoomItems();    
     ~MainWindow();
 
 private slots:

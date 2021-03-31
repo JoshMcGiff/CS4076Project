@@ -52,7 +52,7 @@ private:
 public:
     Item(const char* itemName, const uint8_t itemID, const char* itemDescription, const ItemAttributes& itemAttributes);
     Item(const char* itemName, const uint8_t itemID, const char* itemDescription, const uint32_t itemAttributesRaw);
-
+    std::string GetItemName();
     bool IsSpecial();
 };
 

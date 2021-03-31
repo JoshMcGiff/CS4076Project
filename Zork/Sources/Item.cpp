@@ -18,4 +18,7 @@ bool Item::IsSpecial() {
     return itemAttributes.isSpecial;
 }
 
+std::string Item::GetItemName(){
+    return itemName;
+}
 } //namespace Game

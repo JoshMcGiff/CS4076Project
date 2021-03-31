@@ -30,6 +30,7 @@ public:
     ~Zork();
     
     World* getCurrentWorld();
+    Room* GetCurrentRoom();
     void SetWorld(int index);
     int MoveNorth();
     void MoveSouth();

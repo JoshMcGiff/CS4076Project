@@ -24,7 +24,8 @@ void MapWidget::paintEvent(QPaintEvent*) {
     float centerXConstant = (width() / 2) - (((COL_COUNT * squareSize) + ((COL_COUNT-1) * lineLength))/2); //+ squareSize + (squareSize/2);
     float centerYConstant = (height() / 2) - (((ROW_COUNT * squareSize) + ((ROW_COUNT-1) * lineLength))/2); //+ squareSize + (squareSize/2);
 
-    Game::World* world = zork->getCurrentWorld();
+    world = zork->getCurrentWorld();
+    
         for(int i = 0; i < ROW_COUNT; i++){
             for(int j = 0; j < COL_COUNT; j++){
                 Room* room = world->roomArray[i][j]; 
@@ -61,24 +62,11 @@ void MapWidget::paintEvent(QPaintEvent*) {
             p.fillRect(playerRect, Qt::red);
     }
 
-void MapWidget::MovePlayerNorth(){
-    directionBitfield.isNorth = true;
+void MapWidget::MovePlayer(){
     update();
-}
-void MapWidget::MovePlayerSouth(){
-    directionBitfield.isSouth = true;
-    update();
-}
-void MapWidget::MovePlayerEast(){
-    directionBitfield.isEast = true;
-    update();
-}
-void MapWidget::MovePlayerWest(){
-    directionBitfield.isWest = true;
-    update();
+
 }
 
 
-    //world->roomArray[0][0] = new Room();
 }
 
