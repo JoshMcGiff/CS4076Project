@@ -15,11 +15,11 @@ void MapWidget::paintEvent(QPaintEvent*) {
     
     QPainter p(this);
     p.setPen(QPen(Qt::blue, 3));
-    p.drawRect(width()/2, height()/2, 20, 20);
 
     //int n = 8;
     int squareSize = 50;
     int lineLength = 25;
+    int penThickness = 3;
     int spacing = squareSize + lineLength;
     float centerXConstant = (width() / 2) - (((COL_COUNT * squareSize) + ((COL_COUNT-1) * lineLength))/2); //+ squareSize + (squareSize/2);
     float centerYConstant = (height() / 2) - (((ROW_COUNT * squareSize) + ((ROW_COUNT-1) * lineLength))/2); //+ squareSize + (squareSize/2);
@@ -30,63 +30,35 @@ void MapWidget::paintEvent(QPaintEvent*) {
                 Room* room = world->roomArray[i][j]; 
                 if(room != nullptr){
                     if(room == world->roomArray[START_ROW][START_COL] ){
-                            p.setPen(QPen(Qt::red, 3));
+                            p.setPen(QPen(Qt::red, penThickness));
                     }
                     if(room->GetRoomType() == RoomType::Special){
-                            p.setPen(QPen(Qt::black, 3));
+                            p.setPen(QPen(Qt::black, penThickness));
                     }
                     if(room->GetRoomItemAmount() > 0){
-                            p.setPen(QPen(Qt::green, 3));
+                            p.setPen(QPen(Qt::green, penThickness));
                     }
                     p.drawRect(centerXConstant + (j*spacing),centerYConstant + (i*spacing), squareSize, squareSize);
-                    p.setPen(QPen(Qt::blue, 3));
+                    p.setPen(QPen(Qt::blue, penThickness));
                 }
                 if ((i+1 < ROW_COUNT) && (room != nullptr) && (world->roomArray[i+1][j]) != nullptr) { //Verical
                     p.drawLine  (centerXConstant + (j*spacing) + lineLength, //x1
-                                centerYConstant + (i*spacing)+ squareSize, //y1
+                                centerYConstant + (i*spacing)+ squareSize + penThickness, //y1
                                 centerXConstant + (j*spacing) + lineLength, //x2
-                                centerYConstant + ((i+1)*spacing)); //y2
+                                centerYConstant + ((i+1)*spacing) - penThickness); //y2
                 }
                 if ((j+1 < ROW_COUNT) && (room != nullptr) && (world->roomArray[i][j+1]) != nullptr) { //Horizontal
-                    p.drawLine  (centerXConstant + (j*spacing) + squareSize, //x1
+                    p.drawLine  (centerXConstant + (j*spacing) + squareSize + penThickness, //x1
                                 centerYConstant + ((i*spacing) + lineLength), //y1
-                                centerXConstant + ((j+1)*spacing), //x2
+                                centerXConstant + ((j+1)*spacing) - penThickness, //x2
                                 centerYConstant + ((i*spacing) + lineLength)); //y2
                 }
                 
             }
         }
-            p.setPen(QPen(Qt::red, 3));
-            QRect test = QRect(QPoint(playerStartX, playerStartY), QSize(20, 20));
-            if(directionBitfield.isNorth || directionBitfield.isSouth){
-                printf("%d rowww\n", world->iRow);
-                printf("%d col\n", world->jCol);
-                playerStartX = (START_COL*75)+25;
-
-                playerStartY = (START_ROW*75)+25;//(centerXConstant + world->jCol*75)+25;
-                //playerRect = QRect(QPoint(centerXConstant + (START_COL*75)+25, centerYConstant +((ROW_COUNT - world->iRow)*75)+25), QSize(20, 20));
-                playerRect = QRect(QPoint(centerXConstant + (START_COL*75)+25, centerYConstant +((ROW_COUNT - world->iRow)*75)+25), QSize(20, 20));
-
-                
-                p.fillRect(playerRect, Qt::red);
-                p.eraseRect(test);
-                directionBitfield.isNorth = false;
-                directionBitfield.isSouth = false;
-                
-            }else if(directionBitfield.isEast || directionBitfield.isWest){
-                printf("%d rowww\n", world->jCol);
-                printf("%d col\n", world->iRow);
-                this->playerStartX += 75;
-                playerRect = QRect(QPoint(centerXConstant + ( world->jCol*75)+25, centerYConstant +(START_ROW*75)+25), QSize(20, 20));
-                p.fillRect(playerRect, Qt::red);
-                p.eraseRect(test);
-                directionBitfield.isEast = false;
-                directionBitfield.isWest = false;
-            }else{
-                playerStartX = (START_COL*75)+25;
-                playerStartY = (START_ROW*75)+25;
-                //p.fillRect(test, Qt::red);
-            }
+            p.setPen(QPen(Qt::red, penThickness));
+            playerRect = QRect(QPoint(centerXConstant + ( world->jCol*spacing)+15, centerYConstant +(world->iRow*spacing)+15), QSize(20, 20));
+            p.fillRect(playerRect, Qt::red);
     }
 
 void MapWidget::MovePlayerNorth(){

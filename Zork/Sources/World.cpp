@@ -53,10 +53,10 @@ Item World::GetItem(int index) {
 }
 
 Room* World::MoveNorth(){
-    if(roomArray[iRow+1][jCol] == nullptr){
+    if(roomArray[iRow-1][jCol] == nullptr){
         return roomArray[iRow][jCol]; // if doesnt exist return the current room
     }else{
-        iRow += 1;
+        iRow -= 1;
     }
     
     return roomArray[iRow][jCol];
@@ -64,10 +64,10 @@ Room* World::MoveNorth(){
 
 Room* World::MoveSouth(){
     
-    if(roomArray[iRow-1][jCol] == nullptr){
+    if(roomArray[iRow+1][jCol] == nullptr){
         return roomArray[iRow][jCol]; // if doesnt exist return the current room
     }else{
-        iRow -= 1;
+        iRow += 1;
     }
     return roomArray[iRow][jCol];
 }
