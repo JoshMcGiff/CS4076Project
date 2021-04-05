@@ -13,7 +13,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     this->zork = std::make_shared<Game::Zork>();
     ui->setupUi(this);
-    
+    // ui->DIALOGUEBOX->textCursor().insertText(QString::fromStdString(zork->GetCurrentRoom));
+    Init();
     this->map = new Ui::MapWidget(this->zork, ui->PAINTWIDGET);
     //ui->MAP_GRID->addWidget(map, 0, 0, 1, 1);
     //ui->PAINTWIDGET = map;
@@ -29,16 +30,18 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::PickupItems(QListWidgetItem* item){
-}
+
 
 void MainWindow::UpdateRoomDialogue(){
 
-    zork->GetCurrentRoom()->SetRoomDialogue("ITS FUCKING FREEZINNNN IN HEURRRRR!!!");
     ui->DIALOGUEBOX->clear();
     ui->DIALOGUEBOX->setFontPointSize(25);
-    ui->DIALOGUEBOX->textCursor().setPosition(0);
     ui->DIALOGUEBOX->textCursor().insertText(QString::fromStdString(zork->GetCurrentRoom()->GetRoomDialogue()));
+}
+
+void MainWindow::Init()
+{
+    this->UpdateRoomDialogue();
 }
 
 void MainWindow::RefreshRoomItemsUI() {
@@ -46,6 +49,7 @@ void MainWindow::RefreshRoomItemsUI() {
     for(int i =0; i < this->zork->GetCurrentRoom()->GetRoomItemAmount(); i++){
        ui->ROOMITEMS->addItem(QString::fromStdString(zork->GetCurrentRoom()->GetRoomItems()[i].GetItemName())); //TODO: Custom Widget to add Item IDs, so we can compare by item ID instead of string
     }
+    this->map->MovePlayer();
 }
 
 //Advanced preprocessor - uses preprocessor for each of the move directions. Also uses custom exceptions
@@ -70,6 +74,9 @@ MOVE_FUNC(RIGHT, East)
 void MainWindow::on_WORLDLIST_currentRowChanged(int currentRow)
 {
     this->zork->SetWorld(currentRow);
+    this->zork->SetCurrentRoom(this->zork->GetCurrentWorld()->GetCurrentRoom());
+
+    UpdateRoomDialogue();
     update();
 }
 

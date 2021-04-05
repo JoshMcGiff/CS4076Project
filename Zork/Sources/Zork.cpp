@@ -30,12 +30,12 @@ Zork::Zork() : curWorld(nullptr) {
     zorkWorlds[4] = world5;
 
     curWorld = world1;
+    curRoom = world1->GetCurrentRoom();
 }
 
 Zork::~Zork() {
     for (int i = 0; i < zorkWorlds.size(); i++) {
         World* world = zorkWorlds[i];
-
         if (world != nullptr) {
             delete world;
         }
@@ -43,7 +43,7 @@ Zork::~Zork() {
     }
 }
 
-World* Zork::getCurrentWorld() {
+World* Zork::GetCurrentWorld() {
     return curWorld;
 }
 
@@ -90,6 +90,10 @@ void Zork::SetWorld(int index) {
 
 Room* Zork::GetCurrentRoom(){
     return curRoom;
+}
+
+void Zork::SetCurrentRoom(Room* room){
+    this->curRoom = room;
 }
 
 } //namespace Game

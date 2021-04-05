@@ -10,16 +10,24 @@
 namespace Game {
 
 enum class RoomAttribute { // Different room attributes. Using class to avoid conflicts
-    Ice = 0,
-    Fire = 1,
+    CHILLY = 0,
+    HOT = 1,
+    DARK = 2,
+    SUNNY = 3,
+    EERIE = 4,
+    CALM = 5,
+    SLIPPY = 6,
+    STICKY = 7,
+    WET = 8,
+    MUSIC = 9,
 };
 
 class Room : public RoomBase {
 private:
-    RoomAttribute roomAttributes;
+    RoomAttribute roomAttribute;
     bool isLocked;
     std::vector<Item> roomItems; // Items in the room
-
+    void GenerateRoomDialogue(RoomAttribute r);
 public:
     Room();
     ~Room();

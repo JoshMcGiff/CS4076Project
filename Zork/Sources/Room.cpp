@@ -3,8 +3,44 @@
 
 namespace Game {
 
+void Room::GenerateRoomDialogue(RoomAttribute r){
+    switch(r){
+        case RoomAttribute::CHILLY:
+            roomDialogue = "You can see your breath appear in the air as you enter the room";
+            break;
+        case RoomAttribute::HOT:
+            roomDialogue = "The heat hits you like a ton of bricks as you enter the room";
+            break;
+        case RoomAttribute::DARK:
+            roomDialogue = "The room is barely lit as you enter the room";
+            break;
+        case RoomAttribute::SUNNY:
+            roomDialogue = "The beams of sunlight take you by surprise as you step into the room";
+            break;
+        case RoomAttribute::EERIE:
+            roomDialogue = "You are suddenly on edge as you enter the room";
+            break;
+        case RoomAttribute::CALM:
+            roomDialogue = "You instantly feel safe when you find yourself standing in the room";
+            break;  
+        case RoomAttribute::SLIPPY:
+            roomDialogue = "You feel yourself losing your grip as you slide into the room";
+            break;  
+        case RoomAttribute::STICKY:
+            roomDialogue = "You trudge into the room as the ground is covered in a sticky substance";
+            break;  
+        case RoomAttribute::WET:
+            roomDialogue = "You can see your reflection in a giant puddle spanning the entire room";
+            break;  
+        case RoomAttribute::MUSIC:
+            roomDialogue = "Faint voices chirping in the distance hit you as you step inside the room";
+            break;  
+    }
+}
 
 Room::Room() {
+    this->roomAttribute = (RoomAttribute) (rand() % 10);
+    GenerateRoomDialogue(roomAttribute);
     //this->roomDialogue = desc;
 }
 

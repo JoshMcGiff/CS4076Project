@@ -24,7 +24,7 @@ void MapWidget::paintEvent(QPaintEvent*) {
     float centerXConstant = (width() / 2) - (((COL_COUNT * squareSize) + ((COL_COUNT-1) * lineLength))/2); //+ squareSize + (squareSize/2);
     float centerYConstant = (height() / 2) - (((ROW_COUNT * squareSize) + ((ROW_COUNT-1) * lineLength))/2); //+ squareSize + (squareSize/2);
 
-    world = zork->getCurrentWorld();
+    world = zork->GetCurrentWorld();
     
         for(int i = 0; i < ROW_COUNT; i++){
             for(int j = 0; j < COL_COUNT; j++){
@@ -64,7 +64,6 @@ void MapWidget::paintEvent(QPaintEvent*) {
 
 void MapWidget::MovePlayer(){
     update();
-
 }
 
 

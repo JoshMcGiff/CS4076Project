@@ -29,13 +29,15 @@ public:
     Zork();
     ~Zork();
     
-    World* getCurrentWorld();
+    World* GetCurrentWorld();
     Room* GetCurrentRoom();
     void SetWorld(int index);
+    void SetCurrentRoom(Room &room);
     int MoveNorth();
     void MoveSouth();
     void MoveEast();
     void MoveWest();
+    void SetCurrentRoom(Room* room);
 
 };
 

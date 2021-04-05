@@ -206,6 +206,17 @@ void World::GenerateItems() { // call generateitems after generate rooms
     }
 }
 
+int World::GetRow(){
+    return iRow;
+}
+int World::GetCol(){
+    return jCol;
+}
+
+Room* World::GetCurrentRoom(){
+    return roomArray[iRow][jCol];
+}
+
 void World::Generate() {
     for (auto& array : roomArray) {
         array.fill(nullptr); //Set everything in 2D array to nullptr

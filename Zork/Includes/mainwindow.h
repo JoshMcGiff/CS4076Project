@@ -30,6 +30,7 @@ private slots:
     void on_ROOMITEMS_itemDoubleClicked(QListWidgetItem *item);
 
 private:
+void Init();
     Ui::MapWidget* map;
     Ui::MainWindow *ui;
     std::shared_ptr<Game::Zork> zork;

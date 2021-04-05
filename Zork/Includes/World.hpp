@@ -34,6 +34,7 @@ private:
     friend class Ui::MapWidget;
     std::array<std::array<Room*, COL_COUNT>, ROW_COUNT> roomArray;
 
+
 public:
 
     World(const char* name, const char* desc, Game::Item&& keyItem, std::vector<Item>& worldItems); //pass in array of world specific items to constructor
@@ -45,6 +46,10 @@ public:
     void SetItems(std::vector<Item>& worldItems);
     Item GetItem(int index);
     void Generate();
+    int GetRow();
+    int GetCol();
+    Room* GetCurrentRoom();
+
 
 };
 
