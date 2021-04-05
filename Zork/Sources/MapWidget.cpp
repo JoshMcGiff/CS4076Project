@@ -1,12 +1,16 @@
 #include "MapWidget.hpp"
 #include <QPainter>
 #include <QPen>
-#include <stdio.h>
 
 namespace Ui {
 
 using namespace Game;
 
+MapWidget::MapWidget(std::shared_ptr<Game::Zork> zorkInstance, QWidget* parent)
+    : QWidget(parent), zork(zorkInstance)
+{
+    this->setSizePolicy(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Expanding);
+}
 
 void MapWidget::paintEvent(QPaintEvent*) {
     
@@ -16,11 +20,11 @@ void MapWidget::paintEvent(QPaintEvent*) {
     QPainter p(this);
     p.setPen(QPen(Qt::blue, 3));
 
-    //int n = 8;
-    int squareSize = 50;
-    int lineLength = 25;
-    int penThickness = 3;
-    int spacing = squareSize + lineLength;
+    constexpr int squareSize = 50;
+    constexpr int lineLength = 25;
+    constexpr int penThickness = 3;
+    constexpr int spacing = squareSize + lineLength;
+
     float centerXConstant = (width() / 2) - (((COL_COUNT * squareSize) + ((COL_COUNT-1) * lineLength))/2); //+ squareSize + (squareSize/2);
     float centerYConstant = (height() / 2) - (((ROW_COUNT * squareSize) + ((ROW_COUNT-1) * lineLength))/2); //+ squareSize + (squareSize/2);
 
@@ -62,7 +66,7 @@ void MapWidget::paintEvent(QPaintEvent*) {
             p.fillRect(playerRect, Qt::red);
     }
 
-void MapWidget::MovePlayer(){
+void MapWidget::MovePlayer() {
     update();
 }
 

@@ -4,7 +4,6 @@
 #include <QWidget>
 #include <memory>
 #include "Zork.hpp"
-#include <QListWidget>
 
 namespace Ui {
 
@@ -20,20 +19,16 @@ class MapWidget : public QWidget
 {
     Q_OBJECT
 private:
-QRect playerRect;
-int playerStartX;
-int playerStartY;
-Game::World* world;
+    QRect playerRect;
+    Game::World* world;
+
 public:
-    MapWidget(std::shared_ptr<Game::Zork> zorkInstance, QWidget* parent = nullptr): zork(zorkInstance), QWidget(parent){
-        
-        this->setSizePolicy(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Expanding);
-    }
-    Direction directionBitfield;
+    MapWidget(std::shared_ptr<Game::Zork> zorkInstance, QWidget* parent = nullptr);
     virtual void paintEvent(QPaintEvent*) override;
-    std::shared_ptr<Game::Zork> zork;
     void MovePlayer();
 
+    Direction directionBitfield;
+    std::shared_ptr<Game::Zork> zork;
 };
 
 } //namespace Ui

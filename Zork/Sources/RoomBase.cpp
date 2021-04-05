@@ -2,8 +2,8 @@
 
 namespace Game {
 
-RoomBase::RoomBase() {
+RoomBase::RoomBase() { }
 
-}
+RoomBase::~RoomBase() { }
 
 }

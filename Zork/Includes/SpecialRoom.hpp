@@ -4,14 +4,17 @@
 #include "Room.hpp"
 namespace Game {
 
-
 class SpecialRoom : public Room {
-
-
-public:
+protected:
     SpecialRoom();
+public:
+    ~SpecialRoom();
+    static SpecialRoom* NewSpecialRoom();
+
     RoomType GetRoomType() override;
+    void GenerateRoomDialogue() override;
 };
 
 } //namespace Game
+
 #endif

@@ -44,7 +44,7 @@ public:
     Room* MoveEast();
     Room* MoveWest();
     void SetItems(std::vector<Item>& worldItems);
-    Item GetItem(int index);
+    Item GetItem(size_t index);
     void Generate();
     int GetRow();
     int GetCol();

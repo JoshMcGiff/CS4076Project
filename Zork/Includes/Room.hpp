@@ -9,7 +9,7 @@
 
 namespace Game {
 
-enum class RoomAttribute { // Different room attributes. Using class to avoid conflicts
+enum class RoomAttribute : int { // Different room attributes. Using class to avoid conflicts
     CHILLY = 0,
     HOT = 1,
     DARK = 2,
@@ -20,6 +20,8 @@ enum class RoomAttribute { // Different room attributes. Using class to avoid co
     STICKY = 7,
     WET = 8,
     MUSIC = 9,
+
+    ATTRIBUTE_MAX
 };
 
 class Room : public RoomBase {
@@ -27,20 +29,24 @@ private:
     RoomAttribute roomAttribute;
     bool isLocked;
     std::vector<Item> roomItems; // Items in the room
-    void GenerateRoomDialogue(RoomAttribute r);
-public:
+
+protected:
     Room();
-    ~Room();
+public:
+    virtual ~Room();
+    static Room* NewRoom(); //Used to create a new Room on heap
 
     virtual RoomType GetRoomType() override;
     std::string GetRoomDialogue() override;
-    void SetRoomDialogue(const std::string& diag) override;
+    virtual void GenerateRoomDialogue() override; //Not called in ctor as virtual, wrong version may be called/considered bad practise
+
+
     std::vector<Item> GetRoomItems();
-    std::size_t GetRoomItemAmount();
-    bool AddItem(const Item& item);
-    bool RemoveItem(const int index);
+    size_t GetRoomItemAmount();
+    bool AddItem(const Item& item); //Returns true if adding an item to the room is successful
+    bool RemoveItem(const size_t index); //Returns true if removing an item from the room is successful
 };
 
-}; //namespace Game
+} //namespace Game
 
 #endif

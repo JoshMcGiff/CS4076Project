@@ -40,12 +40,12 @@ void World::SetItems(std::vector<Item>& worldItems) {
     //TODO: randomise order
 }
 
-Item World::GetItem(int index) {
+Item World::GetItem(size_t index) {
     if (worldItems.empty()) {
         return Item("Empty", 0xFF, "Empty Item", 0);
     }
 
-    if (index < 0 || index >= worldItems.size()) {
+    if (index >= worldItems.size()) {
         index = 0;
     }
 
@@ -99,7 +99,7 @@ void World::GenerateRooms(int row, int col, int roomChance) {
     if ((row+1 < ROW_COUNT) && this->roomArray[row+1][col] == nullptr) { //North
         random = rand() % 100; //Gen number between 0 to 99
         if (random < roomChance) {
-            this->roomArray[row+1][col] = new Room();
+            this->roomArray[row+1][col] = Room::NewRoom();
             GenerateRooms(row+1, col, roomChance-CHANCE_DECREASE);
         }
     }
@@ -107,7 +107,7 @@ void World::GenerateRooms(int row, int col, int roomChance) {
     if ((row-1 >= 0) && this->roomArray[row-1][col] == nullptr) { //South
         random = rand() % 100; //Gen number between 0 to 99
         if (random < roomChance) {
-            this->roomArray[row-1][col] = new Room();
+            this->roomArray[row-1][col] = Room::NewRoom();
             GenerateRooms(row-1, col, roomChance-CHANCE_DECREASE);
         }
     }
@@ -115,7 +115,7 @@ void World::GenerateRooms(int row, int col, int roomChance) {
     if ((col+1 < COL_COUNT) && this->roomArray[row][col+1] == nullptr) { //East
         random = rand() % 100; //Gen number between 0 to 99
         if (random < roomChance) {
-            this->roomArray[row][col+1] = new Room();
+            this->roomArray[row][col+1] = Room::NewRoom();
             GenerateRooms(row, col+1, roomChance-CHANCE_DECREASE);
         }
     }
@@ -123,7 +123,7 @@ void World::GenerateRooms(int row, int col, int roomChance) {
     if ((col-1 >= 0) && this->roomArray[row][col-1] == nullptr) { //West
         random = rand() % 100; //Gen number between 0 to 99
         if (random < roomChance) {
-            this->roomArray[row][col-1] = new Room();
+            this->roomArray[row][col-1] = Room::NewRoom();
             GenerateRooms(row, col-1, roomChance-CHANCE_DECREASE);
         }
     }
@@ -136,7 +136,7 @@ void World::GenerateSpecialRoom(int row, int col){
         case 0:
             for(int i = row-1; i < ROW_COUNT; i++){
                 if(roomArray[row+i][col] == nullptr){
-                    roomArray[row+i][col] = new SpecialRoom();
+                    roomArray[row+i][col] = SpecialRoom::NewSpecialRoom();
                     roomArray[row+i][col]->GetRoomItems().push_back(keyItem);
                     return;
                 }
@@ -145,7 +145,7 @@ void World::GenerateSpecialRoom(int row, int col){
         case 1:
             for(int i = row-1; i < ROW_COUNT; i++){
                 if(roomArray[row + (row - i - 1)][col] == nullptr){
-                    roomArray[row + (row - i - 1)][col] = new SpecialRoom();
+                    roomArray[row + (row - i - 1)][col] = SpecialRoom::NewSpecialRoom();
                     roomArray[row + (row - i - 1)][col]->GetRoomItems().push_back(keyItem);
                     return;
                 }       
@@ -154,7 +154,7 @@ void World::GenerateSpecialRoom(int row, int col){
         case 2: 
             for(int j = col-1; j < COL_COUNT; j++){
                 if(roomArray[row][col+j] == nullptr){
-                    roomArray[row][col+j] = new SpecialRoom();
+                    roomArray[row][col+j] = SpecialRoom::NewSpecialRoom();
                     roomArray[row][col+j]->GetRoomItems().push_back(keyItem);
                     return;
                 }
@@ -163,7 +163,7 @@ void World::GenerateSpecialRoom(int row, int col){
         case 3:
             for(int j = col-1; j < COL_COUNT; j++){
                 if(roomArray[row][col + (col - j - 1)] == nullptr){
-                    roomArray[row][col + (col - j - 1)] = new SpecialRoom();
+                    roomArray[row][col + (col - j - 1)] = SpecialRoom::NewSpecialRoom();
                     roomArray[row][col + (col - j - 1)]->GetRoomItems().push_back(keyItem);
                     return;
                 }
@@ -222,14 +222,14 @@ void World::Generate() {
         array.fill(nullptr); //Set everything in 2D array to nullptr
     }
 
-    this->roomArray[START_ROW][START_COL] = new Room(); //Generate starting room
+    this->roomArray[START_ROW][START_COL] = Room::NewRoom(); //Generate starting room
     this->GenerateRooms(START_ROW, START_COL, BASE_ROOM_CHANCE); //Start in middle of array
     this->GenerateSpecialRoom(START_ROW, START_COL);
     this->GenerateItems();
 
     for(int i = 0; i < ROW_COUNT; i++) {
         for(int j = 0; j < COL_COUNT; j++) {
-            printf("%X\t", roomArray[i][j]);
+            printf("%llX\t", (uint64_t)roomArray[i][j]);
         }
         printf("\n");
     }   

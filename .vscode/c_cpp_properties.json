@@ -17,6 +17,8 @@
             "intelliSenseMode": "linux-gcc-x64",
             "includePath": [
                 "${workspaceFolder}/Zork",
+                "${workspaceFolder}/build-Zork-Desktop_Qt_6_0_1_MinGW_64_bit-Debug/**",
+                "${workspaceFolder}/build-Zork-Desktop_Qt_6_0_1_MinGW_64_bit-Debug/",
                 "${workspaceFolder}/Zork/Includes/",
                 "${workspaceFolder}/Zork/Includes/**",
                 "${workspaceFolder}/Zork/Sources/**",

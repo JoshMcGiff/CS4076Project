@@ -16,13 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // ui->DIALOGUEBOX->textCursor().insertText(QString::fromStdString(zork->GetCurrentRoom));
     Init();
     this->map = new Ui::MapWidget(this->zork, ui->PAINTWIDGET);
-    //ui->MAP_GRID->addWidget(map, 0, 0, 1, 1);
-    //ui->PAINTWIDGET = map;
-    QLayoutItem* item = ui->MAPGRID->replaceWidget(ui->PAINTWIDGET, this->map);
-    if (item == nullptr) {
-        printf("replaceWidget failed\n");
-    }
-    else printf("replaceWidget success\n");
+    ui->MAPGRID->replaceWidget(ui->PAINTWIDGET, this->map);
 }
 
 MainWindow::~MainWindow()
@@ -30,24 +24,22 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
-
-void MainWindow::UpdateRoomDialogue(){
+void MainWindow::UpdateRoomDialogueUI() {
 
     ui->DIALOGUEBOX->clear();
     ui->DIALOGUEBOX->setFontPointSize(25);
     ui->DIALOGUEBOX->textCursor().insertText(QString::fromStdString(zork->GetCurrentRoom()->GetRoomDialogue()));
 }
 
-void MainWindow::Init()
-{
-    this->UpdateRoomDialogue();
+void MainWindow::Init() {
+    this->UpdateRoomDialogueUI();
 }
 
-void MainWindow::RefreshRoomItemsUI() {
+void MainWindow::UpdateRoomItemsUI() {
     ui->ROOMITEMS->clear();
-    for(int i =0; i < this->zork->GetCurrentRoom()->GetRoomItemAmount(); i++){
-       ui->ROOMITEMS->addItem(QString::fromStdString(zork->GetCurrentRoom()->GetRoomItems()[i].GetItemName())); //TODO: Custom Widget to add Item IDs, so we can compare by item ID instead of string
+    Game::Room* curRoom = this->zork->GetCurrentRoom();
+    for (size_t i = 0; i < curRoom->GetRoomItemAmount(); i++) {
+       ui->ROOMITEMS->addItem(QString::fromStdString(curRoom->GetRoomItems()[i].GetItemName())); //TODO: Custom Widget to add Item IDs, so we can compare by item ID instead of string
     }
     this->map->MovePlayer();
 }
@@ -58,8 +50,8 @@ void MainWindow::RefreshRoomItemsUI() {
         try { \
         this->zork->Move##MOVE_DIR(); \
         this->map->MovePlayer(); \
-        this->RefreshRoomItemsUI(); \
-        this->UpdateRoomDialogue(); \
+        this->UpdateRoomItemsUI(); \
+        this->UpdateRoomDialogueUI(); \
         \
         } catch (const Game::ZorkException& e) { \
             std::cout << e.what() << std::endl; \
@@ -71,29 +63,23 @@ MOVE_FUNC(DOWN, South)
 MOVE_FUNC(LEFT, West)
 MOVE_FUNC(RIGHT, East)
 
-void MainWindow::on_WORLDLIST_currentRowChanged(int currentRow)
-{
-    this->zork->SetWorld(currentRow);
-    this->zork->SetCurrentRoom(this->zork->GetCurrentWorld()->GetCurrentRoom());
-
-    UpdateRoomDialogue();
-    update();
+void MainWindow::on_WORLDLIST_currentRowChanged(int currentRow) {
+    if (this->zork->SetWorld(currentRow)) {
+        UpdateRoomDialogueUI();
+        update();
+    }
 }
 
-void MainWindow::on_ROOMITEMS_itemDoubleClicked(QListWidgetItem *item)
-{
-    printf("yo yoy yo\n");
-    printf("Item: %s\n", item->text().toStdString().c_str());
-
+void MainWindow::on_ROOMITEMS_itemDoubleClicked(QListWidgetItem *item) {
     ui->INVENTORYLIST->addItem(item->text());
-    Game::Room* room = zork->GetCurrentRoom();
+    Game::Room* room = this->zork->GetCurrentRoom();
 
-    for (std::size_t i = 0; i < room->GetRoomItemAmount(); i++) {
+    for (size_t i = 0; i < room->GetRoomItemAmount(); i++) {
         if (room->GetRoomItems()[i].GetItemName() == item->text().toStdString()) {
             room->RemoveItem(i);
             break;
         }
     }
 
-    this->RefreshRoomItemsUI();
+    this->UpdateRoomItemsUI();
 }

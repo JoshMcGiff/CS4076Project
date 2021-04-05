@@ -12,13 +12,14 @@ enum class RoomType {
 
 class RoomBase { //Abstract class for Room base
 protected:
-    RoomBase(); //private constructor as RoomBase shouldn't be used as a class
+    RoomBase(); //protected constructor as RoomBase shouldn't be used as a class
+    virtual ~RoomBase();
     std::string roomDialogue;
 
 public:
     virtual RoomType GetRoomType() = 0;
     virtual std::string GetRoomDialogue() = 0;
-    virtual void SetRoomDialogue(const std::string& diag) = 0;
+    virtual void GenerateRoomDialogue() = 0;
 };
 
 } //namespace Game

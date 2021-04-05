@@ -34,7 +34,7 @@ Zork::Zork() : curWorld(nullptr) {
 }
 
 Zork::~Zork() {
-    for (int i = 0; i < zorkWorlds.size(); i++) {
+    for (size_t i = 0; i < zorkWorlds.size(); i++) {
         World* world = zorkWorlds[i];
         if (world != nullptr) {
             delete world;
@@ -81,19 +81,21 @@ void Zork::MoveWest() {
     curRoom = curWorld->MoveWest();
 }
 
-void Zork::SetWorld(int index) {
-    if (index >= 0 && index <= zorkWorlds.size()) {
+bool Zork::SetWorld(size_t index) {
+    if (index <= zorkWorlds.size()) {
         this->curWorld = zorkWorlds[index];
+        UpdateRoom();
+        return true;
     }
-    else this->curWorld = nullptr;
+    return false;
 }
 
-Room* Zork::GetCurrentRoom(){
+Room* Zork::GetCurrentRoom() {
     return curRoom;
 }
 
-void Zork::SetCurrentRoom(Room* room){
-    this->curRoom = room;
+void Zork::UpdateRoom() {
+    this->curRoom = this->curWorld->GetCurrentRoom();
 }
 
 } //namespace Game

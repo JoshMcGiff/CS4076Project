@@ -12,13 +12,12 @@ class MainWindow;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-    void RefreshRoomItemsUI();
-    void PickupItems(QListWidgetItem* item);
-    void UpdateRoomDialogue();
     ~MainWindow();
+
+    void UpdateRoomItemsUI();
+    void UpdateRoomDialogueUI();
 
 private slots:
     void on_DPAD_UP_clicked();
@@ -26,11 +25,10 @@ private slots:
     void on_DPAD_RIGHT_clicked();
     void on_DPAD_DOWN_clicked();
     void on_WORLDLIST_currentRowChanged(int currentRow);
-
     void on_ROOMITEMS_itemDoubleClicked(QListWidgetItem *item);
 
 private:
-void Init();
+    void Init();
     Ui::MapWidget* map;
     Ui::MainWindow *ui;
     std::shared_ptr<Game::Zork> zork;

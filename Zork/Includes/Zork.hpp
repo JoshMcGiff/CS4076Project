@@ -31,13 +31,12 @@ public:
     
     World* GetCurrentWorld();
     Room* GetCurrentRoom();
-    void SetWorld(int index);
-    void SetCurrentRoom(Room &room);
+    bool SetWorld(size_t index);
     int MoveNorth();
     void MoveSouth();
     void MoveEast();
     void MoveWest();
-    void SetCurrentRoom(Room* room);
+    void UpdateRoom();
 
 };
 

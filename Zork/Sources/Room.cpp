@@ -3,8 +3,24 @@
 
 namespace Game {
 
-void Room::GenerateRoomDialogue(RoomAttribute r){
-    switch(r){
+Room::Room() {
+    GenerateRoomDialogue();
+}
+
+Room::~Room() {
+
+}
+
+Room* Room::NewRoom() {
+    Room* room = new Room();
+    room->GenerateRoomDialogue();
+    return room;
+}
+
+void Room::GenerateRoomDialogue() {
+    this->roomAttribute = (RoomAttribute)(rand() % (int)RoomAttribute::ATTRIBUTE_MAX);
+
+    switch(this->roomAttribute) {
         case RoomAttribute::CHILLY:
             roomDialogue = "You can see your breath appear in the air as you enter the room";
             break;
@@ -22,45 +38,33 @@ void Room::GenerateRoomDialogue(RoomAttribute r){
             break;
         case RoomAttribute::CALM:
             roomDialogue = "You instantly feel safe when you find yourself standing in the room";
-            break;  
+            break;
         case RoomAttribute::SLIPPY:
             roomDialogue = "You feel yourself losing your grip as you slide into the room";
-            break;  
+            break;
         case RoomAttribute::STICKY:
             roomDialogue = "You trudge into the room as the ground is covered in a sticky substance";
-            break;  
+            break;
         case RoomAttribute::WET:
             roomDialogue = "You can see your reflection in a giant puddle spanning the entire room";
-            break;  
+            break;
         case RoomAttribute::MUSIC:
             roomDialogue = "Faint voices chirping in the distance hit you as you step inside the room";
-            break;  
+            break;
+        default:
+            roomDialogue = "Bad roomAttribute enum value";
     }
-}
-
-Room::Room() {
-    this->roomAttribute = (RoomAttribute) (rand() % 10);
-    GenerateRoomDialogue(roomAttribute);
-    //this->roomDialogue = desc;
-}
-
-Room::~Room() {
-
 }
 
 std::string Room::GetRoomDialogue() {
     return this->roomDialogue;
 }
 
-void Room::SetRoomDialogue(const std::string& diag) {
-    this->roomDialogue = diag;
-}
-
 RoomType Room::GetRoomType() {
     return RoomType::Normal;
 }
 
-std::vector<Item> Room::GetRoomItems(){
+std::vector<Item> Room::GetRoomItems() {
     return this->roomItems;
 }
 
@@ -69,17 +73,16 @@ bool Room::AddItem(const Item& item) {
     return true;
 }
 
-bool Room::RemoveItem(const int index) {
-    if (index < 0 && index >= this->roomItems.size()) {
+bool Room::RemoveItem(const size_t index) {
+    if (index >= this->roomItems.size()) {
         return false;
     }
-
 
     this->roomItems.erase(this->roomItems.begin()+index);
     return true;
 }
 
-std::size_t Room::GetRoomItemAmount() { //returns std::size_t as it's the return trype from std::vector::size
+size_t Room::GetRoomItemAmount() { //returns std::size_t as it's the return trype from std::vector::size
     return this->roomItems.size();
 }
 
