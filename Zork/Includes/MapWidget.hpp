@@ -25,7 +25,7 @@ private:
 public:
     MapWidget(std::shared_ptr<Game::Zork> zorkInstance, QWidget* parent = nullptr);
     virtual void paintEvent(QPaintEvent*) override;
-    void MovePlayer();
+    void UpdateMapUI();
 
     Direction directionBitfield;
     std::shared_ptr<Game::Zork> zork;

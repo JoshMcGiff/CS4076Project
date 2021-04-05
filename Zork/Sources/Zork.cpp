@@ -28,9 +28,6 @@ Zork::Zork() : curWorld(nullptr) {
     std::vector<Item> items5 = {};
     World *world5 = new World("World 5", "Description", Game::Item("Nicki's Crown", 4, "Queen Shit", 0), items5);
     zorkWorlds[4] = world5;
-
-    curWorld = world1;
-    curRoom = world1->GetCurrentRoom();
 }
 
 Zork::~Zork() {
@@ -53,7 +50,7 @@ int Zork::MoveNorth() {
         return 1;
     }
 
-    curRoom = curWorld->MoveNorth();
+    curWorld->MoveNorth();
     return 0;
 }
 void Zork::MoveSouth() {
@@ -62,7 +59,7 @@ void Zork::MoveSouth() {
         return;
     }
 
-    curRoom = curWorld->MoveSouth();
+    curWorld->MoveSouth();
 }
 void Zork::MoveEast() {
     if (curWorld == nullptr) {
@@ -70,7 +67,7 @@ void Zork::MoveEast() {
         return;
     }
 
-    curRoom = curWorld->MoveEast();
+    curWorld->MoveEast();
 }
 void Zork::MoveWest() {
     if (curWorld == nullptr) {
@@ -78,24 +75,22 @@ void Zork::MoveWest() {
         return;
     }
 
-    curRoom = curWorld->MoveWest();
+    curWorld->MoveWest();
 }
 
 bool Zork::SetWorld(size_t index) {
     if (index <= zorkWorlds.size()) {
         this->curWorld = zorkWorlds[index];
-        UpdateRoom();
         return true;
     }
     return false;
 }
 
 Room* Zork::GetCurrentRoom() {
-    return curRoom;
-}
-
-void Zork::UpdateRoom() {
-    this->curRoom = this->curWorld->GetCurrentRoom();
+    if (this->curWorld) {
+        return this->curWorld->GetCurrentRoom();
+    }
+    return nullptr;
 }
 
 } //namespace Game

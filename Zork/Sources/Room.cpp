@@ -4,7 +4,7 @@
 namespace Game {
 
 Room::Room() {
-    GenerateRoomDialogue();
+
 }
 
 Room::~Room() {

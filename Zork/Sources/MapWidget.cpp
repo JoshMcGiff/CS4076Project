@@ -13,23 +13,27 @@ MapWidget::MapWidget(std::shared_ptr<Game::Zork> zorkInstance, QWidget* parent)
 }
 
 void MapWidget::paintEvent(QPaintEvent*) {
-    
-    QPixmap pixmap = QPixmap(600,300);
-    pixmap = pixmap.scaled(width(), height(),Qt::KeepAspectRatio,Qt::SmoothTransformation);
-    
-    QPainter p(this);
-    p.setPen(QPen(Qt::blue, 3));
-
+    constexpr int fontSize = 50;
     constexpr int squareSize = 50;
     constexpr int lineLength = 25;
     constexpr int penThickness = 3;
     constexpr int spacing = squareSize + lineLength;
 
+    QPainter p(this);
+    p.setPen(QPen(Qt::blue, penThickness));
+
     float centerXConstant = (width() / 2) - (((COL_COUNT * squareSize) + ((COL_COUNT-1) * lineLength))/2); //+ squareSize + (squareSize/2);
     float centerYConstant = (height() / 2) - (((ROW_COUNT * squareSize) + ((ROW_COUNT-1) * lineLength))/2); //+ squareSize + (squareSize/2);
 
     world = zork->GetCurrentWorld();
-    
+    if (world == nullptr) { //At start player is not in a world
+        QFont font = p.font();
+        font.setPixelSize(fontSize);
+        p.setFont(font);
+        p.drawText(this->rect(), Qt::AlignCenter, "Choose a world!"); //this->rect() returns a QRect of x,y,width and height of MapWidget
+    }
+
+    else { //When in a world
         for(int i = 0; i < ROW_COUNT; i++){
             for(int j = 0; j < COL_COUNT; j++){
                 Room* room = world->roomArray[i][j]; 
@@ -58,18 +62,18 @@ void MapWidget::paintEvent(QPaintEvent*) {
                                 centerXConstant + ((j+1)*spacing) - penThickness, //x2
                                 centerYConstant + ((i*spacing) + lineLength)); //y2
                 }
-                
             }
         }
-            p.setPen(QPen(Qt::red, penThickness));
-            playerRect = QRect(QPoint(centerXConstant + ( world->jCol*spacing)+15, centerYConstant +(world->iRow*spacing)+15), QSize(20, 20));
-            p.fillRect(playerRect, Qt::red);
-    }
 
-void MapWidget::MovePlayer() {
-    update();
+        p.setPen(QPen(Qt::red, penThickness));
+        playerRect = QRect(QPoint(centerXConstant + (world->jCol*spacing)+15, centerYConstant +(world->iRow*spacing)+15), QSize(20, 20));
+        p.fillRect(playerRect, Qt::red);
+    }
 }
 
+void MapWidget::UpdateMapUI() {
+    this->update();
+}
 
 }
 

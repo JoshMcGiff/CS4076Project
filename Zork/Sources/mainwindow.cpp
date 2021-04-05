@@ -7,13 +7,15 @@
 #include <QString>  
 #include <QObject>
 
+#define DIAG_FONT_SIZE 25
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     this->zork = std::make_shared<Game::Zork>();
     ui->setupUi(this);
-    // ui->DIALOGUEBOX->textCursor().insertText(QString::fromStdString(zork->GetCurrentRoom));
+    ui->DIALOGUEBOX->setFontPointSize(DIAG_FONT_SIZE);
     Init();
     this->map = new Ui::MapWidget(this->zork, ui->PAINTWIDGET);
     ui->MAPGRID->replaceWidget(ui->PAINTWIDGET, this->map);
@@ -25,10 +27,13 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::UpdateRoomDialogueUI() {
-
     ui->DIALOGUEBOX->clear();
-    ui->DIALOGUEBOX->setFontPointSize(25);
-    ui->DIALOGUEBOX->textCursor().insertText(QString::fromStdString(zork->GetCurrentRoom()->GetRoomDialogue()));
+
+    Game::Room* curRoom = this->zork->GetCurrentRoom();
+    if (!curRoom) {
+        return;
+    }
+    ui->DIALOGUEBOX->textCursor().insertText(QString::fromStdString(curRoom->GetRoomDialogue()));
 }
 
 void MainWindow::Init() {
@@ -36,12 +41,16 @@ void MainWindow::Init() {
 }
 
 void MainWindow::UpdateRoomItemsUI() {
-    ui->ROOMITEMS->clear();
     Game::Room* curRoom = this->zork->GetCurrentRoom();
+    if (!curRoom) {
+        return;
+    }
+
+    ui->ROOMITEMS->clear();
     for (size_t i = 0; i < curRoom->GetRoomItemAmount(); i++) {
        ui->ROOMITEMS->addItem(QString::fromStdString(curRoom->GetRoomItems()[i].GetItemName())); //TODO: Custom Widget to add Item IDs, so we can compare by item ID instead of string
     }
-    this->map->MovePlayer();
+    this->map->UpdateMapUI();
 }
 
 //Advanced preprocessor - uses preprocessor for each of the move directions. Also uses custom exceptions
@@ -49,7 +58,7 @@ void MainWindow::UpdateRoomItemsUI() {
     void MainWindow::on_DPAD_##SLOT_NAME##_clicked() { \
         try { \
         this->zork->Move##MOVE_DIR(); \
-        this->map->MovePlayer(); \
+        this->map->UpdateMapUI(); \
         this->UpdateRoomItemsUI(); \
         this->UpdateRoomDialogueUI(); \
         \

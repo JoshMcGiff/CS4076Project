@@ -53,38 +53,28 @@ Item World::GetItem(size_t index) {
 }
 
 Room* World::MoveNorth(){
-    if(roomArray[iRow-1][jCol] == nullptr){
-        return roomArray[iRow][jCol]; // if doesnt exist return the current room
-    }else{
+    if(roomArray[iRow-1][jCol] != nullptr) { //if exists, move row before return. Otherwise return current room
         iRow -= 1;
     }
-    
     return roomArray[iRow][jCol];
 }
 
 Room* World::MoveSouth(){
-    
-    if(roomArray[iRow+1][jCol] == nullptr){
-        return roomArray[iRow][jCol]; // if doesnt exist return the current room
-    }else{
+    if(roomArray[iRow+1][jCol] != nullptr) { //if exists, move row before return. Otherwise return current room
         iRow += 1;
     }
     return roomArray[iRow][jCol];
 }
 
 Room* World::MoveEast(){
-    if(roomArray[iRow][jCol+1] == nullptr){
-        return roomArray[iRow][jCol]; // if doesnt exist return the current room
-    }else{
+    if(roomArray[iRow][jCol+1] != nullptr) { //if exists, move col before return. Otherwise return current room
         jCol += 1;
     }
     return roomArray[iRow][jCol];
 }
 
 Room* World::MoveWest(){
-    if(roomArray[iRow][jCol-1] == nullptr){
-        return roomArray[iRow][jCol]; // if doesnt exist return the current room
-    }else{
+    if(roomArray[iRow][jCol-1] != nullptr) { //if exists, move col before return. Otherwise return current room
         jCol -= 1;
     }
     return roomArray[iRow][jCol];
@@ -206,14 +196,14 @@ void World::GenerateItems() { // call generateitems after generate rooms
     }
 }
 
-int World::GetRow(){
+int World::GetRow() {
     return iRow;
 }
-int World::GetCol(){
+int World::GetCol() {
     return jCol;
 }
 
-Room* World::GetCurrentRoom(){
+Room* World::GetCurrentRoom() {
     return roomArray[iRow][jCol];
 }
 
