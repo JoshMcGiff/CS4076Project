@@ -18,6 +18,7 @@ protected:
 public:
     virtual RoomType GetRoomType() = 0;
     virtual std::string GetRoomDialogue() = 0;
+    virtual void SetRoomDialogue(const std::string& diag) = 0;
 };
 
 } //namespace Game

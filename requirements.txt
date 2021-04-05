@@ -10,7 +10,6 @@ TODO:
 Definition of template classes     
 dynamic_cast:
 Definition of template functions:
-Advanced pre-processor directives:     
 C++ Object Construction Sequence:
 Operator overloading:
 
@@ -50,7 +49,7 @@ Maximum B1
 ·        
   Bit structures            -------                      (Used for attributes in Items/Rooms)
 ·        
-  Advanced pre-processor
+  Advanced pre-processor    ----------------       (Used for each of the move directions in mainwindow.cpp)
   directives
 ·        
   C++ Object

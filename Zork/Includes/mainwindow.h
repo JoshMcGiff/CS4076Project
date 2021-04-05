@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <memory>
 #include "Zork.hpp"
-
+#include <QListWidgetItem>
 namespace Ui {
 class MainWindow;
 }
@@ -15,7 +15,9 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-    void AddRoomItems();    
+    void RefreshRoomItemsUI();
+    void PickupItems(QListWidgetItem* item);
+    void UpdateRoomDialogue();
     ~MainWindow();
 
 private slots:
@@ -24,6 +26,8 @@ private slots:
     void on_DPAD_RIGHT_clicked();
     void on_DPAD_DOWN_clicked();
     void on_WORLDLIST_currentRowChanged(int currentRow);
+
+    void on_ROOMITEMS_itemDoubleClicked(QListWidgetItem *item);
 
 private:
     Ui::MapWidget* map;

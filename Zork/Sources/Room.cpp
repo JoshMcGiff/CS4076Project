@@ -16,6 +16,10 @@ std::string Room::GetRoomDialogue() {
     return this->roomDialogue;
 }
 
+void Room::SetRoomDialogue(const std::string& diag) {
+    this->roomDialogue = diag;
+}
+
 RoomType Room::GetRoomType() {
     return RoomType::Normal;
 }
@@ -26,6 +30,16 @@ std::vector<Item> Room::GetRoomItems(){
 
 bool Room::AddItem(const Item& item) {
     this->roomItems.push_back(item);
+    return true;
+}
+
+bool Room::RemoveItem(const int index) {
+    if (index < 0 && index >= this->roomItems.size()) {
+        return false;
+    }
+
+
+    this->roomItems.erase(this->roomItems.begin()+index);
     return true;
 }
 

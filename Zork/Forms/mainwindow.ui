@@ -16,6 +16,22 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
+     <widget class="QTextEdit" name="DIALOGUEBOX">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>75</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item>
      <layout class="QGridLayout" name="MAPGRID">
       <item row="0" column="0">
        <widget class="QWidget" name="PAINTWIDGET" native="true">
@@ -34,38 +50,57 @@
       <property name="sizeConstraint">
        <enum>QLayout::SetMaximumSize</enum>
       </property>
-      <item row="5" column="0">
-       <widget class="QListWidget" name="INVENTORYLIST">
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>100</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="4">
+      <item row="3" column="4">
        <widget class="QPushButton" name="DPAD_LEFT">
         <property name="text">
          <string>LEFT</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="5">
-       <widget class="QPushButton" name="DPAD_DOWN">
+      <item row="2" column="7">
+       <widget class="QLabel" name="label_3">
         <property name="text">
-         <string>DOWN</string>
+         <string>Worlds:</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="5">
-       <widget class="QPushButton" name="DPAD_UP">
-        <property name="text">
-         <string>UP</string>
-        </property>
-       </widget>
+      <item row="6" column="4">
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QPushButton" name="pushButton_4">
+          <property name="text">
+           <string>PushButton</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_3">
+          <property name="text">
+           <string>PushButton</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
-      <item row="5" column="7">
+      <item row="6" column="6">
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <widget class="QPushButton" name="pushButton_6">
+          <property name="text">
+           <string>PushButton</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_5">
+          <property name="text">
+           <string>PushButton</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="6" column="7">
        <widget class="QListWidget" name="listWidget_2">
         <property name="maximumSize">
          <size>
@@ -75,14 +110,52 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="6">
+      <item row="6" column="0">
+       <widget class="QListWidget" name="INVENTORYLIST">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>100</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="5">
+       <widget class="QPushButton" name="DPAD_DOWN">
+        <property name="text">
+         <string>DOWN</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Inventory:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="6">
        <widget class="QPushButton" name="DPAD_RIGHT">
         <property name="text">
          <string>RIGHT</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="0">
+      <item row="2" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Items In This Room:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="5">
+       <widget class="QPushButton" name="DPAD_UP">
+        <property name="text">
+         <string>UP</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
        <widget class="QListWidget" name="ROOMITEMS">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -98,7 +171,7 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="7">
+      <item row="1" column="7">
        <widget class="QListWidget" name="WORLDLIST">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -138,6 +211,24 @@
          </property>
         </item>
        </widget>
+      </item>
+      <item row="6" column="5">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="text">
+           <string>PushButton</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="text">
+           <string>PushButton</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </item>
