@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <memory>
+#include <QPainter>
+#include <QPen>
 #include "Zork.hpp"
 
 namespace Ui {
@@ -19,8 +21,12 @@ class MapWidget : public QWidget
 {
     Q_OBJECT
 private:
-    QRect playerRect;
-    Game::World* world;
+    QPainter painter;
+    QPen bluePen;
+    QPen redPen;
+    QPen blackPen;
+    QPen greenPen;
+    QFont textFont;
 
 public:
     MapWidget(std::shared_ptr<Game::Zork> zorkInstance, QWidget* parent = nullptr);
