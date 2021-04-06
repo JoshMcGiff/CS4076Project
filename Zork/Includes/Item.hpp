@@ -6,13 +6,14 @@
 namespace Game {
 
 enum ItemIDs {
-    Torch = 0,
+    None = 0,
+    Torch = 1,
 
 
 
     //Pink World stuffs
-    PINK_MIN = 1,
-    PINK_WAND = 1,
+    PINK_MIN = 2,
+    PINK_WAND = 2,
 
 
 
@@ -42,18 +43,22 @@ class Item {
 private:
     /* data */
     std::string itemName;
-    uint8_t itemID;
     std::string itemDescription;
+    uint16_t itemID;
     union {
         ItemAttributes itemAttributes;
         uint32_t itemAttributesRaw;
     };
 
 public:
+    Item();
     Item(const char* itemName, const uint8_t itemID, const char* itemDescription, const ItemAttributes& itemAttributes);
     Item(const char* itemName, const uint8_t itemID, const char* itemDescription, const uint32_t itemAttributesRaw);
-    std::string GetItemName();
-    bool IsSpecial();
+    std::string GetName() const;
+    bool IsSpecial() const;
+
+    bool operator==(const Item& rhs);
+    friend bool operator==(const Item& lhs, const Item& rhs);
 };
 
 } //namespace Game

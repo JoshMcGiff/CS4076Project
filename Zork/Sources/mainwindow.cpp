@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <iostream>
-#include "MapWidget.hpp"
 #include "Zork.hpp"
 #include "Room.hpp"
 #include <QString>  
@@ -18,7 +17,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->DIALOGUEBOX->setFontPointSize(DIAG_FONT_SIZE);
     Init();
     this->map = new Ui::MapWidget(this->zork, ui->PAINTWIDGET);
+    this->roomItemsWidget = new Ui::QListStorageWidget(ui->ROOMITEMS);
     ui->MAPGRID->replaceWidget(ui->PAINTWIDGET, this->map);
+    ui->MAPGRID->replaceWidget(ui->ROOMITEMS, this->roomItemsWidget);
+    connect(this->roomItemsWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(roomItemsUI_DoubledClick(QListWidgetItem*)));
 }
 
 MainWindow::~MainWindow()
@@ -48,7 +50,7 @@ void MainWindow::UpdateRoomItemsUI() {
 
     ui->ROOMITEMS->clear();
     for (size_t i = 0; i < curRoom->GetRoomItemAmount(); i++) {
-       ui->ROOMITEMS->addItem(QString::fromStdString(curRoom->GetRoomItems()[i].GetItemName())); //TODO: Custom Widget to add Item IDs, so we can compare by item ID instead of string
+       this->roomItemsWidget->addItemWithStorage(curRoom->GetRoomItems()[i]); //TODO: Custom Widget to add Item IDs, so we can compare by item ID instead of string
     }
     this->map->UpdateMapUI();
 }
@@ -79,14 +81,21 @@ void MainWindow::on_WORLDLIST_currentRowChanged(int currentRow) {
     }
 }
 
-void MainWindow::on_ROOMITEMS_itemDoubleClicked(QListWidgetItem *item) {
-    ui->INVENTORYLIST->addItem(item->text());
-    Game::Room* room = this->zork->GetCurrentRoom();
+void MainWindow::roomItemsUI_DoubledClick(QListWidgetItem *item) {
+    printf("Got it! %s\n", item->text().toStdString().c_str());
 
-    for (size_t i = 0; i < room->GetRoomItemAmount(); i++) {
-        if (room->GetRoomItems()[i].GetItemName() == item->text().toStdString()) {
-            room->RemoveItem(i);
-            break;
+    Game::Room* room = this->zork->GetCurrentRoom();
+    if (room == nullptr)
+        return;
+
+    Game::Item newItem;
+    if (roomItemsWidget->getItemFromStorage(item, newItem, true)) {
+        for (size_t i = 0; i < room->GetRoomItemAmount(); i++) {
+            if (room->GetRoomItems()[i] == newItem) {
+                ui->INVENTORYLIST->addItem(item->text());
+                room->RemoveItem(i);
+                break;
+            }
         }
     }
 

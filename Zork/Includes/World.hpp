@@ -20,6 +20,7 @@ namespace Game {
 #define START_COL COL_COUNT / 2
 
 class World {
+    friend class Ui::MapWidget;
 private:
     std::string worldName;
     std::string worldDescription;
@@ -31,7 +32,6 @@ private:
     int iRow;
     int jCol;
 
-    friend class Ui::MapWidget;
     std::array<std::array<Room*, COL_COUNT>, ROW_COUNT> roomArray;
 
 
