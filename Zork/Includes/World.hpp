@@ -37,7 +37,7 @@ private:
 
 public:
 
-    World(const char* name, const char* desc, Game::Item&& keyItem, std::vector<Item>& worldItems); //pass in array of world specific items to constructor
+    World(const char* name, const char* desc, Game::Item&& keyItem, std::vector<Item>& worldItems); //keyItem is pass by move as we construct it inline; pass in array of world specific items to constructor
     ~World();
     Room* MoveNorth();
     Room* MoveSouth();

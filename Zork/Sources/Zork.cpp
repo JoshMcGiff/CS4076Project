@@ -10,23 +10,23 @@ Zork::Zork() : curWorld(nullptr) {
     srand(time(NULL));
 
     std::vector<Item> items1 = {{"Nicki's Candle", PINK_WAND, "Best candle eva", 0}};
-    World* world1 = new World("World 1", "Description", Game::Item("Nicki's Crown", 4, "Queen Shit", 0), items1);
+    World* world1 = new World("World 1", "Description", Game::Item("Nicki's Crown1", 4, "Queen Shit", 0), items1);
     zorkWorlds[0] = world1;
 
     std::vector<Item> items2 = {};
-    World* world2 = new World("World 2", "Description", Game::Item("Nicki's Crown", 4, "Queen Shit", 0), items2);
+    World* world2 = new World("World 2", "Description", Game::Item("Nicki's Crown2", 5, "Queen Shit", 0), items2);
     zorkWorlds[1] = world2;
 
     std::vector<Item> items3 = {};
-    World *world3 = new World("World 3", "Description", Game::Item("Nicki's Crown", 4, "Queen Shit", 0), items3);
+    World *world3 = new World("World 3", "Description", Game::Item("Nicki's Crown3", 6, "Queen Shit", 0), items3);
     zorkWorlds[2] = world3;
 
     std::vector<Item> items4 = {};
-    World* world4 = new World("World 4", "Description", Game::Item("Nicki's Crown", 4, "Queen Shit", 0), items4);
+    World* world4 = new World("World 4", "Description", Game::Item("Nicki's Crown4", 7, "Queen Shit", 0), items4);
     zorkWorlds[3] = world4;
     
     std::vector<Item> items5 = {};
-    World *world5 = new World("World 5", "Description", Game::Item("Nicki's Crown", 4, "Queen Shit", 0), items5);
+    World *world5 = new World("World 5", "Description", Game::Item("Nicki's Crown5", 8, "Queen Shit", 0), items5);
     zorkWorlds[4] = world5;
 }
 

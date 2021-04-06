@@ -7,7 +7,14 @@ Item::Item() : Item("", ItemIDs::None, "", 0)
 
 }
 
-Item::Item(const char* itemName, const uint8_t itemID, const char* itemDescription, const ItemAttributes& itemAttributes)
+Item::Item(const Item& item) { //Shallow copy
+    this->itemName = item.itemName;
+    this->itemDescription = item.itemDescription;
+    this->itemID = item.itemID;
+    this->itemAttributesRaw = item.itemAttributesRaw;
+}
+
+Item::Item(const char *itemName, const uint8_t itemID, const char *itemDescription, const ItemAttributes &itemAttributes)
     : itemName(itemName), itemDescription(itemDescription), itemID(itemID), itemAttributes(itemAttributes)
 {
     

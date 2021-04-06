@@ -10,8 +10,7 @@ TODO:
 Definition of template classes     
 dynamic_cast:
 Definition of template functions:
-C++ Object Construction Sequence:
-Operator overloading:
+C++ Object Construction Sequence: //priint in ctor in debug mode only: RoomBase -> Room -> SpecialRoom
 
 ·        
   Virtual                         ------                (virtual function in Room class, Special Room overwrites with it's own)
@@ -29,6 +28,13 @@ Operator overloading:
   Unions       ------                                   (Used in World Class with different Room types)
 ·        
   dynamic_cast                                    (e.g. casting Room to Special Room)
+
+  func(Room* room) {
+    if (room.isSpedcial) {
+      SpecialRoom* sroom = dynamic_cast<SpecialRoom*>(room);
+
+    }
+  }
 ·        
   ALL LEVEL 2
 
@@ -41,7 +47,7 @@ Maximum B1
   Definition of
   template functions                              (Anytime we need to use function overloading lmao)
 ·        
-  Operator overloading                            (For adding Items to a Room (<<))
+  Operator overloading        -----------                    (Item operator==, needed for QListStorageWidget + used in mainwindow.cpp)
 ·        
   Abstract classes          -------                    (RoomBase class)  
 ·        

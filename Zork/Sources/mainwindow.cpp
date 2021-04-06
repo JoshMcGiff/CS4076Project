@@ -43,6 +43,7 @@ void MainWindow::UpdateRoomDialogueUI() {
 
 void MainWindow::Init() {
     this->UpdateRoomDialogueUI();
+    this->UpdateRoomItemsUI();
 }
 
 void MainWindow::UpdateRoomItemsUI() {
@@ -53,7 +54,10 @@ void MainWindow::UpdateRoomItemsUI() {
 
     this->roomItemsWidget->clear();
     for (size_t i = 0; i < curRoom->GetRoomItemAmount(); i++) {
-       this->roomItemsWidget->addItemWithStorage(curRoom->GetRoomItems()[i]); //TODO: Custom Widget to add Item IDs, so we can compare by item ID instead of string
+        Game::Item item;
+        if (curRoom->GetItem(i, item)) {
+            this->roomItemsWidget->addItemWithStorage(item); 
+        }
     }
     this->map->UpdateMapUI();
 }
@@ -79,9 +83,12 @@ MOVE_FUNC(RIGHT, East)
 
 void MainWindow::on_WORLDLIST_currentRowChanged(int currentRow) {
     if (this->zork->SetWorld(currentRow)) {
+        this->map->UpdateMapUI();
+        UpdateRoomItemsUI();
         UpdateRoomDialogueUI();
-        update();
     }
+
+    ui->WORLDLIST->setCurrentRow(ui->WORLDLIST->currentRow(), QItemSelectionModel::Deselect|QItemSelectionModel::Clear);
 }
 
 void MainWindow::roomItemsUI_DoubledClick(QListWidgetItem *item) {
@@ -89,13 +96,22 @@ void MainWindow::roomItemsUI_DoubledClick(QListWidgetItem *item) {
     if (room == nullptr)
         return;
 
+
+    printf("tryign to take %s\n", item->text().toStdString().c_str());
     Game::Item newItem;
-    if (roomItemsWidget->getItemFromStorage(item, newItem, true)) {
+    if (roomItemsWidget->getItemFromStorage(item, newItem, false)) {
+        printf("Item gotten from storage: %s\n", newItem.GetName().c_str());
         for (size_t i = 0; i < room->GetRoomItemAmount(); i++) {
-            if (room->GetRoomItems()[i] == newItem) {
-                ui->INVENTORYLIST->addItem(item->text());
-                room->RemoveItem(i);
-                break;
+            Game::Item checkItem;
+            if (room->GetItem(i, checkItem)) {
+                printf("Item gotten from Room: %s\n", checkItem.GetName().c_str());
+                if (checkItem == newItem)
+                {
+                    ui->INVENTORYLIST->addItem(item->text());
+                    roomItemsWidget->removeItemWithStorage(newItem);
+                    room->RemoveItem(i);
+                    break;
+                }
             }
         }
     }

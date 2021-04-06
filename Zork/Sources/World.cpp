@@ -127,7 +127,7 @@ void World::GenerateSpecialRoom(int row, int col){
             for(int i = row-1; i < ROW_COUNT; i++){
                 if(roomArray[row+i][col] == nullptr){
                     roomArray[row+i][col] = SpecialRoom::NewSpecialRoom();
-                    roomArray[row+i][col]->GetRoomItems().push_back(keyItem);
+                    roomArray[row+i][col]->AddItem(keyItem);
                     return;
                 }
             }
@@ -136,7 +136,7 @@ void World::GenerateSpecialRoom(int row, int col){
             for(int i = row-1; i < ROW_COUNT; i++){
                 if(roomArray[row + (row - i - 1)][col] == nullptr){
                     roomArray[row + (row - i - 1)][col] = SpecialRoom::NewSpecialRoom();
-                    roomArray[row + (row - i - 1)][col]->GetRoomItems().push_back(keyItem);
+                    roomArray[row + (row - i - 1)][col]->AddItem(keyItem);
                     return;
                 }       
             }
@@ -145,7 +145,7 @@ void World::GenerateSpecialRoom(int row, int col){
             for(int j = col-1; j < COL_COUNT; j++){
                 if(roomArray[row][col+j] == nullptr){
                     roomArray[row][col+j] = SpecialRoom::NewSpecialRoom();
-                    roomArray[row][col+j]->GetRoomItems().push_back(keyItem);
+                    roomArray[row][col+j]->AddItem(keyItem);
                     return;
                 }
             }
@@ -154,7 +154,7 @@ void World::GenerateSpecialRoom(int row, int col){
             for(int j = col-1; j < COL_COUNT; j++){
                 if(roomArray[row][col + (col - j - 1)] == nullptr){
                     roomArray[row][col + (col - j - 1)] = SpecialRoom::NewSpecialRoom();
-                    roomArray[row][col + (col - j - 1)]->GetRoomItems().push_back(keyItem);
+                    roomArray[row][col + (col - j - 1)]->AddItem(keyItem);
                     return;
                 }
             }
@@ -163,20 +163,6 @@ void World::GenerateSpecialRoom(int row, int col){
 }
 
 void World::GenerateItems() { // call generateitems after generate rooms
-    bool specialItemAdded = false;
-    for (int row = 0; (row < ROW_COUNT) && !specialItemAdded; row++) {
-        for (int col = 0; (col < COL_COUNT) && !specialItemAdded; col++) {
-            Room* room = roomArray[row][col];
-            if (room != nullptr) {
-                if (room->GetRoomType() == Game::RoomType::Special) {
-                    printf("Added Special Item\n");
-                    room->AddItem(keyItem);
-                    specialItemAdded = true;
-                }
-            }
-        }
-    }
-
     if (worldItems.empty()) {
         return;
     }
@@ -191,7 +177,7 @@ void World::GenerateItems() { // call generateitems after generate rooms
             if (room->GetRoomType() != Game::RoomType::Special) {
                 room->AddItem(GetItem(itemIndex));
             }
-   itemIndex++;
+            itemIndex++;
         }
     }
 }

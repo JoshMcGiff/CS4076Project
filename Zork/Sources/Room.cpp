@@ -4,17 +4,30 @@
 namespace Game {
 
 Room::Room() {
+    roomItems = new std::vector<Game::Item>();
+}
 
+Room::Room(const Room* room) { //Deep 🌹🌹🔪💀🔪🖤 Copy
+    roomAttribute = room->roomAttribute;
+    isLocked = room->isLocked;
+    roomDialogue = room->roomDialogue;
+
+    roomItems = new std::vector<Game::Item>(*room->roomItems); //uses deep copy 
 }
 
 Room::~Room() {
-
+    delete roomItems;
 }
 
-Room* Room::NewRoom() {
-    Room* room = new Room();
-    room->GenerateRoomDialogue();
-    return room;
+Room* Room::NewRoom(Room* room) {
+    if (room) {
+       Room* newroom = new Room(room); //deep copy
+       return newroom;
+    }
+
+    Room* newroom = new Room();
+    newroom->GenerateRoomDialogue();
+    return newroom;
 }
 
 void Room::GenerateRoomDialogue() {
@@ -64,26 +77,35 @@ RoomType Room::GetRoomType() {
     return RoomType::Normal;
 }
 
-std::vector<Item> Room::GetRoomItems() {
+std::vector<Item>* Room::GetRoomItems() {
     return this->roomItems;
 }
 
 bool Room::AddItem(const Item& item) {
-    this->roomItems.push_back(item);
+    this->roomItems->push_back(item);
     return true;
 }
 
 bool Room::RemoveItem(const size_t index) {
-    if (index >= this->roomItems.size()) {
+    if (index >= this->roomItems->size()) {
         return false;
     }
 
-    this->roomItems.erase(this->roomItems.begin()+index);
+    this->roomItems->erase(this->roomItems->begin()+index);
+    return true;
+}
+
+bool Room::GetItem(const size_t index, Game::Item& item) {
+    if (index >= this->roomItems->size()) {
+        return false;
+    }
+
+    item = (*this->roomItems)[index];
     return true;
 }
 
 size_t Room::GetRoomItemAmount() { //returns std::size_t as it's the return trype from std::vector::size
-    return this->roomItems.size();
+    return this->roomItems->size();
 }
 
 }; //namespace Game
