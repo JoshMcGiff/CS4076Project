@@ -5,6 +5,8 @@ namespace Ui {
 QListStorageWidget::QListStorageWidget(QWidget* parent) 
     : QListWidget(parent)
 {
+    this->setSizePolicy(QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Maximum);
+    this->setMaximumSize(this->maximumWidth(), 100);
 
 }
 

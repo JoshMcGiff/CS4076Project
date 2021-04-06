@@ -19,7 +19,10 @@ MainWindow::MainWindow(QWidget *parent) :
     this->map = new Ui::MapWidget(this->zork, ui->PAINTWIDGET);
     this->roomItemsWidget = new Ui::QListStorageWidget(ui->ROOMITEMS);
     ui->MAPGRID->replaceWidget(ui->PAINTWIDGET, this->map);
-    ui->MAPGRID->replaceWidget(ui->ROOMITEMS, this->roomItemsWidget);
+    ui->gridLayout->replaceWidget(ui->ROOMITEMS, this->roomItemsWidget);
+    ui->ROOMITEMS->hide();
+    ui->PAINTWIDGET->hide();
+
     connect(this->roomItemsWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(roomItemsUI_DoubledClick(QListWidgetItem*)));
 }
 
@@ -48,7 +51,7 @@ void MainWindow::UpdateRoomItemsUI() {
         return;
     }
 
-    ui->ROOMITEMS->clear();
+    this->roomItemsWidget->clear();
     for (size_t i = 0; i < curRoom->GetRoomItemAmount(); i++) {
        this->roomItemsWidget->addItemWithStorage(curRoom->GetRoomItems()[i]); //TODO: Custom Widget to add Item IDs, so we can compare by item ID instead of string
     }
@@ -82,8 +85,6 @@ void MainWindow::on_WORLDLIST_currentRowChanged(int currentRow) {
 }
 
 void MainWindow::roomItemsUI_DoubledClick(QListWidgetItem *item) {
-    printf("Got it! %s\n", item->text().toStdString().c_str());
-
     Game::Room* room = this->zork->GetCurrentRoom();
     if (room == nullptr)
         return;
