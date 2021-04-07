@@ -5,6 +5,7 @@
 #include "Room.hpp"
 #include <QString>  
 #include <QObject>
+#include <QShortcut>
 
 #define DIAG_FONT_SIZE 25
 
@@ -22,7 +23,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->gridLayout->replaceWidget(ui->ROOMITEMS, this->roomItemsWidget);
     ui->ROOMITEMS->hide();
     ui->PAINTWIDGET->hide();
+    QShortcut *upShortcut = new QShortcut(QKeySequence("Ctrl+W"), parent);
+    QShortcut *downShortcut = new QShortcut(QKeySequence("Ctrl+S"), parent);
+    QShortcut *leftShortcut = new QShortcut(QKeySequence("Ctrl+A"), parent);
+    QShortcut *rightShortcut = new QShortcut(QKeySequence("Ctrl+D"), parent);
 
+    QObject::connect(upShortcut, SIGNAL(on_DPAD_UP_clicked()), this, SLOT(MOVE_FUNC(UP, North)));
     connect(this->roomItemsWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(roomItemsUI_DoubledClick(QListWidgetItem*)));
 }
 
@@ -108,6 +114,7 @@ void MainWindow::roomItemsUI_DoubledClick(QListWidgetItem *item) {
                 if (checkItem == newItem)
                 {
                     ui->INVENTORYLIST->addItem(item->text());
+                    zork->GetCurrentWorld()->AddItemPlayerInventory(newItem);
                     roomItemsWidget->removeItemWithStorage(newItem);
                     room->RemoveItem(i);
                     break;

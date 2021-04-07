@@ -61,6 +61,9 @@
         <property name="text">
          <string>LEFT</string>
         </property>
+        <property name="shortcut">
+         <string>Ctrl+A</string>
+        </property>
        </widget>
       </item>
       <item row="2" column="7">
@@ -131,6 +134,9 @@
         <property name="text">
          <string>DOWN</string>
         </property>
+        <property name="shortcut">
+         <string>Ctrl+S</string>
+        </property>
        </widget>
       </item>
       <item row="4" column="0">
@@ -145,6 +151,9 @@
         <property name="text">
          <string>RIGHT</string>
         </property>
+        <property name="shortcut">
+         <string>Ctrl+D</string>
+        </property>
        </widget>
       </item>
       <item row="2" column="0">
@@ -158,6 +167,9 @@
        <widget class="QPushButton" name="DPAD_UP">
         <property name="text">
          <string>UP</string>
+        </property>
+        <property name="shortcut">
+         <string>Ctrl+W</string>
         </property>
        </widget>
       </item>
@@ -246,7 +258,7 @@
      <x>0</x>
      <y>0</y>
      <width>849</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>

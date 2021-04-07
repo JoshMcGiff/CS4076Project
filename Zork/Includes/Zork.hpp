@@ -23,6 +23,7 @@ private:
     std::array<World*, WORLD_AMOUNT> zorkWorlds;
     Ui::MapWidget* map;
     World* curWorld;
+    bool HasKeyItem();
 
 public:
     Zork();
@@ -31,11 +32,12 @@ public:
     World* GetCurrentWorld();
     Room* GetCurrentRoom();
     bool SetWorld(size_t index);
-
     int MoveNorth();
     void MoveSouth();
     void MoveEast();
     void MoveWest();
+    
+
 };
 
 } //namespace Game

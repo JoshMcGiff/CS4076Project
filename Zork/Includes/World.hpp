@@ -25,19 +25,20 @@ private:
     std::string worldName;
     std::string worldDescription;
     std::vector<Item> worldItems; //Store items here
+    std::vector<Item> playerInventory; //Store items here
     Item keyItem; // key in special room needed to finish the game
     void GenerateRooms(int row, int col, int chanceDecrease);
     void GenerateSpecialRoom(int row, int col);
     void GenerateItems();
     int iRow;
     int jCol;
-
+    bool HasKeyItem();
     std::array<std::array<Room*, COL_COUNT>, ROW_COUNT> roomArray;
 
 
 public:
 
-    World(const char* name, const char* desc, Game::Item&& keyItem, std::vector<Item>& worldItems); //keyItem is pass by move as we construct it inline; pass in array of world specific items to constructor
+    World(const char* name, const char* desc, Game::Item&& keyItem, std::vector<Item>& worldItems, std::vector<Item>& playerInventory); //keyItem is pass by move as we construct it inline; pass in array of world specific items to constructor
     ~World();
     Room* MoveNorth();
     Room* MoveSouth();
@@ -49,6 +50,7 @@ public:
     int GetRow();
     int GetCol();
     Room* GetCurrentRoom();
+    void AddItemPlayerInventory(Item& item);
 
 
 };

@@ -29,6 +29,9 @@ Item::Item(const char* itemName, const uint8_t itemID, const char* itemDescripti
 bool Item::IsSpecial() const {
     return itemAttributes.isSpecial;
 }
+bool Item::IsKey() const {
+    return itemAttributes.isKey;
+}
 
 std::string Item::GetName() const {
     return itemName;
