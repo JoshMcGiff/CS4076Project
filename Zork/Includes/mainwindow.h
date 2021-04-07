@@ -21,6 +21,7 @@ public:
 
     void UpdateRoomItemsUI();
     void UpdateRoomDialogueUI();
+    void UpdateInventoryUI();
 
 private slots:
     void on_DPAD_UP_clicked();

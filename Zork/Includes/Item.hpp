@@ -58,7 +58,7 @@ public:
     Item(const char* itemName, const uint8_t itemID, const char* itemDescription, const uint32_t itemAttributesRaw);
     std::string GetName() const;
     bool IsSpecial() const;
-    bool IsKey() const ;
+    bool IsKey() const;
 
     bool operator==(const Item& rhs);
     friend bool operator==(const Item& lhs, const Item& rhs);

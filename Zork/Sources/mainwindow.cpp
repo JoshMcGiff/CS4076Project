@@ -65,6 +65,16 @@ void MainWindow::UpdateRoomItemsUI() {
     this->map->UpdateMapUI();
 }
 
+void MainWindow::UpdateInventoryUI() {
+    ui->INVENTORYLIST->clear();
+    for (size_t i = 0; i < zork->GetInventoryItemAmount(); i++) {
+        Game::Item item;
+        if (zork->GetItemFromInventory(i, item)) {
+            ui->INVENTORYLIST->addItem(QString::fromStdString(item.GetName()));
+        }
+    }
+}
+
 //Advanced preprocessor - uses preprocessor for each of the move directions. Also uses custom exceptions
 #define MOVE_FUNC(SLOT_NAME, MOVE_DIR) \
     void MainWindow::on_DPAD_##SLOT_NAME##_clicked() { \
@@ -99,15 +109,13 @@ void MainWindow::roomItemsUI_DoubledClick(QListWidgetItem *item) {
     if (room == nullptr)
         return;
 
-
     Game::Item newItem;
     if (roomItemsWidget->getItemFromStorage(item, newItem, false)) {
         for (size_t i = 0; i < room->GetRoomItemAmount(); i++) {
             Game::Item checkItem;
             if (room->GetItem(i, checkItem)) {
                 if (checkItem == newItem) {
-                    ui->INVENTORYLIST->addItem(item->text());
-                    zork->GetCurrentWorld()->AddItemPlayerInventory(newItem);
+                    zork->AddItemToInventory(newItem);
                     roomItemsWidget->removeItemWithStorage(newItem);
                     room->RemoveItem(i);
                     break;
@@ -117,4 +125,5 @@ void MainWindow::roomItemsUI_DoubledClick(QListWidgetItem *item) {
     }
 
     this->UpdateRoomItemsUI();
+    this->UpdateInventoryUI();
 }

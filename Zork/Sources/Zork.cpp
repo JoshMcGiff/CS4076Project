@@ -6,29 +6,28 @@ __attribute__((unused)) bool thisIsAUsefulVariable = false; //Unused Global Vari
 
 namespace Game {
 
-Zork::Zork() : curWorld(nullptr) {
+Zork::Zork() : curWorld(nullptr), playerInventory() {
     srand(time(NULL));
 
-    std::vector<Item> playerInventory = {}; 
     std::vector<Item> items1 = {{"Nicki's Candle", PINK_WAND, "Best candle eva", 8}};
     
-    World* world1 = new World("World 1", "Description", Game::Item("Nicki's Crown1", 4, "Queen Shit", 0), items1, playerInventory);
+    World* world1 = new World("World 1", "Description", Game::Item("Nicki's Crown1", 4, "Queen Shit", 0), items1);
     zorkWorlds[0] = world1;
 
     std::vector<Item> items2 = {};
-    World* world2 = new World("World 2", "Description", Game::Item("Nicki's Crown2", 5, "Queen Shit", 0), items2, playerInventory);
+    World* world2 = new World("World 2", "Description", Game::Item("Nicki's Crown2", 5, "Queen Shit", 0), items2);
     zorkWorlds[1] = world2;
 
     std::vector<Item> items3 = {};
-    World *world3 = new World("World 3", "Description", Game::Item("Nicki's Crown3", 6, "Queen Shit", 0), items3, playerInventory);
+    World *world3 = new World("World 3", "Description", Game::Item("Nicki's Crown3", 6, "Queen Shit", 0), items3);
     zorkWorlds[2] = world3;
 
     std::vector<Item> items4 = {};
-    World* world4 = new World("World 4", "Description", Game::Item("Nicki's Crown4", 7, "Queen Shit", 0), items4, playerInventory);
+    World* world4 = new World("World 4", "Description", Game::Item("Nicki's Crown4", 7, "Queen Shit", 0), items4);
     zorkWorlds[3] = world4;
     
     std::vector<Item> items5 = {};
-    World *world5 = new World("World 5", "Description", Game::Item("Nicki's Crown5", 8, "Queen Shit", 0), items5, playerInventory);
+    World *world5 = new World("World 5", "Description", Game::Item("Nicki's Crown5", 8, "Queen Shit", 0), items5);
     zorkWorlds[4] = world5;
 }
 
@@ -55,6 +54,7 @@ int Zork::MoveNorth() {
     curWorld->MoveNorth();
     return 0;
 }
+
 void Zork::MoveSouth() {
     if (curWorld == nullptr) {
         throw ZorkException("MoveSouth: World does not exist");
@@ -63,6 +63,7 @@ void Zork::MoveSouth() {
 
     curWorld->MoveSouth();
 }
+
 void Zork::MoveEast() {
     if (curWorld == nullptr) {
         throw ZorkException("MoveEast: World does not exist");
@@ -71,6 +72,7 @@ void Zork::MoveEast() {
 
     curWorld->MoveEast();
 }
+
 void Zork::MoveWest() {
     if (curWorld == nullptr) {
         throw ZorkException("MoveWest: World does not exist");
@@ -93,6 +95,41 @@ Room* Zork::GetCurrentRoom() {
         return this->curWorld->GetCurrentRoom();
     }
     return nullptr;
+}
+
+std::vector<Game::Item>* Zork::GetInventoryItems() {
+    return &this->playerInventory;
+}
+
+size_t Zork::GetInventoryItemAmount() {
+    return this->playerInventory.size();
+}
+
+bool Zork::AddItemToInventory(const Item& item) {
+    this->playerInventory.push_back(item);
+    return true;
+}
+
+bool Zork::RemoveItemFromInventory(const size_t index) {
+    if (index >= this->playerInventory.size()) {
+        return false;
+    }
+
+    this->playerInventory.erase(this->playerInventory.begin()+index);
+    return true;
+}
+
+bool Zork::GetItemFromInventory(const size_t index, Game::Item& item) {
+    if (index >= this->playerInventory.size()) {
+        return false;
+    }
+
+    item = this->playerInventory[index];
+    return true;
+}
+
+void Zork::ClearInventory() {
+    this->playerInventory.clear();
 }
 
 } //namespace Game

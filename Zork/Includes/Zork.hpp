@@ -3,7 +3,9 @@
 
 #include <array>
 #include <memory>
+#include <vector>
 #include "World.hpp"
+#include "Item.hpp"
 #include "ZorkException.hpp"
 
 namespace Game {
@@ -20,10 +22,10 @@ enum WORLDS : int {
 
 class Zork {
 private:
-    std::array<World*, WORLD_AMOUNT> zorkWorlds;
-    Ui::MapWidget* map;
     World* curWorld;
-    bool HasKeyItem();
+    std::array<World*, WORLD_AMOUNT> zorkWorlds;
+    std::vector<Game::Item> playerInventory;
+    Ui::MapWidget* map;
 
 public:
     Zork();
@@ -37,7 +39,13 @@ public:
     void MoveEast();
     void MoveWest();
     
+    std::vector<Game::Item>* GetInventoryItems();
+    size_t GetInventoryItemAmount();
 
+    bool AddItemToInventory(const Item& item); //Returns true if adding an item to the inventory is successful
+    bool RemoveItemFromInventory(const size_t index); //Returns true if removing an item from the inventory is successful
+    bool GetItemFromInventory(const size_t index, Game::Item& item); //Returns true if getting an item from the inventory is successful
+    void ClearInventory();
 };
 
 } //namespace Game

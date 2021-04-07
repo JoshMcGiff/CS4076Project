@@ -16,8 +16,8 @@ namespace Game {
     #define REGISTER register
 #endif
 
-World::World(const char* name, const char* desc, Game::Item&& keyItem, std::vector<Item>& worldItems,std::vector<Item>& playerInventory) 
-    : worldName(name), worldDescription(desc), keyItem(keyItem), iRow(START_ROW), jCol(START_COL), playerInventory(playerInventory)
+World::World(const char* name, const char* desc, Game::Item&& keyItem, std::vector<Item>& worldItems) 
+    : worldName(name), worldDescription(desc), keyItem(keyItem), iRow(START_ROW), jCol(START_COL)
 {
     this->SetItems(worldItems);
     this->Generate();
@@ -52,47 +52,38 @@ Item World::GetItem(size_t index) {
     return worldItems[index];
 }
 
-bool World::HasKeyItem(){
-    for(size_t i = 0; i < playerInventory.size(); i++){
-        if(playerInventory[i].IsKey()){
-            return true;
-        }
-    }
-    return false;
-}
-
 Room* World::MoveNorth(){
     if(roomArray[iRow-1][jCol] != nullptr) { //if exists, move row before return. Otherwise return current room
-        if((HasKeyItem() && (roomArray[iRow-1][jCol]->GetRoomType() == RoomType::Special)  ) || roomArray[iRow-1][jCol]->GetRoomType() == RoomType::Normal){ //&& has keyItem for that world)
+        //if((HasKeyItem() && (roomArray[iRow-1][jCol]->GetRoomType() == RoomType::Special)  ) || roomArray[iRow-1][jCol]->GetRoomType() == RoomType::Normal){ //&& has keyItem for that world)
             iRow -= 1;
-        }
+        //}
     }
     return roomArray[iRow][jCol];
 }
 
 Room* World::MoveSouth(){
     if(roomArray[iRow+1][jCol] != nullptr) { //if exists, move row before return. Otherwise return current room
-        if((HasKeyItem() && (roomArray[iRow+1][jCol]->GetRoomType() == RoomType::Special) ) || roomArray[iRow+1][jCol]->GetRoomType() == RoomType::Normal){ //&& has keyItem for that world)
+        //if((HasKeyItem() && (roomArray[iRow+1][jCol]->GetRoomType() == RoomType::Special) ) || roomArray[iRow+1][jCol]->GetRoomType() == RoomType::Normal){ //&& has keyItem for that world)
             iRow += 1;
-        }
+        //}
     }
     return roomArray[iRow][jCol];
 }
 
 Room* World::MoveEast(){
     if(roomArray[iRow][jCol+1] != nullptr) { //if exists, move col before return. Otherwise return current room
-        if((HasKeyItem() && (roomArray[iRow][jCol+1]->GetRoomType() == RoomType::Special)) || roomArray[iRow][jCol+1]->GetRoomType() == RoomType::Normal){ //&& has keyItem for that world)
+        //if((HasKeyItem() && (roomArray[iRow][jCol+1]->GetRoomType() == RoomType::Special)) || roomArray[iRow][jCol+1]->GetRoomType() == RoomType::Normal){ //&& has keyItem for that world)
             jCol += 1;
-        }
+        //}
     }
     return roomArray[iRow][jCol];
 }
 
 Room* World::MoveWest(){
     if(roomArray[iRow][jCol-1] != nullptr) { //if exists, move col before return. Otherwise return current room
-        if((HasKeyItem() && (roomArray[iRow][jCol-1]->GetRoomType() == RoomType::Special) ) || roomArray[iRow][jCol-1]->GetRoomType() == RoomType::Normal){ //&& has keyItem for that world)
+        //if((HasKeyItem() && (roomArray[iRow][jCol-1]->GetRoomType() == RoomType::Special) ) || roomArray[iRow][jCol-1]->GetRoomType() == RoomType::Normal){ //&& has keyItem for that world)
             jCol -= 1;
-        }
+        //}
     }
     return roomArray[iRow][jCol];
 }
@@ -205,11 +196,6 @@ int World::GetRow() {
 int World::GetCol() {
     return jCol;
 }
-
-void World::AddItemPlayerInventory(Item& item){
-    this->playerInventory.push_back(item);
-}
-
 
 Room* World::GetCurrentRoom() {
     return roomArray[iRow][jCol];
