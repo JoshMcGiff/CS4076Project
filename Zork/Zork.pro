@@ -2,7 +2,17 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += gnu++17
+CONFIG += gnu++17 #Using GNU C++17 standard
+
+CONFIG(debug, debug|release) { #if compiling in debug mode
+  DEFINES += ZORK_DEBUG
+  CONFIG += console
+}
+
+CONFIG(release, debug|release) { #if compiling in release mode
+  DEFINES += ZORK_RELEASE
+  DEFINES += QT_NO_DEBUG_OUTPUT
+}
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.

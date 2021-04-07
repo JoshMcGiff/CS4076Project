@@ -225,13 +225,15 @@ void World::Generate() {
     this->GenerateSpecialRoom(START_ROW, START_COL);
     this->GenerateItems();
 
+    #ifdef ZORK_DEBUG
     for(int i = 0; i < ROW_COUNT; i++) {
         for(int j = 0; j < COL_COUNT; j++) {
             printf("%llX\t", (uint64_t)roomArray[i][j]);
         }
         printf("\n");
     }   
-    printf("\n");
+    printf("\n\n");
+    #endif
 }
 
 } //namespace Game

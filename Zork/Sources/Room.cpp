@@ -4,10 +4,14 @@
 namespace Game {
 
 Room::Room() {
+    #ifdef ZORK_DEBUG
+    printf("Construting Room Object!\n");
+    #endif
+
     roomItems = new std::vector<Game::Item>();
 }
 
-Room::Room(const Room* room) { //Deep 🌹🌹🔪💀🔪🖤 Copy
+Room::Room(const Room* room) { //Deep Copy
     roomAttribute = room->roomAttribute;
     isLocked = room->isLocked;
     roomDialogue = room->roomDialogue;

@@ -3,7 +3,9 @@
 namespace Game{
 
 SpecialRoom::SpecialRoom() {
-
+    #ifdef ZORK_DEBUG
+    printf("Construting SpecialRoom Object!\n");
+    #endif
 }
 
 SpecialRoom::~SpecialRoom() {

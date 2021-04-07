@@ -2,7 +2,11 @@
 
 namespace Game {
 
-RoomBase::RoomBase() { }
+RoomBase::RoomBase() {
+    #ifdef ZORK_DEBUG
+    printf("Construting RoomBase Object!\n");
+    #endif
+}
 
 RoomBase::~RoomBase() { }
 
