@@ -4,7 +4,7 @@
 ![Week02](https://imgur.com/7wAzE4A.png)
 ## Week03 Planning:
 ### This week was dominated by planning out how we were going to structure our project. This included thinking about the types or classes that we would need and how we would link them to the visual/event driven element of the entire assignment. We found it was very beneficial to brainstorm the kind of functions that would be required from an abstract point of view for each of them too.
-![Week03](https://imgur.com/a/h8Kzece.png)
+![Week03](https://i.imgur.com/vZ53wT7.png)
 ## Week04 Early Development:
 ### Our first proper stint of programming consisted of us creating the class/header files that we originally planned out. We then proceeded to begin implementing Room and Item generation. The majority of the session centered around finding the most efficient ways of generating the different rooms and worlds in a procedural manner. We initially implemeted a tree-structure for creating a map.
 ## Week05 U-Turn:
@@ -15,4 +15,4 @@
 ### We spent this week implementing the movement of the player. This was an important step that took a bit of time to implement properly. We also spent time working on general bugs and fixes.
 ## Week08 Map Generation:
 ### This week was the start of implementing some of the more advanced visual elements. QPainter was used to create a live map of the worlds and rooms in our game. They are drawn to the screen extremely efficiently and they also detail whether there is an item in the room. This feature took a chunk of time to implement due to us having to get to grasps with some of QT's specific features.
-![Week08](https://imgur.com/a/yBWSSdi.png)
+![Week08](https://i.imgur.com/vlhjVwN.png)
