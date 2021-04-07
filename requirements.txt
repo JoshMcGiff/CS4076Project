@@ -7,7 +7,6 @@ Maximum A1
 
 
 TODO:
-Definition of template classes     
 dynamic_cast:
 Definition of template functions:
 C++ Object Construction Sequence: //priint in ctor in debug mode only: RoomBase -> Room -> SpecialRoom
@@ -16,8 +15,7 @@ C++ Object Construction Sequence: //priint in ctor in debug mode only: RoomBase 
   Virtual                         ------                (virtual function in Room class, Special Room overwrites with it's own)
   functions                                       (Or use in UI lmao 😂😂😂😂😂😂😂😂😂)
 ·        
-  Definition of                                   
-  template classes                                
+  Definition of template classes ------------- (used in QListStorageWidget.hpp, our custom widget class)                                
 ·        
   Multiple inheritance          -----------          (RoomBase -> Room -> SpecialRoom)
 ·        

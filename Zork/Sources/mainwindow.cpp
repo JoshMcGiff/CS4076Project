@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->MAPGRID->replaceWidget(ui->PAINTWIDGET, this->map);
     ui->PAINTWIDGET->hide();
 
-    this->roomItemsWidget = new Ui::QListStorageWidget(ui->ROOMITEMS);
+    this->roomItemsWidget = new Ui::QListStorageWidget<Game::Item>(ui->ROOMITEMS);
     this->roomItemsWidget->setFocusPolicy(Qt::FocusPolicy::NoFocus);
     ui->gridLayout->replaceWidget(ui->ROOMITEMS, this->roomItemsWidget);
     ui->ROOMITEMS->hide();

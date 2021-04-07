@@ -33,7 +33,7 @@ private slots:
 private:
     void Init();
     Ui::MapWidget* map;
-    Ui::QListStorageWidget* roomItemsWidget;
+    Ui::QListStorageWidget<Game::Item>* roomItemsWidget;
     Ui::MainWindow *ui;
     std::shared_ptr<Game::Zork> zork;
 };
