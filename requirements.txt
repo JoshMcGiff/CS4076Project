@@ -7,9 +7,7 @@ Maximum A1
 
 
 TODO:
-dynamic_cast:
 Definition of template functions:
-C++ Object Construction Sequence: //priint in ctor in debug mode only: RoomBase -> Room -> SpecialRoom
 
 ·        
   Virtual                         ------                (virtual function in Room class, Special Room overwrites with it's own)
@@ -25,14 +23,8 @@ C++ Object Construction Sequence: //priint in ctor in debug mode only: RoomBase 
 ·        
   Unions       ------                                   (Used in World Class with different Room types)
 ·        
-  dynamic_cast                                    (e.g. casting Room to Special Room)
+  dynamic_cast     ---------------------    (casting Special Room to Room)
 
-  func(Room* room) {
-    if (room.isSpedcial) {
-      SpecialRoom* sroom = dynamic_cast<SpecialRoom*>(room);
-
-    }
-  }
 ·        
   ALL LEVEL 2
 
@@ -57,7 +49,7 @@ Maximum B1
   directives
 ·        
   C++ Object
-  Construction Sequence     (What does he mean exactly by this? Does he just mean inheritance, or does he mean we need to show/print the order of object construction)
+  Construction Sequence ------------------------    (In Debug mode, we print out the order of RoomBase -> Room -> SpecialRoom in their respective ctors)
 ·        
   Initializer List      -----                          Used in class ctors
 ·        

@@ -17,7 +17,7 @@ namespace Game {
 #endif
 
 World::World(const char* name, const char* desc, Game::Item&& keyItem, std::vector<Item>& worldItems) 
-    : worldName(name), worldDescription(desc), keyItem(keyItem), iRow(START_ROW), jCol(START_COL)
+    : worldName(name), worldDescription(desc), keyItem(keyItem), iRow(START_ROW), jCol(START_COL), hasCollectedKeyItem(false)
 {
     this->SetItems(worldItems);
     this->Generate();
@@ -54,36 +54,40 @@ Item World::GetItem(size_t index) {
 
 Room* World::MoveNorth(){
     if(roomArray[iRow-1][jCol] != nullptr) { //if exists, move row before return. Otherwise return current room
-        //if((HasKeyItem() && (roomArray[iRow-1][jCol]->GetRoomType() == RoomType::Special)  ) || roomArray[iRow-1][jCol]->GetRoomType() == RoomType::Normal){ //&& has keyItem for that world)
+        RoomType roomtype = roomArray[iRow-1][jCol]->GetRoomType();
+        if((hasCollectedKeyItem && (roomtype == RoomType::Special)) || roomtype == RoomType::Normal) { //&& has keyItem for that world)
             iRow -= 1;
-        //}
+        }
     }
     return roomArray[iRow][jCol];
 }
 
 Room* World::MoveSouth(){
     if(roomArray[iRow+1][jCol] != nullptr) { //if exists, move row before return. Otherwise return current room
-        //if((HasKeyItem() && (roomArray[iRow+1][jCol]->GetRoomType() == RoomType::Special) ) || roomArray[iRow+1][jCol]->GetRoomType() == RoomType::Normal){ //&& has keyItem for that world)
+        RoomType roomtype = roomArray[iRow+1][jCol]->GetRoomType();
+        if((hasCollectedKeyItem && (roomtype == RoomType::Special)) || roomtype == RoomType::Normal) { //&& has keyItem for that world)
             iRow += 1;
-        //}
+        }
     }
     return roomArray[iRow][jCol];
 }
 
 Room* World::MoveEast(){
     if(roomArray[iRow][jCol+1] != nullptr) { //if exists, move col before return. Otherwise return current room
-        //if((HasKeyItem() && (roomArray[iRow][jCol+1]->GetRoomType() == RoomType::Special)) || roomArray[iRow][jCol+1]->GetRoomType() == RoomType::Normal){ //&& has keyItem for that world)
+        RoomType roomtype = roomArray[iRow][jCol+1]->GetRoomType();
+        if((hasCollectedKeyItem && (roomtype == RoomType::Special)) || roomtype == RoomType::Normal) { //&& has keyItem for that world)
             jCol += 1;
-        //}
+        }
     }
     return roomArray[iRow][jCol];
 }
 
 Room* World::MoveWest(){
     if(roomArray[iRow][jCol-1] != nullptr) { //if exists, move col before return. Otherwise return current room
-        //if((HasKeyItem() && (roomArray[iRow][jCol-1]->GetRoomType() == RoomType::Special) ) || roomArray[iRow][jCol-1]->GetRoomType() == RoomType::Normal){ //&& has keyItem for that world)
+        RoomType roomtype = roomArray[iRow][jCol-1]->GetRoomType();
+        if((hasCollectedKeyItem && (roomtype == RoomType::Special)) || roomtype == RoomType::Normal) { //&& has keyItem for that world)
             jCol -= 1;
-        //}
+        }
     }
     return roomArray[iRow][jCol];
 }
@@ -134,7 +138,7 @@ void World::GenerateSpecialRoom(int row, int col){
         case 0:
             for(int i = row-1; i < ROW_COUNT; i++){
                 if(roomArray[row+i][col] == nullptr){
-                    roomArray[row+i][col] = SpecialRoom::NewSpecialRoom();
+                    roomArray[row+i][col] = dynamic_cast<Room*>(SpecialRoom::NewSpecialRoom());
                     roomArray[row+i][col]->AddItem(keyItem);
                     return;
                 }
@@ -143,7 +147,7 @@ void World::GenerateSpecialRoom(int row, int col){
         case 1:
             for(int i = row-1; i < ROW_COUNT; i++){
                 if(roomArray[row + (row - i - 1)][col] == nullptr){
-                    roomArray[row + (row - i - 1)][col] = SpecialRoom::NewSpecialRoom();
+                    roomArray[row + (row - i - 1)][col] = dynamic_cast<Room*>(SpecialRoom::NewSpecialRoom());
                     roomArray[row + (row - i - 1)][col]->AddItem(keyItem);
                     return;
                 }       
@@ -152,7 +156,7 @@ void World::GenerateSpecialRoom(int row, int col){
         case 2: 
             for(int j = col-1; j < COL_COUNT; j++){
                 if(roomArray[row][col+j] == nullptr){
-                    roomArray[row][col+j] = SpecialRoom::NewSpecialRoom();
+                    roomArray[row][col+j] = dynamic_cast<Room*>(SpecialRoom::NewSpecialRoom());
                     roomArray[row][col+j]->AddItem(keyItem);
                     return;
                 }
@@ -161,7 +165,7 @@ void World::GenerateSpecialRoom(int row, int col){
         case 3:
             for(int j = col-1; j < COL_COUNT; j++){
                 if(roomArray[row][col + (col - j - 1)] == nullptr){
-                    roomArray[row][col + (col - j - 1)] = SpecialRoom::NewSpecialRoom();
+                    roomArray[row][col + (col - j - 1)] = dynamic_cast<Room*>(SpecialRoom::NewSpecialRoom());
                     roomArray[row][col + (col - j - 1)]->AddItem(keyItem);
                     return;
                 }
@@ -199,6 +203,10 @@ int World::GetCol() {
 
 Room* World::GetCurrentRoom() {
     return roomArray[iRow][jCol];
+}
+
+void World::CollectedKeyItem() {
+    hasCollectedKeyItem = true;
 }
 
 void World::Generate() {

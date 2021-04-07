@@ -29,10 +29,12 @@ private:
     Item keyItem; // key in special room needed to finish the game
     int iRow;
     int jCol;
+    bool hasCollectedKeyItem;
 
     void GenerateRooms(int row, int col, int chanceDecrease);
     void GenerateSpecialRoom(int row, int col);
     void GenerateItems();
+
 
 public:
 
@@ -48,6 +50,7 @@ public:
     int GetRow();
     int GetCol();
     Room* GetCurrentRoom();
+    void CollectedKeyItem();
 
 };
 

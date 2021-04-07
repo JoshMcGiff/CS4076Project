@@ -107,6 +107,10 @@ size_t Zork::GetInventoryItemAmount() {
 
 bool Zork::AddItemToInventory(const Item& item) {
     this->playerInventory.push_back(item);
+    if (this->curWorld && item.IsKey()) {
+        this->curWorld->CollectedKeyItem();
+    }
+
     return true;
 }
 
