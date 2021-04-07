@@ -6,6 +6,7 @@
 #include <vector>
 #include "Item.hpp"
 #include "RoomBase.hpp"
+#include "Npc.hpp"
 
 namespace Game {
 
@@ -29,6 +30,7 @@ private:
     RoomAttribute roomAttribute;
     bool isLocked;
     std::vector<Item>* roomItems; // Items in the room
+    bool hasNpc;
 
 protected:
     Room();
@@ -41,9 +43,12 @@ public:
     std::string GetRoomDialogue() override;
     virtual void GenerateRoomDialogue() override; //Not called in ctor as virtual, wrong version may be called/considered bad practise
 
+    bool SetNpc(bool hasNpc);
+    bool HasNpc();
 
     std::vector<Item>* GetRoomItems();
     size_t GetRoomItemAmount();
+    std::string ToString();
     bool AddItem(const Item& item); //Returns true if adding an item to the room is successful
     bool RemoveItem(const size_t index); //Returns true if removing an item from the room is successful
     bool GetItem(const size_t index, Game::Item& item); //Returns true if getting an item from the room is successful

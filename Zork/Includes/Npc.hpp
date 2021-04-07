@@ -8,13 +8,20 @@ class Npc
 {
 private:
     std::string npcName;
-    std::string npcDescription;
+    std::string npcQuestion;
+    std::string npcResponseNo;
+    std::string npcResponseYes;
+    bool yesCorrect;
+
 public:
-    Npc(std::string npcName, std::string npcDescription);
+    Npc(const std::string& npcName, const std::string& npcQuestion, const std::string& npcResponseNo, const std::string& npcResponseYes, bool yesCorrect);
     ~Npc();
+    std::string GetNpcName();
+    std::string GetNpcQuestion();
+    std::string GetNpcResponseIncorrect();
+    std::string GetNpcResponseCorrect();
+    bool IsYesCorrect();
 };
-
-
 
 }
 #endif

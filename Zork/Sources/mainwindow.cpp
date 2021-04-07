@@ -16,6 +16,15 @@ MainWindow::MainWindow(QWidget *parent) :
     this->zork = std::make_shared<Game::Zork>();
     ui->setupUi(this);
     ui->DIALOGUEBOX->setFontPointSize(DIAG_FONT_SIZE);
+
+    ui->WORLDLIST->clear();
+    for (size_t i = 0; i < zork->GetWorldAmount(); i++) {
+        Game::World* world = zork->GetWorld(i);
+        if (world) {
+            ui->WORLDLIST->addItem(QString::fromStdString(world->GetWorldName()));
+        }
+    }
+
     Init();
     this->map = new Ui::MapWidget(this->zork, ui->PAINTWIDGET);
     ui->MAPGRID->replaceWidget(ui->PAINTWIDGET, this->map);

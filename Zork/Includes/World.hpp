@@ -7,6 +7,7 @@
 #include "Room.hpp"
 #include "Item.hpp"
 #include "SpecialRoom.hpp"
+#include "Npc.hpp"
 
 namespace Ui {
     class MapWidget; //predeclare MapWidget class. Can't use include here as it results in 'circular dependency'
@@ -24,9 +25,10 @@ class World {
 private:
     std::string worldName;
     std::string worldDescription;
+    Game::Npc worldNpc;
     std::array<std::array<Room*, COL_COUNT>, ROW_COUNT> roomArray;
     std::vector<Item> worldItems; //Store items here
-    Item keyItem; // key in special room needed to finish the game
+    Item specialItem; // special item in special room needed to finish the game
     int iRow;
     int jCol;
     bool hasCollectedKeyItem;
@@ -35,10 +37,19 @@ private:
     void GenerateSpecialRoom(int row, int col);
     void GenerateItems();
 
+    template <typename Type> // Templates must be used in headers because the compiler needs to instantiate different versions of the code, depending on the parameters given/deduced for template parameters. 
+    void PrintRoom(Type* room) {
+        if (room) {
+            printf("%s ", room->ToString().c_str());
+        }
+        else {
+            printf("0 "); 
+        }
+    }
 
 public:
 
-    World(const char* name, const char* desc, Game::Item&& keyItem, std::vector<Item>& worldItems); //keyItem is pass by move as we construct it inline; pass in array of world specific items to constructor
+    World(const char* name, const char* desc, Game::Npc& npc, Game::Item&& keyItem, std::vector<Item>& worldItems); //keyItem is pass by move as we construct it inline; pass in array of world specific items to constructor
     ~World();
     Room* MoveNorth();
     Room* MoveSouth();
@@ -49,6 +60,7 @@ public:
     void Generate();
     int GetRow();
     int GetCol();
+    std::string GetWorldName();
     Room* GetCurrentRoom();
     void CollectedKeyItem();
 

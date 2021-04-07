@@ -5,10 +5,6 @@ Interview
 Level 1
 Maximum A1
 
-
-TODO:
-Definition of template functions:
-
 ·        
   Virtual                         ------                (virtual function in Room class, Special Room overwrites with it's own)
   functions                                       (Or use in UI lmao 😂😂😂😂😂😂😂😂😂)
@@ -35,7 +31,7 @@ Level 2
 Maximum B1
 ·        
   Definition of
-  template functions                              (Anytime we need to use function overloading lmao)
+  template functions          --------                    (Printing Room type + pointer, only in Debug mode)
 ·        
   Operator overloading        -----------                    (Item operator==, needed for QListStorageWidget + used in mainwindow.cpp)
 ·        

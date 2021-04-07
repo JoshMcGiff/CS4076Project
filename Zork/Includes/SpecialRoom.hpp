@@ -13,6 +13,8 @@ public:
 
     RoomType GetRoomType() override;
     void GenerateRoomDialogue() override;
+
+    std::string ToString();
 };
 
 } //namespace Game

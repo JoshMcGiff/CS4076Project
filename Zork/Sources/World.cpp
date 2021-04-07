@@ -16,11 +16,11 @@ namespace Game {
     #define REGISTER register
 #endif
 
-World::World(const char* name, const char* desc, Game::Item&& keyItem, std::vector<Item>& worldItems) 
-    : worldName(name), worldDescription(desc), keyItem(keyItem), iRow(START_ROW), jCol(START_COL), hasCollectedKeyItem(false)
-{
-    this->SetItems(worldItems);
-    this->Generate();
+    World::World(const char *name, const char *desc, Game::Npc& npc, Game::Item&& specialItem, std::vector<Item>& worldItems)
+        : worldName(name), worldDescription(desc), worldNpc(npc), specialItem(specialItem), iRow(START_ROW), jCol(START_COL), hasCollectedKeyItem(false)
+    {
+        this->SetItems(worldItems);
+        this->Generate();
 }
 
 World::~World() {
@@ -139,7 +139,7 @@ void World::GenerateSpecialRoom(int row, int col){
             for(int i = row-1; i < ROW_COUNT; i++){
                 if(roomArray[row+i][col] == nullptr){
                     roomArray[row+i][col] = dynamic_cast<Room*>(SpecialRoom::NewSpecialRoom());
-                    roomArray[row+i][col]->AddItem(keyItem);
+                    roomArray[row+i][col]->AddItem(specialItem);
                     return;
                 }
             }
@@ -148,7 +148,7 @@ void World::GenerateSpecialRoom(int row, int col){
             for(int i = row-1; i < ROW_COUNT; i++){
                 if(roomArray[row + (row - i - 1)][col] == nullptr){
                     roomArray[row + (row - i - 1)][col] = dynamic_cast<Room*>(SpecialRoom::NewSpecialRoom());
-                    roomArray[row + (row - i - 1)][col]->AddItem(keyItem);
+                    roomArray[row + (row - i - 1)][col]->AddItem(specialItem);
                     return;
                 }       
             }
@@ -157,7 +157,7 @@ void World::GenerateSpecialRoom(int row, int col){
             for(int j = col-1; j < COL_COUNT; j++){
                 if(roomArray[row][col+j] == nullptr){
                     roomArray[row][col+j] = dynamic_cast<Room*>(SpecialRoom::NewSpecialRoom());
-                    roomArray[row][col+j]->AddItem(keyItem);
+                    roomArray[row][col+j]->AddItem(specialItem);
                     return;
                 }
             }
@@ -166,7 +166,7 @@ void World::GenerateSpecialRoom(int row, int col){
             for(int j = col-1; j < COL_COUNT; j++){
                 if(roomArray[row][col + (col - j - 1)] == nullptr){
                     roomArray[row][col + (col - j - 1)] = dynamic_cast<Room*>(SpecialRoom::NewSpecialRoom());
-                    roomArray[row][col + (col - j - 1)]->AddItem(keyItem);
+                    roomArray[row][col + (col - j - 1)]->AddItem(specialItem);
                     return;
                 }
             }
@@ -174,10 +174,13 @@ void World::GenerateSpecialRoom(int row, int col){
     }
 }
 
-void World::GenerateItems() { // call generateitems after generate rooms
+void World::GenerateItems() { // call generate items after generate rooms
     if (worldItems.empty()) {
         return;
     }
+
+    size_t npcIndex = worldItems.size()/2;
+    bool setNpc = false;
 
     uint32_t itemIndex = 0;
     while (itemIndex < worldItems.size()) {
@@ -188,8 +191,11 @@ void World::GenerateItems() { // call generateitems after generate rooms
         if (room != nullptr) {
             if (room->GetRoomType() != Game::RoomType::Special) {
                 room->AddItem(GetItem(itemIndex));
+                if (itemIndex == npcIndex && !setNpc) {
+                    setNpc = room->SetNpc(true);
+                }
+                itemIndex++;
             }
-            itemIndex++;
         }
     }
 }
@@ -209,6 +215,10 @@ void World::CollectedKeyItem() {
     hasCollectedKeyItem = true;
 }
 
+std::string World::GetWorldName() {
+    return this->worldName;
+}
+
 void World::Generate() {
     for (auto& array : roomArray) {
         array.fill(nullptr); //Set everything in 2D array to nullptr
@@ -222,7 +232,11 @@ void World::Generate() {
     #ifdef ZORK_DEBUG
     for(int i = 0; i < ROW_COUNT; i++) {
         for(int j = 0; j < COL_COUNT; j++) {
-            printf("%llX\t", (uint64_t)roomArray[i][j]);
+            Room* room = roomArray[i][j];
+            if ((!room) || room->GetRoomType() != RoomType::Special) {
+                this->PrintRoom<Game::Room>(room);
+            }
+            else this->PrintRoom<Game::SpecialRoom>(dynamic_cast<Game::SpecialRoom*>(room));
         }
         printf("\n");
     }   

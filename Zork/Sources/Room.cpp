@@ -3,7 +3,7 @@
 
 namespace Game {
 
-Room::Room() {
+Room::Room() : hasNpc(false) {
     #ifdef ZORK_DEBUG
     printf("Construting Room Object!\n");
     #endif
@@ -32,6 +32,12 @@ Room* Room::NewRoom(Room* room) {
     Room* newroom = new Room();
     newroom->GenerateRoomDialogue();
     return newroom;
+}
+
+std::string Room::ToString() {
+    char str[50] = {0};
+    snprintf(str, 50, "Type: Normal\t%llX", (uint64_t)this);
+    return std::string(str);
 }
 
 void Room::GenerateRoomDialogue() {
@@ -79,6 +85,19 @@ std::string Room::GetRoomDialogue() {
 
 RoomType Room::GetRoomType() {
     return RoomType::Normal;
+}
+
+bool Room::SetNpc(bool npc) {
+    if (this->hasNpc) { //if already set
+        return false;
+    }
+
+    this->hasNpc = npc;
+    return true;
+}
+
+bool Room::HasNpc() {
+    return this->hasNpc;
 }
 
 std::vector<Item>* Room::GetRoomItems() {

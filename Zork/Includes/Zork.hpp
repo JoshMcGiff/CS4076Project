@@ -32,8 +32,10 @@ public:
     ~Zork();
     
     World* GetCurrentWorld();
-    Room* GetCurrentRoom();
     bool SetWorld(size_t index);
+    World* GetWorld(size_t index);
+    size_t GetWorldAmount();
+    Room* GetCurrentRoom();
     int MoveNorth();
     void MoveSouth();
     void MoveEast();
