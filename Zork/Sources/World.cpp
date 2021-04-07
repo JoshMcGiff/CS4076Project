@@ -53,10 +53,7 @@ Item World::GetItem(size_t index) {
 }
 
 bool World::HasKeyItem(){
-    printf("fuckkkkkkkkkkkkk111 \n");
-
-    for(int i = 0; i < playerInventory.size(); i++){
-        printf("fuckkkkkkkkkkkkk \n");
+    for(size_t i = 0; i < playerInventory.size(); i++){
         if(playerInventory[i].IsKey()){
             return true;
         }

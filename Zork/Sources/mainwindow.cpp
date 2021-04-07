@@ -18,17 +18,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->DIALOGUEBOX->setFontPointSize(DIAG_FONT_SIZE);
     Init();
     this->map = new Ui::MapWidget(this->zork, ui->PAINTWIDGET);
-    this->roomItemsWidget = new Ui::QListStorageWidget(ui->ROOMITEMS);
     ui->MAPGRID->replaceWidget(ui->PAINTWIDGET, this->map);
+    ui->PAINTWIDGET->hide();
+
+    this->roomItemsWidget = new Ui::QListStorageWidget(ui->ROOMITEMS);
+    this->roomItemsWidget->setFocusPolicy(Qt::FocusPolicy::NoFocus);
     ui->gridLayout->replaceWidget(ui->ROOMITEMS, this->roomItemsWidget);
     ui->ROOMITEMS->hide();
-    ui->PAINTWIDGET->hide();
-    QShortcut *upShortcut = new QShortcut(QKeySequence("Ctrl+W"), parent);
-    QShortcut *downShortcut = new QShortcut(QKeySequence("Ctrl+S"), parent);
-    QShortcut *leftShortcut = new QShortcut(QKeySequence("Ctrl+A"), parent);
-    QShortcut *rightShortcut = new QShortcut(QKeySequence("Ctrl+D"), parent);
 
-    QObject::connect(upShortcut, SIGNAL(on_DPAD_UP_clicked()), this, SLOT(MOVE_FUNC(UP, North)));
     connect(this->roomItemsWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(roomItemsUI_DoubledClick(QListWidgetItem*)));
 }
 
@@ -103,16 +100,12 @@ void MainWindow::roomItemsUI_DoubledClick(QListWidgetItem *item) {
         return;
 
 
-    printf("tryign to take %s\n", item->text().toStdString().c_str());
     Game::Item newItem;
     if (roomItemsWidget->getItemFromStorage(item, newItem, false)) {
-        printf("Item gotten from storage: %s\n", newItem.GetName().c_str());
         for (size_t i = 0; i < room->GetRoomItemAmount(); i++) {
             Game::Item checkItem;
             if (room->GetItem(i, checkItem)) {
-                printf("Item gotten from Room: %s\n", checkItem.GetName().c_str());
-                if (checkItem == newItem)
-                {
+                if (checkItem == newItem) {
                     ui->INVENTORYLIST->addItem(item->text());
                     zork->GetCurrentWorld()->AddItemPlayerInventory(newItem);
                     roomItemsWidget->removeItemWithStorage(newItem);

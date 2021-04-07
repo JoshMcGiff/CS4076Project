@@ -25,13 +25,13 @@ private:
     std::string worldName;
     std::string worldDescription;
     std::vector<Item> worldItems; //Store items here
-    std::vector<Item> playerInventory; //Store items here
     Item keyItem; // key in special room needed to finish the game
+    int iRow;
+    int jCol;
+    std::vector<Item> playerInventory; //Store items here
     void GenerateRooms(int row, int col, int chanceDecrease);
     void GenerateSpecialRoom(int row, int col);
     void GenerateItems();
-    int iRow;
-    int jCol;
     bool HasKeyItem();
     std::array<std::array<Room*, COL_COUNT>, ROW_COUNT> roomArray;
 
