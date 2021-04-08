@@ -28,7 +28,7 @@ void SpecialRoom::GenerateRoomDialogue() {
     roomDialogue = "Special Room";
 }
 
-void SpecialRoom::SetRoomDialogue(std::string dialogue,std::string itemName){
+void SpecialRoom::SetRoomDialogue(const std::string& dialogue, const std::string& itemName){
     this->roomDialogue = "World Treasure: " + itemName + " (" + dialogue + ")";
 }
 

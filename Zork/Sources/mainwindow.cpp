@@ -6,17 +6,15 @@
 #include <QString>  
 #include <QObject>
 #include <QShortcut>
-#include <QTimer>
 
 #define DIAG_FONT_SIZE 25
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    QMainWindow(parent), ui(new Ui::MainWindow)
 {
-    QTimer::singleShot(0, this, SLOT(showFullScreen()));
     this->zork = std::make_shared<Game::Zork>();
     ui->setupUi(this);
+    this->setWindowState(Qt::WindowFullScreen);
     ui->DIALOGUEBOX->setFontPointSize(DIAG_FONT_SIZE);
 
     ui->WORLDLIST->clear();
@@ -27,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     }
 
-    Init();
+    this->Init();
     this->map = new Ui::MapWidget(this->zork, ui->PAINTWIDGET);
     ui->MAPGRID->replaceWidget(ui->PAINTWIDGET, this->map);
     ui->PAINTWIDGET->hide();
@@ -45,6 +43,11 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::Init() {
+    this->UpdateRoomDialogueUI();
+    this->UpdateRoomItemsUI();
+}
+
 void MainWindow::UpdateRoomDialogueUI() {
     ui->DIALOGUEBOX->clear();
 
@@ -53,11 +56,6 @@ void MainWindow::UpdateRoomDialogueUI() {
         return;
     }
     ui->DIALOGUEBOX->textCursor().insertText(QString::fromStdString(curRoom->GetRoomDialogue()));
-}
-
-void MainWindow::Init() {
-    this->UpdateRoomDialogueUI();
-    this->UpdateRoomItemsUI();
 }
 
 void MainWindow::UpdateRoomItemsUI() {

@@ -15,7 +15,7 @@ public:
 
     RoomType GetRoomType() override;
     void GenerateRoomDialogue() override;
-    void SetRoomDialogue(std::string dialogue,std::string itemName) override;
+    void SetRoomDialogue(const std::string& dialogue, const std::string& itemName) override;
 
     std::string ToString();
 };

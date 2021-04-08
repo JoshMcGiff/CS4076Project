@@ -127,12 +127,12 @@ bool Room::GetItem(const size_t index, Game::Item& item) {
     return true;
 }
 
-void Room::SetRoomDialogue(std::string dialogue, std::string itemName){
-//    this->roomDialogue = "World Treasure: " + itemName + "(" + dialogue + ")";
-
+void Room::SetRoomDialogue(const std::string& dialogue, const std::string& itemName) {
+    (void)dialogue; (void)itemName; //not unused, supress warnings
+    return;
 }
 
-size_t Room::GetRoomItemAmount() { //returns std::size_t as it's the return trype from std::vector::size
+size_t Room::GetRoomItemAmount() { //returns std::size_t as it's the return type from std::vector::size
     return this->roomItems->size();
 }
 
