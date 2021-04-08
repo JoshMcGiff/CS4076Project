@@ -140,6 +140,7 @@ void World::GenerateSpecialRoom(int row, int col){
                 if(roomArray[row+i][col] == nullptr){
                     roomArray[row+i][col] = dynamic_cast<Room*>(SpecialRoom::NewSpecialRoom());
                     roomArray[row+i][col]->AddItem(specialItem);
+                    roomArray[row+i][col]->SetRoomDialogue(specialItem.GetItemDescription(), specialItem.GetName());
                     return;
                 }
             }
@@ -149,6 +150,7 @@ void World::GenerateSpecialRoom(int row, int col){
                 if(roomArray[row + (row - i - 1)][col] == nullptr){
                     roomArray[row + (row - i - 1)][col] = dynamic_cast<Room*>(SpecialRoom::NewSpecialRoom());
                     roomArray[row + (row - i - 1)][col]->AddItem(specialItem);
+                    roomArray[row + (row - i - 1)][col]->SetRoomDialogue(specialItem.GetItemDescription(), specialItem.GetName());
                     return;
                 }       
             }
@@ -158,6 +160,7 @@ void World::GenerateSpecialRoom(int row, int col){
                 if(roomArray[row][col+j] == nullptr){
                     roomArray[row][col+j] = dynamic_cast<Room*>(SpecialRoom::NewSpecialRoom());
                     roomArray[row][col+j]->AddItem(specialItem);
+                    roomArray[row][col+j]->SetRoomDialogue(specialItem.GetItemDescription(), specialItem.GetName());
                     return;
                 }
             }
@@ -167,6 +170,7 @@ void World::GenerateSpecialRoom(int row, int col){
                 if(roomArray[row][col + (col - j - 1)] == nullptr){
                     roomArray[row][col + (col - j - 1)] = dynamic_cast<Room*>(SpecialRoom::NewSpecialRoom());
                     roomArray[row][col + (col - j - 1)]->AddItem(specialItem);
+                    roomArray[row][col + (col - j - 1)]->SetRoomDialogue(specialItem.GetItemDescription(), specialItem.GetName());
                     return;
                 }
             }

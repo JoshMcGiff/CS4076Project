@@ -20,6 +20,7 @@ void MapWidget::paintEvent(QPaintEvent*) {
     constexpr int lineLength = 25;
     constexpr int spacing = squareSize + lineLength;
 
+   
     float centerXConstant = (width() / 2) - (((COL_COUNT * squareSize) + ((COL_COUNT-1) * lineLength))/2); //+ squareSize + (squareSize/2);
     float centerYConstant = (height() / 2) - (((ROW_COUNT * squareSize) + ((ROW_COUNT-1) * lineLength))/2); //+ squareSize + (squareSize/2);
 
@@ -38,16 +39,36 @@ void MapWidget::paintEvent(QPaintEvent*) {
                 Room* room = world->roomArray[i][j];
                 if(room != nullptr){
                     painter.setPen(bluePen);
+
                     if(room == world->roomArray[START_ROW][START_COL] ){
                             painter.setPen(redPen);
                     }
-                    if(room->GetRoomType() == RoomType::Special){
-                            painter.setPen(blackPen);
-                    }
-                    if(room->GetRoomItemAmount() > 0){
+
+                    if(room->GetRoomItemAmount() > 0 ){
+                        if((room->GetRoomType() == RoomType::Special) && world->hasCollectedKeyItem){
+                           painter.drawImage(QRectF(centerXConstant + (j*spacing),centerYConstant + (i*spacing), squareSize, squareSize)
+                                            ,QImage(":/new/Images/Images/CHEST.png"), QRectF(0,0,squareSize,squareSize)); 
+                        }else if (room->GetRoomType() != RoomType::Special){
+                            painter.drawImage(QRectF(centerXConstant + (j*spacing),centerYConstant + (i*spacing), squareSize, squareSize)
+                                            ,QImage(":/new/Images/Images/STAR.png"), QRectF(0,0,squareSize,squareSize));
                             painter.setPen(greenPen);
+
+                        }
                     }
-                    painter.drawRect(centerXConstant + (j*spacing),centerYConstant + (i*spacing), squareSize, squareSize);
+
+                    if(room->GetRoomType() == RoomType::Special){
+                        if(world->hasCollectedKeyItem == false){
+                            
+                            painter.drawImage(QRectF(centerXConstant + (j*spacing),centerYConstant + (i*spacing), squareSize, squareSize)
+                                            ,QImage(":/new/Images/Images/LOCK.png"), QRectF(0,0,squareSize,squareSize));
+                        }
+                            painter.setPen(blackPen);
+                            painter.drawEllipse(centerXConstant + (j*spacing),centerYConstant + (i*spacing), squareSize, squareSize);
+                    }else{
+                        painter.drawRect(centerXConstant + (j*spacing),centerYConstant + (i*spacing), squareSize, squareSize);
+                    }
+                    //painter.drawRect(centerXConstant + (j*spacing),centerYConstant + (i*spacing), squareSize, squareSize);
+                    
                     painter.setPen(bluePen);
                 }
                 if ((i+1 < ROW_COUNT) && (room != nullptr) && (world->roomArray[i+1][j]) != nullptr) { //Verical
@@ -66,8 +87,8 @@ void MapWidget::paintEvent(QPaintEvent*) {
         }
 
         painter.setPen(QPen(Qt::red, PEN_THICKNESS));
-        QRect playerRect = QRect(QPoint(centerXConstant + (world->jCol*spacing)+15, centerYConstant +(world->iRow*spacing)+15), QSize(20, 20));
-        painter.fillRect(playerRect, Qt::red);
+        QRect playerRect = QRect(QPoint(centerXConstant + (world->jCol*spacing)+10, centerYConstant +(world->iRow*spacing)+10), QSize(30, 30));
+        painter.drawEllipse(playerRect);
     }
     painter.end();
 }

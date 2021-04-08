@@ -32,3 +32,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 FORMS += \
     Forms/mainwindow.ui \
+
+RESOURCES += \
+    Resources.qrc

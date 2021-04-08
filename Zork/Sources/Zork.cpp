@@ -15,24 +15,28 @@ Zork::Zork() : curWorld(nullptr), playerInventory() {
     World* world1 = new World("Nicki's Kingdom", "Description", npc1, Game::Item("Nicki's Crown", NICKI_CROWN, "The Queens Crown", ItemAttributesBitsEnum::Special), items1);
     zorkWorlds[0] = world1;
 
+    Game::Npc npc2("Nicki Minaj", "I have the key item for this world! But first, you must answer one simple question! Is Nicki Minaj the Queen of Rap?", "Wrong!", "Yes, I am the Queen of Rap! Take this item!", true);
     std::vector<Item> items2 = {{"Grace's Cello", CB_CELLO, "Clean Bandit's cello", ItemAttributesBitsEnum::Key|ItemAttributesBitsEnum::Weapon}, {"Jack's Synth", CB_SYNTH, "Clean Bandit's synth", 0}, 
                                 {"Luke's Drums", CB_DRUMS, "Clean Bandit's drums", 0}, {"What Is Love? The Album", CB_ALBUM, "Clean Bandit's sophmore album", 0}};
-    World* world2 = new World("Clean Bandit Land", "Description", Game::Item("Grammy Award", CB_GRAMMY, "Clean Bandit's 2014 Grammy Award", ItemAttributesBitsEnum::Special), items2);
+    World* world2 = new World("Clean Bandit Land", "Description", npc2, Game::Item("Grammy Award", CB_GRAMMY, "Clean Bandit's 2014 Grammy Award", ItemAttributesBitsEnum::Special), items2);
     zorkWorlds[1] = world2;
 
+    Game::Npc npc3("Nicki Minaj", "I have the key item for this world! But first, you must answer one simple question! Is Nicki Minaj the Queen of Rap?", "Wrong!", "Yes, I am the Queen of Rap! Take this item!", true);
     std::vector<Item> items3 = {{"Viral Tweet", TWT_VIRAL, "A viral Tweet", ItemAttributesBitsEnum::Key}, {"K-Pop Fans", TWT_KPOP, "Be wary of the K-Pop stans", 0}, 
                                 {"Donald Trump's Banned Account", TWT_TRUMP, "This is Donald Trump's virtual graveyard", 0}, {"Cancelled User", TWT_CANCELLED, "You're cancelled!", ItemAttributesBitsEnum::Weapon}};
-    World* world3 = new World("Twitterverse", "Description", Game::Item("Verification", TWT_VERIFY, "You got verified on Twitter!", ItemAttributesBitsEnum::Special), items3);
+    World* world3 = new World("Twitterverse", "Description", npc3, Game::Item("Verification", TWT_VERIFY, "You got verified on Twitter!", ItemAttributesBitsEnum::Special), items3);
     zorkWorlds[2] = world3;
 
+    Game::Npc npc4("Nicki Minaj", "I have the key item for this world! But first, you must answer one simple question! Is Nicki Minaj the Queen of Rap?", "Wrong!", "Yes, I am the Queen of Rap! Take this item!", true);
     std::vector<Item> items4 = {{"Golden Joystick", GAMER_JOYSTICK, "The best joystick ever", ItemAttributesBitsEnum::Key}, {"Animal Crossing Fans", GAMER_ANIMAL, "The best kind of fans", 0}, 
                                 {"Candy Crush Parents", GAMER_PARENTS, "All parents are professionals at the point", ItemAttributesBitsEnum::Weapon}, {"iPad Kids", GAMER_KID, "\"Do you have any games? Have you Fortnite?\"", 0}};
-    World* world4 = new World("Gamer Globe", "Description", Game::Item("RGB Keyboard", GAMER_KEYBOARD, "Do you even game bro?", ItemAttributesBitsEnum::Special), items4);
+    World* world4 = new World("Gamer Globe", "Description", npc4, Game::Item("RGB Keyboard", GAMER_KEYBOARD, "Do you even game bro?", ItemAttributesBitsEnum::Special), items4);
     zorkWorlds[3] = world4;
-    
+
+    Game::Npc npc5("Nicki Minaj", "I have the key item for this world! But first, you must answer one simple question! Is Nicki Minaj the Queen of Rap?", "Wrong!", "Yes, I am the Queen of Rap! Take this item!", true);
     std::vector<Item> items5 = {{"Skype", CODE_SKYPE, "Skype walked so Microsoft Teams could run", ItemAttributesBitsEnum::Key}, {"Viber", CODE_VIBER, "Remember Viber?", 0}, 
                                 {"Internet Explorer", CODE_IE, "R.I.P Internet Explorer 2020", ItemAttributesBitsEnum::Weapon}, {"Nokia Snake", CODE_SNAKE, "Where is the snake now?", 0}};
-    World* world5 = new World("Code Graveyard", "Description", Game::Item("Zork", CODE_ZORK, "Replaced by a Brand New and Exciting Game: Pork!", ItemAttributesBitsEnum::Special), items5);
+    World* world5 = new World("Code Graveyard", "Description", npc5, Game::Item("Zork", CODE_ZORK, "Replaced by a Brand New and Exciting Game: Pork!", ItemAttributesBitsEnum::Special), items5);
     zorkWorlds[4] = world5;
 }
 

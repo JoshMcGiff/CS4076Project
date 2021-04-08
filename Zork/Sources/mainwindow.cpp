@@ -6,6 +6,7 @@
 #include <QString>  
 #include <QObject>
 #include <QShortcut>
+#include <QTimer>
 
 #define DIAG_FONT_SIZE 25
 
@@ -13,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    QTimer::singleShot(0, this, SLOT(showFullScreen()));
     this->zork = std::make_shared<Game::Zork>();
     ui->setupUi(this);
     ui->DIALOGUEBOX->setFontPointSize(DIAG_FONT_SIZE);
@@ -135,4 +137,9 @@ void MainWindow::roomItemsUI_DoubledClick(QListWidgetItem *item) {
 
     this->UpdateRoomItemsUI();
     this->UpdateInventoryUI();
+}
+
+void MainWindow::on_QUITBUTTON_clicked()
+{
+    qApp->exit();
 }

@@ -42,6 +42,7 @@ public:
     virtual RoomType GetRoomType() override;
     std::string GetRoomDialogue() override;
     virtual void GenerateRoomDialogue() override; //Not called in ctor as virtual, wrong version may be called/considered bad practise
+    virtual void SetRoomDialogue(std::string dialogue,std::string itemName) override;
 
     bool SetNpc(bool hasNpc);
     bool HasNpc();

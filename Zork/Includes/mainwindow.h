@@ -31,6 +31,8 @@ private slots:
     void on_WORLDLIST_currentRowChanged(int currentRow);
     void roomItemsUI_DoubledClick(QListWidgetItem *item);
 
+    void on_QUITBUTTON_clicked();
+
 private:
     void Init();
     Ui::MapWidget* map;

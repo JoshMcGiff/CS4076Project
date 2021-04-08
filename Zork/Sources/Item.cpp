@@ -33,6 +33,11 @@ bool Item::IsKey() const {
     return itemAttributes.isKey;
 }
 
+std::string Item::GetItemDescription(){
+    return itemDescription;
+}
+
+
 std::string Item::GetName() const {
     return itemName;
 }

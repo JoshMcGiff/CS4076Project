@@ -15,11 +15,12 @@ protected:
     RoomBase(); //protected constructor as RoomBase shouldn't be used as a class
     virtual ~RoomBase();
     std::string roomDialogue;
-
 public:
     virtual RoomType GetRoomType() = 0;
     virtual std::string GetRoomDialogue() = 0;
     virtual void GenerateRoomDialogue() = 0;
+    virtual void SetRoomDialogue(std::string dialogue,std::string itemName) = 0;
+
 };
 
 } //namespace Game

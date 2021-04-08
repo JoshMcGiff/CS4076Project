@@ -127,6 +127,11 @@ bool Room::GetItem(const size_t index, Game::Item& item) {
     return true;
 }
 
+void Room::SetRoomDialogue(std::string dialogue, std::string itemName){
+//    this->roomDialogue = "World Treasure: " + itemName + "(" + dialogue + ")";
+
+}
+
 size_t Room::GetRoomItemAmount() { //returns std::size_t as it's the return trype from std::vector::size
     return this->roomItems->size();
 }

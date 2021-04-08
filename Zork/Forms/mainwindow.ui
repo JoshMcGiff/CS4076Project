@@ -233,9 +233,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="QUITBUTTON">
           <property name="text">
-           <string>PushButton</string>
+           <string>QUIT</string>
           </property>
          </widget>
         </item>
@@ -270,7 +270,7 @@
      <x>0</x>
      <y>0</y>
      <width>849</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>

@@ -55,6 +55,7 @@
         "typeinfo": "cpp",
         "variant": "cpp",
         "iostream": "cpp",
-        "qlistwidgetitem": "cpp"
+        "qlistwidgetitem": "cpp",
+        "qtimer": "cpp"
     }
 }
