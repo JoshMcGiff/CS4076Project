@@ -1,7 +1,8 @@
 #include "Npc.hpp"
-namespace Game{
-    Npc::Npc(const std::string& npcName, const std::string& npcQuestion, const std::string& npcResponseNo, const std::string& npcResponseYes, bool yesCorrect)
-        : npcName(npcName), npcQuestion(npcQuestion), npcResponseNo(npcResponseNo), npcResponseYes(npcResponseYes), yesCorrect(yesCorrect)
+
+namespace Game {
+    Npc::Npc(const std::string& npcName, const std::string& npcQuestion, const std::string& npcResponseNo, const std::string& npcResponseYes, const Game::Item& keyItem, const NpcID npcID)
+        : npcName(npcName), npcQuestion(npcQuestion), npcResponseNo(npcResponseNo), npcResponseYes(npcResponseYes), keyItem(keyItem), npcID(npcID)
     {
 
     }
@@ -27,9 +28,11 @@ namespace Game{
         return npcResponseYes;
     }
 
-
-    bool Npc::IsYesCorrect() {
-        return yesCorrect;
+    NpcID Npc::GetNpcID() {
+        return npcID;
     }
 
+    Game::Item Npc::GetKeyItem() {
+        return keyItem;
+    }
 }

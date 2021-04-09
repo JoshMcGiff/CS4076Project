@@ -22,6 +22,7 @@ public:
     void UpdateRoomItemsUI();
     void UpdateRoomDialogueUI();
     void UpdateInventoryUI();
+    void CheckNPC();
 
 private slots:
     void on_DPAD_UP_clicked();

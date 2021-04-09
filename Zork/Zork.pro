@@ -20,10 +20,10 @@ CONFIG(release, debug|release) { #if compiling in release mode
 
 INCLUDEPATH += $$PWD/Includes
 
-SOURCES += $$files(Sources/*.cpp) 
+SOURCES += $$files(Sources/*.cpp)  \
 
 HEADERS += $$files(Includes/*.hpp) \
-           $$files(Includes/*.h) 
+           $$files(Includes/*.h)
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -32,6 +32,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 FORMS += \
     Forms/mainwindow.ui \
+    Forms/npcdialogui.ui
 
 RESOURCES += \
     Resources.qrc

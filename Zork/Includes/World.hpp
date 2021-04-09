@@ -36,6 +36,7 @@ private:
     void GenerateRooms(int row, int col, int chanceDecrease);
     void GenerateSpecialRoom(int row, int col);
     void GenerateItems();
+    void GenerateNpc();
 
     template <typename Type> // Templates must be used in headers because the compiler needs to instantiate different versions of the code, depending on the parameters given/deduced for template parameters. 
     void PrintRoom(Type* room) {
@@ -62,7 +63,9 @@ public:
     int GetCol();
     std::string GetWorldName();
     Room* GetCurrentRoom();
-    void CollectedKeyItem();
+    void CollectKeyItem();
+    bool HasCollectedKeyItem();
+    Game::Npc GetNpc();
 
 };
 

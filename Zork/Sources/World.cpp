@@ -178,26 +178,35 @@ void World::GenerateSpecialRoom(int row, int col){
     }
 }
 
+void World::GenerateNpc() { // add the npc to a single room in the world
+    bool setNpc = false;
+    while (!setNpc) {
+        REGISTER int col = rand() % COL_COUNT; //Gen number between 0 to COL_COUNT
+        REGISTER int row = rand() % ROW_COUNT; //Gen number between 0 to ROW_COUNT
+
+        Room* room = roomArray[row][col];
+        if (room != nullptr) {
+            if (room->GetRoomType() != Game::RoomType::Special && room->GetRoomItemAmount() == 0) { //NPC can't be in a special room + room must have 0 items
+                setNpc = room->SetNpc(true);
+            }
+        }
+    }
+}
+
 void World::GenerateItems() { // call generate items after generate rooms
     if (worldItems.empty()) {
         return;
     }
 
-    size_t npcIndex = worldItems.size()/2;
-    bool setNpc = false;
-
     uint32_t itemIndex = 0;
     while (itemIndex < worldItems.size()) {
-        REGISTER int col = rand() % COL_COUNT; //Gen number between 0 to 99
-        REGISTER int row = rand() % ROW_COUNT; //Gen number between 0 to 99
+        REGISTER int col = rand() % COL_COUNT; //Gen number between 0 to COL_COUNT
+        REGISTER int row = rand() % ROW_COUNT; //Gen number between 0 to ROW_COUNT
 
         Room* room = roomArray[row][col];
         if (room != nullptr) {
             if (room->GetRoomType() != Game::RoomType::Special) {
                 room->AddItem(GetItem(itemIndex));
-                if (itemIndex == npcIndex && !setNpc) {
-                    setNpc = room->SetNpc(true);
-                }
                 itemIndex++;
             }
         }
@@ -215,12 +224,20 @@ Room* World::GetCurrentRoom() {
     return roomArray[iRow][jCol];
 }
 
-void World::CollectedKeyItem() {
+void World::CollectKeyItem() {
     hasCollectedKeyItem = true;
+}
+
+bool World::HasCollectedKeyItem() {
+    return hasCollectedKeyItem;
 }
 
 std::string World::GetWorldName() {
     return this->worldName;
+}
+
+Game::Npc World::GetNpc() {
+    return this->worldNpc;
 }
 
 void World::Generate() {
@@ -232,6 +249,7 @@ void World::Generate() {
     this->GenerateRooms(START_ROW, START_COL, BASE_ROOM_CHANCE); //Start in middle of array
     this->GenerateSpecialRoom(START_ROW, START_COL);
     this->GenerateItems();
+    this->GenerateNpc();
 
     #ifdef ZORK_DEBUG
     for(int i = 0; i < ROW_COUNT; i++) {

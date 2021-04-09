@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Zork.hpp"
 #include "Room.hpp"
+#include "npcdialogui.hpp"
 #include <QString>  
 #include <QObject>
 #include <QShortcut>
@@ -14,7 +15,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     this->zork = std::make_shared<Game::Zork>();
     ui->setupUi(this);
+    #ifndef ZORK_DEBUG //only fullscreen in non-debug mode
     this->setWindowState(Qt::WindowFullScreen);
+    #endif
     ui->DIALOGUEBOX->setFontPointSize(DIAG_FONT_SIZE);
 
     ui->WORLDLIST->clear();
@@ -92,6 +95,7 @@ void MainWindow::UpdateInventoryUI() {
         this->map->UpdateMapUI(); \
         this->UpdateRoomItemsUI(); \
         this->UpdateRoomDialogueUI(); \
+        this->CheckNPC(); \
         \
         } catch (const Game::ZorkException& e) { \
             std::cout << e.what() << std::endl; \
@@ -102,6 +106,26 @@ MOVE_FUNC(UP, North)
 MOVE_FUNC(DOWN, South)
 MOVE_FUNC(LEFT, West)
 MOVE_FUNC(RIGHT, East)
+
+void MainWindow::CheckNPC() {
+    if (this->zork->GetCurrentWorld()->HasCollectedKeyItem()) {
+        return;
+    }
+
+    Game::Room* room = this->zork->GetCurrentRoom();
+    if (room) {
+        if (room->HasNpc()) {
+            Game::Npc npc = this->zork->GetCurrentWorld()->GetNpc();
+            NpcDialogUI dialog(npc, this);
+            dialog.exec();
+
+            if (dialog.result() == NpcDialogUIResult_Yes) {
+                zork->AddItemToInventory(npc.GetKeyItem());
+                this->UpdateInventoryUI();
+            }
+        }
+    }
+}
 
 void MainWindow::on_WORLDLIST_currentRowChanged(int currentRow) {
     if (this->zork->SetWorld(currentRow)) {

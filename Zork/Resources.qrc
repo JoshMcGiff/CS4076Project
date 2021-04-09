@@ -3,5 +3,11 @@
         <file>Images/LOCK.png</file>
         <file>Images/STAR.png</file>
         <file>Images/CHEST.png</file>
+
+        <file>Images/npcNicki.png</file>
+        <file>Images/npcBandit.png</file>
+        <file>Images/npcTwitter.png</file>
+        <file>Images/npcGamer.png</file>
+        <file>Images/npcCode.png</file>
     </qresource>
 </RCC>
