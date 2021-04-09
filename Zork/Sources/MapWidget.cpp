@@ -16,8 +16,8 @@ MapWidget::MapWidget(std::shared_ptr<Game::Zork> zorkInstance, QWidget* parent)
 }
 
 void MapWidget::paintEvent(QPaintEvent*) {
-    constexpr int squareSize = 50;
-    constexpr int lineLength = 25;
+    constexpr int squareSize = 58;
+    constexpr int lineLength = 30;
     constexpr int spacing = squareSize + lineLength;
 
    
@@ -46,10 +46,10 @@ void MapWidget::paintEvent(QPaintEvent*) {
 
                     if(room->GetRoomItemAmount() > 0 ){
                         if((room->GetRoomType() == RoomType::Special) && world->hasCollectedKeyItem){
-                           painter.drawImage(QRectF(centerXConstant + (j*spacing),centerYConstant + (i*spacing), squareSize, squareSize)
+                           painter.drawImage(QRectF(centerXConstant + (j*spacing)+4,centerYConstant + (i*spacing)+4, squareSize, squareSize)
                                             ,QImage(":/new/Images/Images/CHEST.png"), QRectF(0,0,squareSize,squareSize)); 
                         }else if (room->GetRoomType() != RoomType::Special){
-                            painter.drawImage(QRectF(centerXConstant + (j*spacing),centerYConstant + (i*spacing), squareSize, squareSize)
+                            painter.drawImage(QRectF(centerXConstant + (j*spacing)+4,centerYConstant + (i*spacing)+4, squareSize, squareSize)
                                             ,QImage(":/new/Images/Images/STAR.png"), QRectF(0,0,squareSize,squareSize));
                             painter.setPen(greenPen);
 
@@ -59,7 +59,7 @@ void MapWidget::paintEvent(QPaintEvent*) {
                     if(room->GetRoomType() == RoomType::Special){
                         if(world->hasCollectedKeyItem == false){
                             
-                            painter.drawImage(QRectF(centerXConstant + (j*spacing),centerYConstant + (i*spacing), squareSize, squareSize)
+                            painter.drawImage(QRectF(centerXConstant + (j*spacing)+4,centerYConstant + (i*spacing)+4, squareSize, squareSize)
                                             ,QImage(":/new/Images/Images/LOCK.png"), QRectF(0,0,squareSize,squareSize));
                         }
                             painter.setPen(blackPen);
@@ -71,6 +71,7 @@ void MapWidget::paintEvent(QPaintEvent*) {
                     
                     painter.setPen(bluePen);
                 }
+                painter.setPen(blackPen);
                 if ((i+1 < ROW_COUNT) && (room != nullptr) && (world->roomArray[i+1][j]) != nullptr) { //Verical
                     painter.drawLine  (centerXConstant + (j*spacing) + lineLength, //x1
                                 centerYConstant + (i*spacing)+ squareSize + PEN_THICKNESS, //y1
@@ -87,7 +88,7 @@ void MapWidget::paintEvent(QPaintEvent*) {
         }
 
         painter.setPen(QPen(Qt::red, PEN_THICKNESS));
-        QRect playerRect = QRect(QPoint(centerXConstant + (world->jCol*spacing)+10, centerYConstant +(world->iRow*spacing)+10), QSize(30, 30));
+        QRect playerRect = QRect(QPoint(centerXConstant + (world->jCol*spacing) + (squareSize/4), centerYConstant +(world->iRow*spacing)+(squareSize/4)), QSize(30, 30));
         painter.drawEllipse(playerRect);
     }
     painter.end();
