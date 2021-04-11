@@ -15,7 +15,7 @@ Zork::Zork() : curWorld(nullptr), playerInventory() { //Zork constructor
     std::vector<Item> items1 = {{"Pink Friday Album", NICKI_ALBUM, "Stream Super Bass", 0}, {"Nicki's Barb Army", NICKI_BARBS, "The Army of Nicki", ItemAttributesBitsEnum::Weapon}, {"Nicki's Wig", NICKI_WIG, "A Pink and White Wig", 0}};
 
     const char world1Name[] = "💄 Nicki's Kingdom"; //Character array, pass to World ctor as pointer
-    World* world1 = new World(world1Name, "The world dedicated to Nicki Minaj", npc1, Game::Item("👑 Nicki's Crown", NICKI_CROWN, "The Queens Crown 👑", ItemAttributesBitsEnum::Special), items1);
+    World* world1 = new World(world1Name, "The world dedicated to Nicki Minaj", npc1, Game::Item("👑 Nicki's Crown", NICKI_CROWN, "The Queen's Crown 👑", ItemAttributesBitsEnum::Special), items1);
     zorkWorlds[0] = world1;
 
     /* Generate World 2 */
