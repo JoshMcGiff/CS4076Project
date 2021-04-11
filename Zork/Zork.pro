@@ -8,6 +8,15 @@ RC_ICONS = icon.ico
 
 CONFIG += gnu++17 #Using GNU C++17 standard
 
+# remove possible other optimization flags
+QMAKE_CXXFLAGS_RELEASE -= -O
+QMAKE_CXXFLAGS_RELEASE -= -O1
+QMAKE_CXXFLAGS_RELEASE -= -O2
+QMAKE_CXXFLAGS_RELEASE -= -O3
+
+# Use -O3 to optimise as much as possible
+QMAKE_CXXFLAGS_RELEASE *= -O3
+
 CONFIG(debug, debug|release) { #if compiling in debug mode
   DEFINES += ZORK_DEBUG
   CONFIG += console
