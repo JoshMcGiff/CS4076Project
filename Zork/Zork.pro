@@ -1,6 +1,10 @@
 QT       += core gui
 
+VERSION = 1.0.0.0
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+RC_ICONS = icon.ico
 
 CONFIG += gnu++17 #Using GNU C++17 standard
 
