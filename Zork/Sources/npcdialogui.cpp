@@ -22,7 +22,7 @@ NpcDialogUI::~NpcDialogUI() {
 
 void NpcDialogUI::showEvent(QShowEvent*) {
     if (this->npcImagePath == nullptr) {
-        this->close();
+        this->close(); //close immediately so UI doesn't possibly hang
     }
 }
 
@@ -56,7 +56,7 @@ const char* NpcDialogUI::GetNpcImageStr(NpcID id) {
 
 
 void NpcDialogUI::on_buttonBox_clicked(QAbstractButton *button) {
-    if (reinterpret_cast<QPushButton *>(button) == ui->buttonBox->button(QDialogButtonBox::Yes)) {
+    if (reinterpret_cast<QPushButton *>(button) == ui->buttonBox->button(QDialogButtonBox::Yes)) { //if they press yes
         ui->dialogueBox->clear();
         ui->dialogueBox->textCursor().insertText(QString::fromStdString(myNpc.GetNpcResponseCorrect()));
         ui->buttonBox->clear();
@@ -65,7 +65,7 @@ void NpcDialogUI::on_buttonBox_clicked(QAbstractButton *button) {
 
     }
 
-    else if (reinterpret_cast<QPushButton *>(button) == ui->buttonBox->button(QDialogButtonBox::No)) {
+    else if (reinterpret_cast<QPushButton *>(button) == ui->buttonBox->button(QDialogButtonBox::No)) { //if they press no
         ui->dialogueBox->clear();
         ui->dialogueBox->textCursor().insertText(QString::fromStdString(myNpc.GetNpcResponseIncorrect()));
         ui->buttonBox->clear();
@@ -73,7 +73,7 @@ void NpcDialogUI::on_buttonBox_clicked(QAbstractButton *button) {
         this->myResult = NpcDialogUIResult_No;
     }
 
-    else if (reinterpret_cast<QPushButton *>(button) == ui->buttonBox->button(QDialogButtonBox::Close)) {
-        this->done(this->myResult);
+    else if (reinterpret_cast<QPushButton *>(button) == ui->buttonBox->button(QDialogButtonBox::Close)) { //if they press close
+        this->done(this->myResult); //closes the UI and returns the result
     }
 }

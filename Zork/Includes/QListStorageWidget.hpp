@@ -10,6 +10,7 @@ namespace Ui {
 /*  Custom QListWidget
     A templated class for allowing to store data alongside a QListWidget
     Requires type to implement operator== and a "std::string GetName()" method
+    All implemented in a header as templated class
 */
 
 template <typename Type>
@@ -40,7 +41,7 @@ public:
         this->setMaximumSize(this->maximumWidth(), 100);
     }
 
-    void addItem(const std::string& item)  {
+    void addItem(const std::string& item) {
         this->QListWidget::addItem(QString::fromStdString(item)); //Call addItem function from base class, hence QListWidget:: needed
     }
 

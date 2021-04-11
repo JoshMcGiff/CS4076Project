@@ -21,7 +21,7 @@ namespace Game {
 #define START_COL COL_COUNT / 2
 
 class World {
-    friend class Ui::MapWidget;
+    friend class Ui::MapWidget; //Friendship, to access the rooms (required by spec)
 private:
     std::string worldName;
     std::string worldDescription;

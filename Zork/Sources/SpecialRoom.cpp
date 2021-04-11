@@ -12,13 +12,13 @@ SpecialRoom::~SpecialRoom() {
 
 }
 
-SpecialRoom* SpecialRoom::NewSpecialRoom() {
+SpecialRoom* SpecialRoom::NewSpecialRoom() { //static setup function, wrapper used to create a SpecialRoom + ensure it is set up
     SpecialRoom* room = new SpecialRoom();
     room->GenerateRoomDialogue();
     return room;
 }
 
-std::string SpecialRoom::ToString() {
+std::string SpecialRoom::ToString() { // Needed for "PrintRoom()" virtual function
     char str[50] = {0};
     snprintf(str, 50, "Type: Special\t%llX", (uint64_t)this);
     return std::string(str);

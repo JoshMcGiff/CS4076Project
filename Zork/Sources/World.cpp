@@ -161,6 +161,7 @@ void World::GenerateSpecialRoom(int row, int col){
             for(int j = col-1; j < COL_COUNT; j++){
                 if(roomArray[row][col + (col - j - 1)] == nullptr){
                     roomArray[row][col + (col - j - 1)] = dynamic_cast<Room*>(SpecialRoom::NewSpecialRoom()); //uses dynamic_cast here for casting Special Room to Room
+                    
                     roomArray[row][col + (col - j - 1)]->AddItem(specialItem);
                     roomArray[row][col + (col - j - 1)]->SetRoomDialogue(specialItem.GetItemDescription(), specialItem.GetName());
                     return;
@@ -190,7 +191,7 @@ void World::GenerateItems() { // call generate items after generate rooms
         return;
     }
 
-    uint32_t itemIndex = 0;
+    size_t itemIndex = 0;
     while (itemIndex < worldItems.size()) {
         REGISTER int col = rand() % COL_COUNT; //Gen number between 0 to COL_COUNT
         REGISTER int row = rand() % ROW_COUNT; //Gen number between 0 to ROW_COUNT

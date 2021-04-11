@@ -13,7 +13,6 @@ namespace Game {
 
 class Room : public RoomBase, public RoomAttribute { //Multiple Inheritance, as asked for on the spec
 private:
-    bool isLocked;
     std::vector<Item>* roomItems; // Items in the room
     bool hasNpc;
 

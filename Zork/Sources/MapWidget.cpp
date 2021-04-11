@@ -15,7 +15,7 @@ MapWidget::MapWidget(std::shared_ptr<Game::Zork> zorkInstance, QWidget* parent)
     textFont.setPixelSize(MW_FONT_SIZE);
 }
 
-void MapWidget::paintEvent(QPaintEvent*) {
+void MapWidget::paintEvent(QPaintEvent*) { //overridden function from QWidget
     constexpr int squareSize = 58;
     constexpr int lineLength = 30;
     constexpr int spacing = squareSize + lineLength;
@@ -37,6 +37,7 @@ void MapWidget::paintEvent(QPaintEvent*) {
         for(int i = 0; i < ROW_COUNT; i++){
             for(int j = 0; j < COL_COUNT; j++){
                 Room* room = world->roomArray[i][j];
+                //Room drawing (sqaures) + items
                 if(room != nullptr){
                     painter.setPen(bluePen);
 
@@ -66,11 +67,9 @@ void MapWidget::paintEvent(QPaintEvent*) {
                             painter.drawEllipse(centerXConstant + (j*spacing),centerYConstant + (i*spacing), squareSize, squareSize);
                     }else{
                         painter.drawRect(centerXConstant + (j*spacing),centerYConstant + (i*spacing), squareSize, squareSize);
-                    }
-                    //painter.drawRect(centerXConstant + (j*spacing),centerYConstant + (i*spacing), squareSize, squareSize);
-                    
-                    painter.setPen(bluePen);
+                    }   
                 }
+                //Paths between squares
                 painter.setPen(blackPen);
                 if ((i+1 < ROW_COUNT) && (room != nullptr) && (world->roomArray[i+1][j]) != nullptr) { //Verical
                     painter.drawLine  (centerXConstant + (j*spacing) + lineLength, //x1

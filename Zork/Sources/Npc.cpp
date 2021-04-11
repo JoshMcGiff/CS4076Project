@@ -12,27 +12,27 @@ namespace Game {
 
     }
 
-    std::string Npc::GetNpcName() {
+    std::string Npc::GetNpcName() const {
         return npcName;
     }
 
-    std::string Npc::GetNpcQuestion() {
+    std::string Npc::GetNpcQuestion() const {
         return npcQuestion;
     }
 
-    std::string Npc::GetNpcResponseIncorrect() {
+    std::string Npc::GetNpcResponseIncorrect() const {
         return npcResponseNo;
     }
 
-    std::string Npc::GetNpcResponseCorrect() {
+    std::string Npc::GetNpcResponseCorrect() const {
         return npcResponseYes;
     }
 
-    NpcID Npc::GetNpcID() {
+    NpcID Npc::GetNpcID() const {
         return npcID;
     }
 
-    Game::Item Npc::GetKeyItem() {
+    Game::Item Npc::GetKeyItem() const {
         return keyItem;
     }
 }

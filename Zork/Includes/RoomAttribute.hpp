@@ -20,9 +20,9 @@ enum class AttributeEnum : int { // Different room attributes. Using class to av
 
 class RoomAttribute {
     protected:
+        RoomAttribute();
         AttributeEnum roomAttribute;
     public:
-        RoomAttribute();
         AttributeEnum GetAttribute() const;
         void SetAttribute(AttributeEnum& attribute);
 };

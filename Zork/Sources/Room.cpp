@@ -11,9 +11,8 @@ Room::Room() : hasNpc(false) {
     roomItems = new std::vector<Game::Item>();
 }
 
-Room::Room(const Room* room) { //Deep Copy
+Room::Room(const Room* room) { //Deep Copy Constructor
     roomAttribute = room->roomAttribute;
-    isLocked = room->isLocked;
     roomDialogue = room->roomDialogue;
 
     roomItems = new std::vector<Game::Item>(*room->roomItems); //uses deep copy 
@@ -34,7 +33,7 @@ Room* Room::NewRoom(Room* room) {
     return newroom;
 }
 
-std::string Room::ToString() {
+std::string Room::ToString() { // Needed for "PrintRoom()" virtual function
     char str[50] = {0};
     snprintf(str, 50, "Type: Normal\t%llX", (uint64_t)this);
     return std::string(str);
@@ -123,13 +122,13 @@ bool Room::GetItem(const size_t index, Game::Item& item) {
         return false;
     }
 
-    item = (*this->roomItems)[index];
+    item = (*this->roomItems)[index]; //this->roomItems is a pointer, so we have to deference before using [] operator, otherwise it is accessing other memory locations
     return true;
 }
 
-void Room::SetRoomDialogue(const std::string& dialogue, const std::string& itemName) {
-    (void)dialogue; (void)itemName; //not unused, supress warnings
-    return;
+void Room::SetRoomDialogue(const std::string& dialogue, const std::string& itemName) { //we don't set roomDialogue for normal rooms
+    (void)dialogue; (void)itemName; //not used, supress warnings
+    return; 
 }
 
 size_t Room::GetRoomItemAmount() { //returns std::size_t as it's the return type from std::vector::size

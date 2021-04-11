@@ -1,84 +1,61 @@
-Levels
-Indicator
-  of expected implementation for project
-Interview
-Level 1
-Maximum A1
 
-·        
-  Virtual                         ------                (virtual function in Room class, Special Room overwrites with it's own)
-  functions                                       (Or use in UI lmao 😂😂😂😂😂😂😂😂😂)
-·        
-  Definition of template classes ------------- (used in QListStorageWidget.hpp, our custom widget class)                                
-·        
-  Multiple inheritance          -----------          (RoomBase -> Room -> SpecialRoom)
-·        
-  namespaces                      --------        (USED EVERYWHERE)
-·        
-  Programmer defined exceptions    ----------      (try to move without being in a world (Zork.cpp))
-·        
-  Unions       ------                                   (Used in World Class with different Room types)
-·        
-  dynamic_cast     ---------------------    (casting Special Room to Room)
+Level 1:
+       
+  Virtual  function                             (virtual function in RoomBase class, Room & Special Room overwrites with it's own)
+    
+  Definition of template classes                (used in QListStorageWidget.hpp, our custom widget class)                                
 
-·        
-  ALL LEVEL 2
+  Multiple inheritance                          (Room -> SpecialRoom <- RoomAttribute)
+
+  namespaces                                    (Used everywhere)
+
+  Programmer defined exceptions                 (try to move without being in a world (Zork.cpp L65-L100))
+
+  Unions                                        (Used in Item.hpp, L79-82)
+
+  dynamic_cast                                  (casting Special Room to Room, World.cpp L133,L143,L153,L163)
 
 
+Level 2:
 
-Mandatory
-Level 2
-Maximum B1
-·        
-  Definition of
-  template functions          --------                    (Printing Room type + pointer, only in Debug mode)
-·        
-  Operator overloading        -----------                    (Item operator==, needed for QListStorageWidget + used in mainwindow.cpp)
-·        
-  Abstract classes          -------                    (RoomBase class)  
-·        
-  Copy constructors (deep , shallow copy)         (Used somewhere, probably Item)
-·        
-  Bit structures            -------                      (Used for attributes in Items/Rooms)
-·        
-  Advanced pre-processor    ----------------       (Used for each of the move directions in mainwindow.cpp)
-  directives
-·        
-  C++ Object
-  Construction Sequence ------------------------    (In Debug mode, we print out the order of RoomBase -> Room -> SpecialRoom in their respective ctors)
-·        
-  Initializer List      -----                          Used in class ctors
-·        
-  ALL LEVEL 1
+  Definition of template functions              (Printing Room type + pointer, only in Debug mode: World.hpp L41)
 
-Randomly 
-Level 3
-Maximum C1
-·        
-  C++ References         -------           (Add Item to a Room)
-·        
-  Pointers               -------           (World class room array)
-·        
-  Inheritance            -------           (RoomBase -> Room)
-·        
-  Destructors             -----          (Zork class)
-·        
-  Memory management      -------           (Making a World in Zork class, deleting in Zork class dtor)
-·        
-  Header files (inclusion guards) ----   (Used everywher)
-·        
-  Arrays and pointers  -------------           (World names, pass character array to a pointer argument)
-·        
-  Friendship  --------------------- (MapWidget.cpp to get roomarray from world)
-·        
-  Basic pre-processor directives -------    (#ifdef DEBUG)
-·        
-  Global variables    -------             (Added in Zork.cpp but never used at all, only there for demonstration)
-·        
-  Private, Public,    -------                 (USED IN EVERY CLASS EVER)
+  Operator overloading                          (Item operator==, needed for QListStorageWidget + used in mainwindow.cpp)
+
+  Abstract classes                              (RoomBase class)  
+
+  Copy constructors (deep , shallow copy)       (Shallow: Item.cpp L10. Deep: Room.cpp L14)
+
+  Bit structures                                (Used for attributes in Item.hpp L65)
+
+  Advanced pre-processor directives             (Used for each of the move directions in mainwindow.cpp L90)
+
+  C++ Object Construction Sequence              (In Debug mode, we print out the order of RoomBase -> Room -> SpecialRoom in their respective ctors)
+
+  Initializer List                              (Used in class constructors)
+
+Level 3:
+
+  C++ References                                (Used everywhere)
+
+  Pointers                                      (World class room array)
+
+  Inheritance                                   (RoomBase -> Room, Room-> SpecialRoom, etc)
+
+  Destructors                                   (all classes)
+
+  Memory management                             (Making a World in Zork class, deleting in Zork class dtor, etc)
+
+  Header files (inclusion guards)               (Used everywhere)
+
+  Arrays and pointers                           (pass character array to a World ctor pointer argument. Zork.cpp L17-18, 26-27)
+
+  Friendship                                    (MapWidget.cpp to get roomarray from world, World.hpp L24)
+
+  Basic pre-processor directives                (Every class as inclusion guards, #ifdef ZORK_DEBUG)
+
+  Global variables                              (Added in Zork.cpp L5, but never used at all. *ONLY* there for demonstration.)
+
+  Private, Public,                              (Used in every class)
   Protected
  
-
-
-Not
-  required normally

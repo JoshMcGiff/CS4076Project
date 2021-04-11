@@ -75,7 +75,7 @@ private:
     /* data */
     std::string itemName;
     std::string itemDescription;
-    uint16_t itemID;
+    uint16_t itemID; //we use uint16_t to ensure it's always the same size, as int is platform dependant
     union {
         ItemAttributes itemAttributes;
         uint32_t itemAttributesRaw;

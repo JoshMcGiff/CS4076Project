@@ -26,12 +26,12 @@ private:
 public:
     Npc(const std::string& npcName, const std::string& npcQuestion, const std::string& npcResponseNo, const std::string& npcResponseYes, const Game::Item& keyItem, const NpcID npcID);
     ~Npc();
-    std::string GetNpcName();
-    std::string GetNpcQuestion();
-    std::string GetNpcResponseIncorrect(); //No
-    std::string GetNpcResponseCorrect(); //Yes
-    Game::Item GetKeyItem();
-    NpcID GetNpcID();
+    std::string GetNpcName() const;
+    std::string GetNpcQuestion() const;
+    std::string GetNpcResponseIncorrect() const; //No
+    std::string GetNpcResponseCorrect() const; //Yes
+    Game::Item GetKeyItem() const;
+    NpcID GetNpcID() const;
 };
 
 }
