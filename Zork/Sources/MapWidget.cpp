@@ -30,7 +30,7 @@ void MapWidget::paintEvent(QPaintEvent*) {
     Game::World* world = zork->GetCurrentWorld();
     if (world == nullptr) { //At start player is not in a world
         painter.setFont(textFont);
-        painter.drawText(this->rect(), Qt::AlignCenter, "Choose a world!"); //this->rect() returns a QRect of x,y,width and height of MapWidget
+        painter.drawText(this->rect(), Qt::AlignCenter, "Pork - The Pop Culture Zork\n\nChoose a world!"); //this->rect() returns a QRect of x,y,width and height of MapWidget
     }
 
     else { //When in a world

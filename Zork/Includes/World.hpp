@@ -50,7 +50,7 @@ private:
 
 public:
 
-    World(const char* name, const char* desc, Game::Npc& npc, Game::Item&& keyItem, std::vector<Item>& worldItems); //keyItem is pass by move as we construct it inline; pass in array of world specific items to constructor
+    World(const char* name, const char* desc, Game::Npc& npc, Game::Item&& keyItem, std::vector<Item>& worldItems); //keyItem is pass by move as we construct it inline; pass in vector of world specific items to constructor
     ~World();
     Room* MoveNorth();
     Room* MoveSouth();
@@ -59,13 +59,11 @@ public:
     void SetItems(std::vector<Item>& worldItems);
     Item GetItem(size_t index);
     void Generate();
-    int GetRow();
-    int GetCol();
-    std::string GetWorldName();
-    Room* GetCurrentRoom();
+    std::string GetWorldName() const;
+    Room* GetCurrentRoom() const;
     void CollectKeyItem();
-    bool HasCollectedKeyItem();
-    Game::Npc GetNpc();
+    bool HasCollectedKeyItem() const;
+    Game::Npc GetNpc() const;
 
 };
 

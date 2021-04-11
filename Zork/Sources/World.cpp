@@ -10,7 +10,7 @@ namespace Game {
 #define ITEM_CHANCE 75
 #define SPECIAL_ROOM_CHANCE 100
 
-#if __cplusplus >= 201703L //'register' keyword was removed in C++17
+#if __cplusplus >= 201703L //'register' keyword was removed in C++17 (not in spec, but asked to do it in the lectures)
     #define REGISTER 
 #else 
     #define REGISTER register
@@ -26,25 +26,17 @@ namespace Game {
 World::~World() {
     for (int i = 0; i < ROW_COUNT; i++) {
         for (int j = 0; j < COL_COUNT; j++) {
-            if (roomArray[i][j] != nullptr) {
-                delete roomArray[i][j];
+                delete roomArray[i][j]; //delete each room. if room is a nullptr, delete is unaffected as per the C++ standard.
                 roomArray[i][j] = nullptr;
-            }
         }
     }
 }
 
 void World::SetItems(std::vector<Item>& worldItems) {
     this->worldItems = worldItems;
-
-    //TODO: randomise order
 }
 
 Item World::GetItem(size_t index) {
-    if (worldItems.empty()) {
-        return Item("Empty", 0xFF, "Empty Item", 0);
-    }
-
     if (index >= worldItems.size()) {
         index = 0;
     }
@@ -55,7 +47,7 @@ Item World::GetItem(size_t index) {
 Room* World::MoveNorth(){
     if(roomArray[iRow-1][jCol] != nullptr) { //if exists, move row before return. Otherwise return current room
         RoomType roomtype = roomArray[iRow-1][jCol]->GetRoomType();
-        if((hasCollectedKeyItem && (roomtype == RoomType::Special)) || roomtype == RoomType::Normal) { //&& has keyItem for that world)
+        if((hasCollectedKeyItem && (roomtype == RoomType::Special)) || roomtype == RoomType::Normal) { 
             iRow -= 1;
         }
     }
@@ -65,7 +57,7 @@ Room* World::MoveNorth(){
 Room* World::MoveSouth(){
     if(roomArray[iRow+1][jCol] != nullptr) { //if exists, move row before return. Otherwise return current room
         RoomType roomtype = roomArray[iRow+1][jCol]->GetRoomType();
-        if((hasCollectedKeyItem && (roomtype == RoomType::Special)) || roomtype == RoomType::Normal) { //&& has keyItem for that world)
+        if((hasCollectedKeyItem && (roomtype == RoomType::Special)) || roomtype == RoomType::Normal) {
             iRow += 1;
         }
     }
@@ -75,7 +67,7 @@ Room* World::MoveSouth(){
 Room* World::MoveEast(){
     if(roomArray[iRow][jCol+1] != nullptr) { //if exists, move col before return. Otherwise return current room
         RoomType roomtype = roomArray[iRow][jCol+1]->GetRoomType();
-        if((hasCollectedKeyItem && (roomtype == RoomType::Special)) || roomtype == RoomType::Normal) { //&& has keyItem for that world)
+        if((hasCollectedKeyItem && (roomtype == RoomType::Special)) || roomtype == RoomType::Normal) { 
             jCol += 1;
         }
     }
@@ -85,7 +77,7 @@ Room* World::MoveEast(){
 Room* World::MoveWest(){
     if(roomArray[iRow][jCol-1] != nullptr) { //if exists, move col before return. Otherwise return current room
         RoomType roomtype = roomArray[iRow][jCol-1]->GetRoomType();
-        if((hasCollectedKeyItem && (roomtype == RoomType::Special)) || roomtype == RoomType::Normal) { //&& has keyItem for that world)
+        if((hasCollectedKeyItem && (roomtype == RoomType::Special)) || roomtype == RoomType::Normal) { 
             jCol -= 1;
         }
     }
@@ -93,11 +85,11 @@ Room* World::MoveWest(){
 }
 
 void World::GenerateRooms(int row, int col, int roomChance) {
-    if ((roomChance <= 0) || (row >= ROW_COUNT) || (col >= COL_COUNT)) { //Setting the bounds of the room generation
+    if ((roomChance <= 0) || (row >= ROW_COUNT) || (col >= COL_COUNT)) { //Setting the bounds of the room generation recursion
         return;
     }
 
-    REGISTER int random = 0;
+    REGISTER int random = 0; //use register keyword here (not in spec, but asked to do it in the lectures)
     if ((row+1 < ROW_COUNT) && this->roomArray[row+1][col] == nullptr) { //North
         random = rand() % 100; //Gen number between 0 to 99
         if (random < roomChance) {
@@ -132,13 +124,13 @@ void World::GenerateRooms(int row, int col, int roomChance) {
 }
 
 void World::GenerateSpecialRoom(int row, int col){
-    REGISTER int random = 0;
-    random = rand() % 4;
+    REGISTER int random = rand() % 4; //use register keyword here (not in spec, but asked to do it in the lectures)
+
     switch(random){
         case 0:
             for(int i = row-1; i < ROW_COUNT; i++){
                 if(roomArray[row+i][col] == nullptr){
-                    roomArray[row+i][col] = dynamic_cast<Room*>(SpecialRoom::NewSpecialRoom());
+                    roomArray[row+i][col] = dynamic_cast<Room*>(SpecialRoom::NewSpecialRoom()); //uses dynamic_cast here for casting Special Room to Room
                     roomArray[row+i][col]->AddItem(specialItem);
                     roomArray[row+i][col]->SetRoomDialogue(specialItem.GetItemDescription(), specialItem.GetName());
                     return;
@@ -148,7 +140,7 @@ void World::GenerateSpecialRoom(int row, int col){
         case 1:
             for(int i = row-1; i < ROW_COUNT; i++){
                 if(roomArray[row + (row - i - 1)][col] == nullptr){
-                    roomArray[row + (row - i - 1)][col] = dynamic_cast<Room*>(SpecialRoom::NewSpecialRoom());
+                    roomArray[row + (row - i - 1)][col] = dynamic_cast<Room*>(SpecialRoom::NewSpecialRoom()); //uses dynamic_cast here for casting Special Room to Room
                     roomArray[row + (row - i - 1)][col]->AddItem(specialItem);
                     roomArray[row + (row - i - 1)][col]->SetRoomDialogue(specialItem.GetItemDescription(), specialItem.GetName());
                     return;
@@ -158,7 +150,7 @@ void World::GenerateSpecialRoom(int row, int col){
         case 2: 
             for(int j = col-1; j < COL_COUNT; j++){
                 if(roomArray[row][col+j] == nullptr){
-                    roomArray[row][col+j] = dynamic_cast<Room*>(SpecialRoom::NewSpecialRoom());
+                    roomArray[row][col+j] = dynamic_cast<Room*>(SpecialRoom::NewSpecialRoom()); //uses dynamic_cast here for casting Special Room to Room
                     roomArray[row][col+j]->AddItem(specialItem);
                     roomArray[row][col+j]->SetRoomDialogue(specialItem.GetItemDescription(), specialItem.GetName());
                     return;
@@ -168,7 +160,7 @@ void World::GenerateSpecialRoom(int row, int col){
         case 3:
             for(int j = col-1; j < COL_COUNT; j++){
                 if(roomArray[row][col + (col - j - 1)] == nullptr){
-                    roomArray[row][col + (col - j - 1)] = dynamic_cast<Room*>(SpecialRoom::NewSpecialRoom());
+                    roomArray[row][col + (col - j - 1)] = dynamic_cast<Room*>(SpecialRoom::NewSpecialRoom()); //uses dynamic_cast here for casting Special Room to Room
                     roomArray[row][col + (col - j - 1)]->AddItem(specialItem);
                     roomArray[row][col + (col - j - 1)]->SetRoomDialogue(specialItem.GetItemDescription(), specialItem.GetName());
                     return;
@@ -213,14 +205,7 @@ void World::GenerateItems() { // call generate items after generate rooms
     }
 }
 
-int World::GetRow() {
-    return iRow;
-}
-int World::GetCol() {
-    return jCol;
-}
-
-Room* World::GetCurrentRoom() {
+Room* World::GetCurrentRoom() const {
     return roomArray[iRow][jCol];
 }
 
@@ -228,15 +213,15 @@ void World::CollectKeyItem() {
     hasCollectedKeyItem = true;
 }
 
-bool World::HasCollectedKeyItem() {
+bool World::HasCollectedKeyItem() const {
     return hasCollectedKeyItem;
 }
 
-std::string World::GetWorldName() {
+std::string World::GetWorldName() const {
     return this->worldName;
 }
 
-Game::Npc World::GetNpc() {
+Game::Npc World::GetNpc() const {
     return this->worldNpc;
 }
 
@@ -251,14 +236,14 @@ void World::Generate() {
     this->GenerateItems();
     this->GenerateNpc();
 
-    #ifdef ZORK_DEBUG
+    #ifdef ZORK_DEBUG //print rooms only in debug mode (uses preprocessors)
     for(int i = 0; i < ROW_COUNT; i++) {
         for(int j = 0; j < COL_COUNT; j++) {
             Room* room = roomArray[i][j];
             if ((!room) || room->GetRoomType() != RoomType::Special) {
-                this->PrintRoom<Game::Room>(room);
+                this->PrintRoom<Game::Room>(room); //template function
             }
-            else this->PrintRoom<Game::SpecialRoom>(dynamic_cast<Game::SpecialRoom*>(room));
+            else this->PrintRoom<Game::SpecialRoom>(dynamic_cast<Game::SpecialRoom*>(room)); //template function
         }
         printf("\n");
     }   

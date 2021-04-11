@@ -90,7 +90,7 @@ public:
     std::string GetName() const;
     bool IsSpecial() const;
     bool IsKey() const;
-    std::string GetItemDescription();
+    std::string GetItemDescription() const;
     bool operator==(const Item& rhs);
     friend bool operator==(const Item& lhs, const Item& rhs);
 };

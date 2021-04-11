@@ -6,28 +6,13 @@
 #include <vector>
 #include "Item.hpp"
 #include "RoomBase.hpp"
+#include "RoomAttribute.hpp"
 #include "Npc.hpp"
 
 namespace Game {
 
-enum class RoomAttribute : int { // Different room attributes. Using class to avoid conflicts
-    CHILLY = 0,
-    HOT = 1,
-    DARK = 2,
-    SUNNY = 3,
-    EERIE = 4,
-    CALM = 5,
-    SLIPPY = 6,
-    STICKY = 7,
-    WET = 8,
-    MUSIC = 9,
-
-    ATTRIBUTE_MAX
-};
-
-class Room : public RoomBase {
+class Room : public RoomBase, public RoomAttribute { //Multiple Inheritance, as asked for on the spec
 private:
-    RoomAttribute roomAttribute;
     bool isLocked;
     std::vector<Item>* roomItems; // Items in the room
     bool hasNpc;

@@ -4,7 +4,7 @@ namespace Game {
 
 RoomBase::RoomBase() {
     #ifdef ZORK_DEBUG
-    printf("Construting RoomBase Object!\n");
+    printf("1: Construting RoomBase Object!\n");
     #endif
 }
 

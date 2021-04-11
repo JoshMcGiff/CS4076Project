@@ -5,7 +5,7 @@ namespace Game {
 
 Room::Room() : hasNpc(false) {
     #ifdef ZORK_DEBUG
-    printf("Construting Room Object!\n");
+    printf("2: Construting Room Object!\n");
     #endif
 
     roomItems = new std::vector<Game::Item>();
@@ -41,41 +41,41 @@ std::string Room::ToString() {
 }
 
 void Room::GenerateRoomDialogue() {
-    this->roomAttribute = (RoomAttribute)(rand() % (int)RoomAttribute::ATTRIBUTE_MAX);
+    this->roomAttribute = (AttributeEnum)(rand() % (int)AttributeEnum::ATTRIBUTE_MAX);
 
     switch(this->roomAttribute) {
-        case RoomAttribute::CHILLY:
-            roomDialogue = "You can see your breath appear in the air as you enter the room";
+        case AttributeEnum::CHILLY:
+            roomDialogue = "You can see your breath appear in the air as you enter the room 🥶🧊🥶";
             break;
-        case RoomAttribute::HOT:
-            roomDialogue = "The heat hits you like a ton of bricks as you enter the room";
+        case AttributeEnum::HOT:
+            roomDialogue = "The heat hits you like a ton of bricks as you enter the room 🥵";
             break;
-        case RoomAttribute::DARK:
-            roomDialogue = "The room is barely lit as you enter the room";
+        case AttributeEnum::DARK:
+            roomDialogue = "The room is barely lit as you enter the room 🌚🌚";
             break;
-        case RoomAttribute::SUNNY:
-            roomDialogue = "The beams of sunlight take you by surprise as you step into the room";
+        case AttributeEnum::SUNNY:
+            roomDialogue = "The beams of sunlight take you by surprise as you step into the room 🌞😎";
             break;
-        case RoomAttribute::EERIE:
-            roomDialogue = "You are suddenly on edge as you enter the room";
+        case AttributeEnum::EERIE:
+            roomDialogue = "You are suddenly on edge as you enter the room 😖👻";
             break;
-        case RoomAttribute::CALM:
-            roomDialogue = "You instantly feel safe when you find yourself standing in the room";
+        case AttributeEnum::CALM:
+            roomDialogue = "You instantly feel safe when you find yourself standing in the room 🌱✌😄";
             break;
-        case RoomAttribute::SLIPPY:
-            roomDialogue = "You feel yourself losing your grip as you slide into the room";
+        case AttributeEnum::SLIPPY:
+            roomDialogue = "You feel yourself losing your grip as you slide into the room 🛹🧊";
             break;
-        case RoomAttribute::STICKY:
-            roomDialogue = "You trudge into the room as the ground is covered in a sticky substance";
+        case AttributeEnum::STICKY:
+            roomDialogue = "You trudge into the room as the ground is covered in a sticky substance 😖😖😖";
             break;
-        case RoomAttribute::WET:
-            roomDialogue = "You can see your reflection in a giant puddle spanning the entire room";
+        case AttributeEnum::WET:
+            roomDialogue = "You can see your reflection in a giant puddle spanning the entire room 🌊😳";
             break;
-        case RoomAttribute::MUSIC:
-            roomDialogue = "Faint voices chirping in the distance hit you as you step inside the room";
+        case AttributeEnum::MUSIC:
+            roomDialogue = "Faint voices chirping in the distance hit you as you step inside the room 👂🎶";
             break;
         default:
-            roomDialogue = "Bad roomAttribute enum value";
+            roomDialogue = "Bad roomAttribute enum value 😜✌";
     }
 }
 
