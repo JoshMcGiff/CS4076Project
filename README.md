@@ -1,4 +1,4 @@
-# CS4076 Project - GUI based version of Zork using C++ and Qt
+# A1 CS4076 Project - GUI based version of Zork using C++ and Qt
 ## Week02 Introduction:
 ### We spent our first meeting going through the provided Zork code. We quickly decided that we would start from scratch, as we wanted more flexibility when creating a procedurally generated version of Zork. This session also consisted of us thinking about a unique theme for our game, as we wanted to make it interesting and special.
 ![Week02](https://imgur.com/7wAzE4A.png)
